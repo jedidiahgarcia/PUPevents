@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PUP Events</title>
+
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+
+	<script type="text/javascript" src="../assets/js/jquery.min.js"></script>
+	<script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css">
+	<link rel="icon" href="../assets/images/PUP.png" type="">
+
+	<style type="text/css">
+		
+		body {
+			background-color: #EAEAEA;
+		}
+
+		.navbar {
+			border-radius: 0px;
+			height: 50px;
+		}
+
+		nav {
+			margin-bottom: 0px;
+		}
+
+		.navbar-default {
+			background-color: white;
+			/*border-color: transparent;*/
+			box-shadow: none;
+			color: white;
+		}
+
+		.navbar-collapse {
+			background-color: white;
+		}
+
+		.navbar-nav {
+			margin-bottom: 0;
+			padding-bottom: 0;
+			font-size: 12px;
+			height: 50px;
+			border-bottom: 1px solid #E3E3E3;
+		}
+
+		a {
+			font-family: Montserrat;
+		}
+
+		.event-cover {
+			height: 200px;
+			width: 100%;
+			font-family: Montserrat;
+			background-color: black;
+			color: white;
+			padding-top: 80px;
+		}
+
+		.event-cover-shadow {
+			background-color: gray;
+			height: 4px;
+		}
+
+		#event-title {
+			font-family: Montserrat;
+			color: white;
+		}
+
+		#event-date {
+			font-family: Montserrat;
+		}
+
+		#event-time {
+			font-family: Montserrat;
+		}
+
+		#event-location {
+			font-family: Montserrat;
+		}
+
+		.wrapper {
+			background-color: white;
+			border: 1px solid #E3E3E3;
+			border-top-left-radius: 7px;
+			border-top-right-radius: 7px;
+			padding-bottom: 10px;
+			padding-left: 20px;	
+			padding-right: 20px;
+			margin-top: 20px;
+			width: 70%;
+			font-family: Montserrat;
+			margin-left: 15%;
+			margin-right: 15%;
+		}
+
+		.wrapper-2 {
+			background-color: white;
+			border: 1px solid #E3E3E3;
+			border-bottom-right-radius: 7px;
+			border-bottom-left-radius: 7px;
+			padding-bottom: 10px;	
+			padding-left: 20px;
+			padding-top: 20px;
+			padding-right: 20px;
+			width: 70%;
+			margin-left: 15%;
+			margin-right: 15%
+		}
+
+		.wrapper-date-time-2 {
+			background-color: white;
+			border: 1px solid #E3E3E3;
+			border-bottom-right-radius: 7px;
+			border-bottom-left-radius: 7px;
+			padding-bottom: 10px;	
+			padding-left: 20px;
+			padding-top: 20px;
+			padding-right: 20px;
+			margin-left: 15%;
+			margin-right: 15%
+		}
+
+		.wrapper-date-time {
+			background-color: white;
+			border: 1px solid #E3E3E3;
+			border-top-left-radius: 7px;
+			border-top-right-radius: 7px;
+			padding-bottom: 10px;
+			padding-left: 20px;	
+			padding-right: 20px;
+			margin-top: 20px;
+			font-family: Montserrat;
+			margin-left: 15%;
+			margin-right: 15%;
+		}
+
+		footer {
+			padding-top: 50px;
+			height: 100px;
+			width: 100%;
+			font-family: Montserrat;
+			padding-bottom: 200px;
+		}
+
+		button {
+			margin-top: 20px;
+			height: 40px;
+			font-family: montserrat;
+			width: 50%;
+		}
+
+		</style>
+</head>
+<body>
+
+	<header>
+		<div class="container">
+			<nav class="navbar navbar-default navbar-fixed-top">
+				<div class="container">
+					<div class="navbar-header">
+						<a href="#" class="navbar-brand navbar-link">
+							<span style="color: #880000;">
+							pup</span><span style="color: black;">events</span>
+						</a>
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</div>
+
+					<div class="collapse navbar-collapse navbar-right">
+						<ul class="nav navbar-nav">
+							<li class="active"><a href="#">
+							Host Event
+							</a></li>
+							<li><a href="#" class="red-button">
+							Sign in
+							</a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</div>			
+	</header>
+
+	<div class="event-cover">
+		<div id="event-title">
+			<center>
+			<h1>PUP RAVE PARTY</h1>
+			</center>
+		</div>
+	</div>	
+
+	<div class="event-cover-shadow"></div>
+
+	<div class="container">
+		<div class="wrapper">
+			<h3>About the event</h3>
+		</div>
+
+		<div class="wrapper-2">
+			<p>
+				Lorem ipsum umbra ka dadum. Pak ganern. Lorem ipsum umbra ka dadum. Pak ganern. Lorem ipsum umbra ka dadum. Pak ganern. Lorem ipsum umbra ka dadum. Pak ganern.  Lorem ipsum umbra ka dadum. Pak ganern. Lorem ipsum umbra ka dadum. Pak ganern. Lorem ipsum umbra ka dadum. Pak ganern. Lorem ipsum umbra ka dadum. Pak ganern.
+			</p>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="wrapper">
+			<h3>Date</h3>	
+		</div>
+
+		<div class="wrapper-2">
+			<div id="event-date">
+				<i class="fa fa-calendar" aria-hidden="true"></i>
+				February 28, 2017
+			</div>
+			
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="wrapper">
+			<h3>Time</h3>	
+		</div>
+
+		<div class="wrapper-2">
+			<div id="event-time">
+			<i class="fa fa-clock-o" aria-hidden="true"></i>
+			10:00 AM - 5:00 PM
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="wrapper">
+			<h3>Location</h3>	
+		</div>
+
+		<div class="wrapper-2">
+			<div id="event-location">
+				<i class="fa fa-map-marker" aria-hidden="true"></i>
+				PUP Main Campus	
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<center>
+		<button type="button" class="btn btn-danger">
+			JOIN EVENT
+		</button>
+		</center>
+	</div>
+
+
+	<footer>
+		<center>
+			<span style="color: #880000; font-size: 15px;">pup</span><span style="color: black; font-size: 15px;">events</span><br>
+			2017
+		</center>
+	</footer>
+
+
+
+</body>
+</html>

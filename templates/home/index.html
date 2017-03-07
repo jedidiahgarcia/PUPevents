@@ -6,12 +6,12 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 
-	<script type="text/javascript" src="assets/js/jquery.min.js"></script>
-	<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../../static/js/jquery.min.js"></script>
+	<script type="text/javascript" src="../../static/js/bootstrap.min.js"></script>
 
-	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
-	<link rel="icon" href="assets/images/PUP.png" type="">
+	<link rel="stylesheet" type="text/css" href="../../static/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/font-awesome.min.css">
+	<link rel="icon" href="../../static/images/PUP.png" type="">
 
 	<style type="text/css">
 		.navbar {
@@ -25,7 +25,7 @@
 
 		.navbar-default {
 			background-color: white;
-			/*border-color: transparent;*/
+			border-color: transparent;
 			box-shadow: none;
 			color: white;
 		}
@@ -35,8 +35,6 @@
 		}
 
 		.navbar-nav {
-			margin-bottom: 0;
-			padding-bottom: 0;
 			font-size: 12px;
 			height: 50px;
 			border-bottom: 1px solid #E3E3E3;
@@ -47,40 +45,17 @@
 		}
 
 		body {
-		}
-
-		.cover {
-			font-family: Montserrat;
-			margin: 10%;
-		}
-
-		h1 {
-			font-size: 800%;
-		}
-
-		btn-primary {
-			width: 300px;
-			height: 40px;
-		}
-
-		img {
-			height: 100px;
-			width: 100px;
-		}
-
-
-		body {
 			background-color: #EAEAEA;
 			/*background-color: #5F5F5F;*/
 		}
 
 		.featured-cover {
-			padding-top: 7%;
+			padding-top: 5%;
 			width: 100%;
+			height: 350px;
 			/*background-color: #2E3254;*/
 			/*background-color: #5F5F5F;*/
 			background-color: black;
-			padding-bottom: 5%;
 		}
 
 		.event-teaser {
@@ -114,11 +89,11 @@
 			padding-bottom: 20px;
 			margin-top: 10px;
 			border: solid 2px #E5E5E5;
-			border-radius: 8px;
+			border-radius: 5px;
 		}
 
 		.btn {
-			width: 50%;
+			width: 110%;
 			height: 40px;
 			font-family: Montserrat;
 		}
@@ -135,16 +110,11 @@
 			font-family: Montserrat;
 			padding-bottom: 200px;
 		}
-
-		.modal-header {
-			font-family: Montserrat;
-		}
 	</style>
 
 	<script type="text/javascript">
 		
 	</script>
-
 </head>
 <body>
 
@@ -166,28 +136,24 @@
 
 					<div class="collapse navbar-collapse navbar-right">
 						<ul class="nav navbar-nav">
-							<li class="active"><a href="#" class="red-button">
+							<li class="active"><a href="../create_event/index.html" class="red-button">
 							Host Event
 							</a></li>
-							<li><a href="login/index.html">
-							Sign in
+							<li><a href="#" class="red-button">
+							Profile
+							</a></li>
+							<li><a href="../index.html" class="red-button">
+							Sign out
 							</a></li>
 						</ul>
-
-						
-
 					</div>
 				</div>
 			</nav>
-		</div>	
-
+		</div>			
 	</header>
-
 
 	<div class="container featured-cover">
 		<center>	
-
-		<img src="assets/images/PUP.png">
 		<h2>
 		<span style="color: white; font-family: Montserrat; font-weight: bold;">
 		UPCOMING EVENTS
@@ -201,7 +167,7 @@
 					March 1, 2016
 				</div>
 				<div class="col-md-3">
-					<i class="fa fa-clock-o" aria-hidden="true"></i>
+					<i class="fa fa-map-marker" aria-hidden="true"></i>
 					6:00 AM - 5:00 PM
 				</div>
 				<div class="col-md-3">
@@ -223,7 +189,7 @@
 					March 1, 2016
 				</div>
 				<div class="col-md-3">
-					<i class="fa fa-clock-o" aria-hidden="true"></i>
+					<i class="fa fa-map-marker" aria-hidden="true"></i>
 					6:00 AM - 5:00 PM
 				</div>
 				<div class="col-md-3">
@@ -245,7 +211,7 @@
 					March 1, 2016
 				</div>
 				<div class="col-md-3">
-					<i class="fa fa-clock-o" aria-hidden="true"></i>
+					<i class="fa fa-map-marker" aria-hidden="true"></i>
 					6:00 AM - 5:00 PM
 				</div>
 				<div class="col-md-3">
@@ -259,65 +225,117 @@
 				</div>
 			</div>	
 		</div>
-
-		<div class="event-teaser">
-			<div class="row">
-				<div class="col-md-3">
-					<i class="fa fa-calendar" aria-hidden="true"></i>
-					March 1, 2016
-				</div>
-				<div class="col-md-3">
-					<i class="fa fa-clock-o" aria-hidden="true"></i>
-					6:00 AM - 5:00 PM
-				</div>
-				<div class="col-md-3">
-					<span id="event-title" style="font-size: 15px;">
-					PUP Rave Party
-					</span>
-				</div>
-				<div class="col-md-3">
-					<i class="fa fa-map-marker" aria-hidden="true"></i>
-					PUP Main
-				</div>
-			</div>	
-		</div>
-
-		
-
-		<div class="row">
-				<div class="col-md-2">
-				</div>
-				<div class="col-md-8">
-					<button type="button" class="btn btn-danger">
-						More
-					</button>
-				</div>	
-				<div class="col-md-2">
-				</div>
-			</div>
 		</center>
 	</div>	
 
 	
-<!-- 
+
 	<div class="container">
-		<div class="row">
-			<div class="col-md-3">
-			</div>
-			<div class="col-md-6">
-				<div class="wrapper">
-					<form class="form-group">
-						<input type="text" id="" class="form-control" placeholder="Email" required="" autofocus=""><br/>
-						<input type="password" id="" class="form-control" placeholder="Password" required="" autofocus=""><br/>
-						<button type="button" class="btn btn-primary">Log in</button><br/><br/>
-					</form>			
+		<div class="wrapper">
+			<div class="row">
+				<div class="col-md-2">
+					<button type="button" class="btn btn-danger">
+						view
+					</button>
 				</div>
+				<div class="col-md-10">
+					<div class="event-teaser-2">
+						<div class="row">
+							<div class="col-md-3">
+								<i class="fa fa-calendar" aria-hidden="true"></i>
+								March 1, 2016
+							</div>
+							<div class="col-md-3">
+								<i class="fa fa-map-marker" aria-hidden="true"></i>
+								6:00 AM - 5:00 PM
+							</div>
+							<div class="col-md-3">
+								<span id="event-title" style="font-size: 10px;">
+								PUP Rave Party
+								</span>
+							</div>
+							<div class="col-md-3">
+								<i class="fa fa-map-marker" aria-hidden="true"></i>
+								PUP Main
+							</div>
+						</div>
+					</div>		
+				</div>	
 			</div>
-			<div class="col-md-3">
+
+			<div class="row">
+				<div class="col-md-2">
+					<button type="button" class="btn btn-danger">
+						view
+					</button>
+				</div>
+				<div class="col-md-10">
+					<div class="event-teaser-2">
+						<div class="row">
+							<div class="col-md-3">
+								<i class="fa fa-calendar" aria-hidden="true"></i>
+								March 1, 2016
+							</div>
+							<div class="col-md-3">
+								<i class="fa fa-map-marker" aria-hidden="true"></i>
+								6:00 AM - 5:00 PM
+							</div>
+							<div class="col-md-3">
+								<span id="event-title" style="font-size: 10px;">
+								PUP Rave Party
+								</span>
+							</div>
+							<div class="col-md-3">
+								<i class="fa fa-map-marker" aria-hidden="true"></i>
+								PUP Main
+							</div>
+						</div>
+					</div>		
+				</div>	
 			</div>
-			
-			</div>	
-	</div> -->
+
+			<div class="row">
+				<div class="col-md-2">
+					<button type="button" class="btn btn-danger">
+						view
+					</button>
+				</div>
+				<div class="col-md-10">
+					<div class="event-teaser-2">
+						<div class="row">
+							<div class="col-md-3">
+								<i class="fa fa-calendar" aria-hidden="true"></i>
+								March 1, 2016
+							</div>
+							<div class="col-md-3">
+								<i class="fa fa-map-marker" aria-hidden="true"></i>
+								6:00 AM - 5:00 PM
+							</div>
+							<div class="col-md-3">
+								<span id="event-title" style="font-size: 10px;">
+								PUP Rave Party
+								</span>
+							</div>
+							<div class="col-md-3">
+								<i class="fa fa-map-marker" aria-hidden="true"></i>
+								PUP Main
+							</div>
+						</div>
+					</div>		
+				</div>	
+			</div>
+
+			<div class="row">
+				<div class="col-md-4">
+				</div>
+				<div class="col-md-8">
+					<button type="button" class="btn btn-default">
+						More
+					</button>
+				</div>	
+			</div>
+		</div>
+	</div>
 
 	
 	<footer>
@@ -326,6 +344,5 @@
 			2017
 		</center>
 	</footer>
-
 </body>
 </html>

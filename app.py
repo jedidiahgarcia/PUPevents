@@ -10,7 +10,7 @@ app.config['MYSQL_DB'] = 'startup'
 mysql = MySQL(app)
 
 @app.route('/')
-def home():
+def default():
     return render_template('index.html')
     # cur = mysql.connection.cursor()
     # # cur.execute('''SELECT user, host FROM mysql.user''')
@@ -27,20 +27,30 @@ def create():
     return render_template('create_event/index.html')
 
 @app.route('/home')
-def create():
+def home():
     return render_template('home/index.html')
 
 @app.route('/signup/instructor')
-def create():
+def sign_instructor():
     return render_template('signup_instructor/index.html')
 
 @app.route('/signup/student')
-def create():
+def sign_student():
     return render_template('signup_student/index.html')
 
 @app.route('/view/event')
-def create():
+def view_event():
     return render_template('view_event/index.html')
+
+@app.route('/profile')
+def profile():
+    # return render_template('view_event/index.html')
+    return 'Profile Page Here'
+
+@app.route('/signout')
+def signout():
+    # return render_template('view_event/index.html')
+    return 'Signout action here'
 
 if __name__ == '__main__':
     app.run(debug=True)

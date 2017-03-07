@@ -22,5 +22,25 @@ def home():
 def signin():
     return render_template('login/index.html')
 
+@app.route('/create/event')
+def create():
+    return render_template('create_event/index.html')
+
+@app.route('/home')
+def create():
+    return render_template('home/index.html')
+
+@app.route('/signup/instructor')
+def create():
+    return render_template('signup_instructor/index.html')
+
+@app.route('/signup/student')
+def create():
+    return render_template('signup_student/index.html')
+
+@app.route('/view/event')
+def create():
+    return render_template('view_event/index.html')
+
 if __name__ == '__main__':
     app.run(debug=True)

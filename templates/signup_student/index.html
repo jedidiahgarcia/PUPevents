@@ -105,11 +105,6 @@
 					<div class="collapse navbar-collapse navbar-right">
 						<ul class="nav navbar-nav">
 							<li>
-								<a href="/create/event">
-									Host Event
-								</a>
-							</li>
-							<li>
 								<a href="/signin" class="red-button">
 									Sign in
 								</a>
@@ -123,41 +118,89 @@
 
 	<section>
 		<div class="container">
-			<center>
 			<div class="wrapper">
 				<div class="row">
-					<div class="col-sm-12">
-						<!-- <h1>Event Info</h1> -->
-						<h1>
-							<span style="color: black;">
-								sign up as
-							</span>
-							<span style="color: #880000;">
-								student
-							</span>
-						</h1>
-						<br/>
-						<form class="form-group">
-							<input type="text" id="" class="form-control" placeholder="First name" required="" autofocus=""><br/>
-							<!-- <input type="text" id="" class="form-control" placeholder="Headline" required="" autofocus=""><br/> -->
-							<input type="text" id="" class="form-control" placeholder="Last name" required="" autofocus=""><br/>
-							<input type="text" id="" class="form-control" placeholder="Year and Course" required="" autofocus=""><br/>
-							<input type="email" id="" class="form-control" placeholder="Email" required="" autofocus=""><br/>
-							<input type="password" id="" class="form-control" placeholder="Password" required="" autofocus=""><br/>
-							
-							<a class="btn btn-lg btn-primary btn-block" href="javascript:submit()">
-								Proceed
-							</a>
+                    <center>
+                        <div class="col-sm-12">
+                            <!-- <h1>Event Info</h1> -->
+                            <h1>
+                                <span style="color: black;">
+                                    sign up as
+                                </span>
+                                <span style="color: #880000;">
+                                    student
+                                </span>
+                            </h1>
+                            <br/>
+                            <form name="details" method="POST" class="form-group">
+                                <input name="firstName" type="text" id="" class="form-control" placeholder="First name" required autofocus=""><br/>
+                                <input name="lastName" type="text" id="" class="form-control" placeholder="Last name" required autofocus=""><br/>
+                                <input name="contactNumber" type="text" id="" class="form-control" placeholder="Contact Number" required autofocus=""><br/>
+                                <input name="email" type="email" id="" class="form-control" placeholder="Email" required autofocus=""><br/>
+                                <input name="password" type="password" id="" class="form-control" placeholder="Password" required autofocus=""><br/>
 
-							<br/>
-
-						</div>
-							</form>
-						<h2>
-					</div>
+                                <input id="submit_button" value="Proceed" type="submit" class="btn btn-lg btn-primary btn-block">
+                                <br/>
+                            </form>
+                        </div>
+                    </center>
 				</div>	
 			</div>			
 		</div>
 	</section>
+
+	<script type="javascript">
+        $("#submit_button").submit(function(event){
+
+            // Prevent default posting of form - put here to work in case of errors
+            event.preventDefault();
+
+            // setup some local variables
+            var $form = $(this);
+
+            // Let's select and cache all the fields
+            var $inputs = $form.find("text", "email", "password");
+
+            // Serialize the data in the form
+            var serializedData = $form.serialize();
+
+            // Let's disable the inputs for the duration of the Ajax request.
+            // Note: we disable elements AFTER the form data has been serialized.
+            // Disabled form elements will not be serialized.
+            $inputs.prop("disabled", true);
+
+            console.log(serializedData);
+            
+            // Fire off the request to /form.php
+            request = $.ajax({
+                url: "/signup/student",
+                type: "POST",
+                data: serializedData
+            });
+
+            // Callback handler that will be called on success
+            request.done(function (response, textStatus, jqXHR){
+                // Log a message to the console
+                console.log(response);
+            });
+
+            // Callback handler that will be called on failure
+            request.fail(function (jqXHR, textStatus, errorThrown){
+                // Log the error to the console
+                console.error(
+                    "The following error occurred: "+
+                    textStatus, errorThrown
+                );
+            });
+
+            // Callback handler that will be called regardless
+            // if the request failed or succeeded
+            request.always(function () {
+                // Reenable the inputs
+                $inputs.prop("disabled", false);
+            });
+
+        });
+	</script>
 </body>
 </html>

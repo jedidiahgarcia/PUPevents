@@ -2,8 +2,9 @@ from flask import Flask, request, render_template, redirect
 from flask_mysqldb import MySQL
 import json
 
-#from werkzeug import generate_password_hash, check_password_hash
+from werkzeug import generate_password_hash, check_password_hash
 session = {}
+session['user_id'] = '2014-05666-MN-0'
 
 app = Flask(__name__)
 app.config['MYSQL_USER'] = 'root'
@@ -13,11 +14,7 @@ app.config['MYSQL_DB'] = 'pupevents'
 
 mysql = MySQL(app)
 
-    # sample mysql process
-    # cur = mysql.connection.cursor()
     # cur.execute('''SELECT user, host FROM mysql.user''')
-    # cur.execute('''SELECT * from registration''')
-    # rv = cur.fetchall()
     # return str(rv)
 
 #@Page rendering and Routes #############################################################################################
@@ -26,7 +23,7 @@ mysql = MySQL(app)
 def default():
     #request the calendar data
     #render calendar with data
-    if 'logged' not in session:
+    if 'user_id' not in session:
         return render_template('index.html')
     else:
         return redirect('/home')
@@ -37,14 +34,14 @@ def signin():
 
 @app.route('/create/event')
 def create():
-    if 'logged' in session:
+    if 'user_id' in session:
         return render_template('create_event/index.html')
     else:
         return redirect('/signin')
 
 @app.route('/home')
 def home():
-    if 'logged' in session:
+    if 'user_id' in session:
         return render_template('home/index.html')
     else:
         return redirect('/')
@@ -68,26 +65,37 @@ def profile():
 
 @app.route('/signout')
 def signout():
-    session.pop('logged', None)
+    session.pop('user_id', None)
     return redirect('/')
 
 ########################################################################################################################
 
 #@form integration######################################################################################################
 
-@app.route('/signup/student', methods = ['POST'])
-def sign_student_():
+@app.route('/signup/<designation>', methods = ['POST'])
+def sign(designation):
     dump = json.dumps(request.form)
-    raw_data = json.loads(dump)
-    print(raw_data)
+    data = json.loads(dump)
 
-    return ''
+    cur = mysql.connection.cursor()
+    
+    sql = "INSERT INTO  USER(id, firstName, lastName, contactNumber, designation, email, password) \
+       VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')" % \
+       (data['studentNumber'], data['firstName'], data['lastName'], data['contactNumber'], designation, data['email'], data['password'])
+
+    try:
+        cur.execute(sql)
+        mysql.connection.commit()
+        return redirect('/home')
+    except Exception as e:
+        mysql.connection.rollback()
+        return e
 
 @app.route('/signin/', methods = ['POST'])
 def signin_():
     if request.method == 'POST':
         #check password first here
-        session['logged'] = request.form['email']
+        session['user_id'] = request.form['email']
         return redirect('/home')
 
 ########################################################################################################################

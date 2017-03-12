@@ -1,8 +1,9 @@
 from flask import Flask, request, render_template, redirect
 from flask_mysqldb import MySQL
-import json
 
-from werkzeug import generate_password_hash, check_password_hash
+import json
+import hashlib
+
 session = {}
 session['user_id'] = '2014-05666-MN-0'
 
@@ -78,15 +79,19 @@ def sign(designation):
     data = json.loads(dump)
 
     cur = mysql.connection.cursor()
+    hashed_pw = hashlib.sha256(data['studentNumber'].encode() + data['password'].encode()).hexdigest()
     
     sql = "INSERT INTO  USER(id, firstName, lastName, contactNumber, designation, email, password) \
        VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')" % \
-       (data['studentNumber'], data['firstName'], data['lastName'], data['contactNumber'], designation, data['email'], data['password'])
+       (data['studentNumber'], data['firstName'], data['lastName'], data['contactNumber'], designation, data['email'], hashed_pw)
 
     try:
         cur.execute(sql)
         mysql.connection.commit()
+        session['user_id'] = data['studentNumber']
+
         return redirect('/home')
+
     except Exception as e:
         mysql.connection.rollback()
         return e
@@ -94,9 +99,24 @@ def sign(designation):
 @app.route('/signin/', methods = ['POST'])
 def signin_():
     if request.method == 'POST':
-        #check password first here
-        session['user_id'] = request.form['email']
-        return redirect('/home')
+        dump = json.dumps(request.form)
+        data = json.loads(dump)
+
+        cur = mysql.connection.cursor()
+        hashed_pw = hashlib.sha256(data['identification'].encode() + data['password'].encode()).hexdigest()
+        
+        sql = "SELECT password FROM user where id=%s" % data['identification']
+
+        try:
+            cur.execute(sql)
+            data = cur.fetchall()
+            print(data)
+            session['user_id'] = request.form['identification']
+            return redirect('/home')
+
+        except Exception as e:
+            mysql.connection.rollback()
+            return e
 
 ########################################################################################################################
 

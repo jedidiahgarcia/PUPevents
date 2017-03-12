@@ -2,10 +2,10 @@
 -- version 4.5.1
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 07, 2017 at 06:08 AM
--- Server version: 10.1.13-MariaDB
--- PHP Version: 5.6.23
+-- Host: localhost
+-- Generation Time: Mar 12, 2017 at 03:07 PM
+-- Server version: 5.6.26-log
+-- PHP Version: 7.0.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `event_db`
+-- Database: `pupevents`
 --
 
 -- --------------------------------------------------------
@@ -45,9 +45,7 @@ CREATE TABLE `event` (
 
 CREATE TABLE `guest` (
   `guestId` int(10) NOT NULL,
-  `guestName` varchar(30) NOT NULL,
-  `contactNumber` int(15) NOT NULL,
-  `email` varchar(30) NOT NULL,
+  `userId` varchar(15) NOT NULL,
   `eventId` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -58,12 +56,33 @@ CREATE TABLE `guest` (
 --
 
 CREATE TABLE `organizer` (
-  `organizerId` int(10) NOT NULL,
-  `organizerName` varchar(30) NOT NULL,
-  `designation` varchar(20) NOT NULL,
-  `contactNumber` int(15) NOT NULL,
-  `email` varchar(30) NOT NULL
+  `organizerId` int(11) NOT NULL,
+  `userId` varchar(20) NOT NULL,
+  `eventId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `id` varchar(15) NOT NULL COMMENT 'Student of Employee Number',
+  `firstName` varchar(45) DEFAULT NULL,
+  `lastName` varchar(45) DEFAULT NULL,
+  `contactNumber` varchar(45) DEFAULT NULL,
+  `designation` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `password` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `firstName`, `lastName`, `contactNumber`, `designation`, `email`, `password`) VALUES
+('2014-05666-MN-0', 'Redentor', 'Periabras', '09093291283', 'student', 'redperiabras@gmail.com', '6eeb9d2bdd07689712c90334d568775b9f1cb1f9bcb9c1ea86ce8acfb7ab8e83');
 
 -- --------------------------------------------------------
 
@@ -109,13 +128,24 @@ ALTER TABLE `event`
 --
 ALTER TABLE `guest`
   ADD PRIMARY KEY (`guestId`),
-  ADD KEY `eventId` (`eventId`);
+  ADD KEY `eventId` (`eventId`),
+  ADD KEY `userId_idx` (`userId`),
+  ADD KEY `userId` (`userId`);
 
 --
 -- Indexes for table `organizer`
 --
 ALTER TABLE `organizer`
-  ADD PRIMARY KEY (`organizerId`);
+  ADD PRIMARY KEY (`organizerId`),
+  ADD KEY `user_idx` (`userId`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_UNIQUE` (`id`),
+  ADD KEY `id` (`id`);
 
 --
 -- Indexes for table `venue`

@@ -5,11 +5,11 @@ import json
 import hashlib
 
 session = {}
-session['user_id'] = '2014-05666-MN-0'
 
 app = Flask(__name__)
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_PASSWORD'] = '12345'
 app.config['MYSQL_DB'] = 'pupevents'
 
 mysql = MySQL(app)
@@ -30,7 +30,10 @@ def default():
 
 @app.route('/signin')
 def signin():
-    return render_template('login/index.html')
+    if 'user_id' not in session:
+        return render_template('login/index.html')
+    else:
+        return redirect('/home')
 
 @app.route('/create/event')
 def create():
@@ -47,8 +50,11 @@ def home():
         return redirect('/')    
 
 @app.route('/signup')
-def sign_student():
-    return render_template('signup/index.html')
+def signup():
+    if 'user_id' not in session:
+        return render_template('signup/index.html')
+    else:
+        return redirect('/')    
 
 @app.route('/view/event')
 def view_event():
@@ -56,12 +62,16 @@ def view_event():
 
 @app.route('/profile')
 def profile():
+    if 'user_id' in session:
     # return render_template('view_event/index.html')
-    return 'Profile Page Here'
+        return 'Profile Page Here'
+    else:
+        return redirect('/')  
 
 @app.route('/signout')
 def signout():
-    session.pop('user_id', None)
+    if 'user_id' in session:
+        session.pop('user_id', None)
     return redirect('/')
 
 ########################################################################################################################
@@ -69,11 +79,10 @@ def signout():
 #@form integration######################################################################################################
 
 @app.route('/signup', methods = ['POST'])
-def sign():
+def signup_():
     dump = json.dumps(request.form)
     data = json.loads(dump)
 
-    cur = mysql.connection.cursor()
     hashed_pw = hashlib.sha256(data['studentNumber'].encode() + data['password'].encode()).hexdigest()
     
     sql = "INSERT INTO  USER(id, firstName, lastName, contactNumber, designation, email, password) \
@@ -81,47 +90,65 @@ def sign():
        (data['studentNumber'], data['firstName'], data['lastName'], data['contactNumber'], data['designation'], data['email'], hashed_pw)
 
     try:
+        con = mysql.connection
+        cur = con.cursor()
         cur.execute(sql)
-        mysql.connection.commit()
+        con.commit()
         session['user_id'] = data['studentNumber']
-
         return redirect('/home')
 
     except Exception as e:
-        mysql.connection.rollback()
+        con.rollback()
         return e
 
-    except TypeError as d:
+    except TypeError as e:
         '''
             Return error here for student number already exists in database
         '''
         mysql.connection.rollback()
         return e
+    finally:
+        cur.close()
 
-@app.route('/signin/', methods = ['POST'])
+
+
+@app.route('/signin', methods = ['POST'])
 def signin_():
     if request.method == 'POST':
         dump = json.dumps(request.form)
         data = json.loads(dump)
-
-        cur = mysql.connection.cursor()
         hashed_pw = hashlib.sha256(data['identification'].encode() + data['password'].encode()).hexdigest()
         
-        sql = "SELECT password FROM user where id=%s" % data['identification']
+        sql = "SELECT password FROM user where id='%s'" % data['identification']
 
         try:
+            con = mysql.connection
+            cur = con.cursor()
             cur.execute(sql)
-            data = cur.fetchall()
-            print(data)
-            session['user_id'] = request.form['identification']
-            return redirect('/home')
+            con.commit()
+            response = cur.fetchone()
+
+            account_password = response[0];
+
+            if(account_password == hashed_pw):
+                session['user_id'] = data['identification']
+                return redirect('/home')
+            else:
+                return 'Invalid Password'
 
         except Exception as e:
-            mysql.connection.rollback()
+            con.rollback()
             return e
 
-########################################################################################################################
+        except TypeError as e:
+            con.rollback()
+            return e
 
+        finally:
+            cur.close()
+
+
+########################################################################################################################
 
 if __name__ == '__main__':
     app.run(debug=True)

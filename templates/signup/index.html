@@ -125,22 +125,41 @@
                             <!-- <h1>Event Info</h1> -->
                             <h1>
                                 <span style="color: black;">
-                                    sign up as
-                                </span>
-                                <span style="color: #880000;">
-                                    student
+                                    sign up
                                 </span>
                             </h1>
                             <br/>
                             <form name="details" method="POST" class="form-group">
-                            	<input name="studentNumber" type="text" id="" class="form-control" placeholder="Student Number" required autofocus=""><br/>
+                            	<div class="row">
+		                            <div class="col-md-6">    
+		                                <div class="radio">
+		                                	<label>
+		                                		<input type="radio" name="designation" id="option_student" value="student">
+		                                		Student
+		                                	</label>
+		                                </div>
+		                            </div>
+		                            
+		                            <div class="col-md-6">    	
+		                                <div class="radio">
+		                                	<label>
+		                                		<input type="radio" name="designation" id="option_employee" value="employee">
+		                                		Employee
+		                                	</label>
+		                                </div>
+		                            </div>    
+	                            </div>    	
+	                            
+                            	<input name="studentNumber" type="text" id="" class="form-control" placeholder="Identification Number" required autofocus=""><br/>
                                 <input name="firstName" type="text" id="" class="form-control" placeholder="First name" required autofocus=""><br/>
                                 <input name="lastName" type="text" id="" class="form-control" placeholder="Last name" required autofocus=""><br/>
                                 <input name="contactNumber" type="text" id="" class="form-control" placeholder="Contact Number" required autofocus=""><br/>
+	
                                 <input name="email" type="email" id="" class="form-control" placeholder="Email" required autofocus=""><br/>
                                 <input name="password" type="password" id="" class="form-control" placeholder="Password" required autofocus=""><br/>
+                                <input name="re-password" type="password" id="" class="form-control" placeholder="Password" required autofocus=""><br/>
 
-                                <input id="submit_button" value="Proceed" type="submit" class="btn btn-lg btn-primary btn-block">
+                                <input id="submit_button" value="Submit" type="submit" class="btn btn-lg btn-primary btn-block">
                                 <br/>
                             </form>
                         </div>
@@ -160,7 +179,7 @@
             var $form = $(this);
 
             // Let's select and cache all the fields
-            var $inputs = $form.find("text", "email", "password");
+            var $inputs = $form.find("text", "email", "password", "radio");
 
             // Serialize the data in the form
             var serializedData = $form.serialize();
@@ -174,7 +193,7 @@
             
             // Fire off the request to /form.php
             request = $.ajax({
-                url: "/signup/student",
+                url: "/signup",
                 type: "POST",
                 data: serializedData
             });

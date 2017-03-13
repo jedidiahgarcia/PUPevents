@@ -9,7 +9,6 @@ session['user_id'] = '2014-05666-MN-0'
 
 app = Flask(__name__)
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = '12345'
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_DB'] = 'pupevents'
 
@@ -45,15 +44,11 @@ def home():
     if 'user_id' in session:
         return render_template('home/index.html')
     else:
-        return redirect('/')
+        return redirect('/')    
 
-@app.route('/signup/instructor')
-def sign_instructor():
-    return render_template('signup_instructor/index.html')
-
-@app.route('/signup/student')
+@app.route('/signup')
 def sign_student():
-    return render_template('signup_student/index.html')
+    return render_template('signup/index.html')
 
 @app.route('/view/event')
 def view_event():
@@ -73,8 +68,8 @@ def signout():
 
 #@form integration######################################################################################################
 
-@app.route('/signup/<designation>', methods = ['POST'])
-def sign(designation):
+@app.route('/signup', methods = ['POST'])
+def sign():
     dump = json.dumps(request.form)
     data = json.loads(dump)
 
@@ -83,7 +78,7 @@ def sign(designation):
     
     sql = "INSERT INTO  USER(id, firstName, lastName, contactNumber, designation, email, password) \
        VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')" % \
-       (data['studentNumber'], data['firstName'], data['lastName'], data['contactNumber'], designation, data['email'], hashed_pw)
+       (data['studentNumber'], data['firstName'], data['lastName'], data['contactNumber'], data['designation'], data['email'], hashed_pw)
 
     try:
         cur.execute(sql)
@@ -93,6 +88,13 @@ def sign(designation):
         return redirect('/home')
 
     except Exception as e:
+        mysql.connection.rollback()
+        return e
+
+    except TypeError as d:
+        '''
+            Return error here for student number already exists in database
+        '''
         mysql.connection.rollback()
         return e
 

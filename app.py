@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template, redirect, jsonify, Response
 from flask_mysqldb import MySQL
+from flask_json import FlaskJSON, JsonError, json_response, as_json
 
 import json
 import hashlib
@@ -9,19 +10,20 @@ session = {}
 app = Flask(__name__)
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_PASSWORD'] = '12345'
 app.config['MYSQL_DB'] = 'pupevents'
 
+
+FlaskJSON(app)
 mysql = MySQL(app)
 
-    # cur.execute('''SELECT user, host FROM mysql.user''')
-    # return str(rv)
 
 #@Page rendering and Routes #############################################################################################
 
-@app.route('/request_json')
+@app.route('/request_json', methods=['POST'])
 def sample():
-    return message('hey', 'this is a json data')
+    return json_response(status='Json message',
+        message='I hope you work na :(')
 
 @app.route('/')
 def default():
@@ -122,43 +124,44 @@ def signup_():
 
 @app.route('/signin', methods = ['POST'])
 def signin_():
-    if request.method == 'POST':
-        dump = json.dumps(request.form)
-        data = json.loads(dump)
-        hashed_pw = hashlib.sha256(data['identification'].encode() + data['password'].encode()).hexdigest()
+    dump = json.dumps(request.form)
+    data = json.loads(dump)
+    
+    hashed_pw = hashlib.sha256(data['identification'].encode() + data['password'].encode()).hexdigest()
 
-        sql = "SELECT password FROM user where id='%s'" % data['identification']
+    sql = "SELECT password FROM user where id='%s'" % data['identification']
 
-        try:
-            con = mysql.connection
-            cur = con.cursor()
-            cur.execute(sql)
-            con.commit()
-            response = cur.fetchone()
+    try:
+        con = mysql.connection
+        cur = con.cursor()
+        cur.execute(sql)
+        con.commit()
+        response = cur.fetchone()
 
-            if(response is None):
-                return render_template('login/invalid.html', identification = data['identification'], password=data['password'], status = 'Error', message = 'Account doesn\'t exist')
+        if(response is None):
+            return render_template('login/invalid.html',
+                identification = data['identification'],
+                password=data['password'],
+                status = 'Error',
+                message = 'Account doesn\'t exist')
+        else:
+            account_password = response[0];
+
+            if(account_password == hashed_pw):
+                session['user_id'] = data['identification']
+                return redirect('/home')
             else:
-                account_password = response[0];
-
-                if(account_password == hashed_pw):
-                    session['user_id'] = data['identification']
-                    return redirect('/home')
-                else:
-                    return render_template('login/invalid.html', identification=data['identification'],
-                                           password=data['password'], status='Error', message='Invalid password')
+                return render_template('login/error.html', identification=data['identification'],
+                password=data['password'], status='Error', message='Invalid password')
 
 
-        except Exception as e:
-            con.rollback()
-            return None
+    except Exception as e:
+        con.rollback()
+        return None
 
-        except TypeError as e:
-            con.rollback()
-            return None
+    finally:
+        cur.close()
 
-        finally:
-            cur.close()
 ########################################################################################################################
 
 #@organizer ############################################################################################################
@@ -212,6 +215,8 @@ def message(type, message):
             'Content-Type': 'application/json'
         }
     )
+
+    return response
 
 if __name__ == '__main__':
     app.run(debug=True)

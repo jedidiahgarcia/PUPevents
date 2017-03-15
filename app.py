@@ -84,26 +84,34 @@ def signup_():
     data = json.loads(dump)
 
     hashed_pw = hashlib.sha256(data['studentNumber'].encode() + data['password'].encode()).hexdigest()
-    
-    sql = "INSERT INTO  USER(id, firstName, lastName, contactNumber, designation, email, password) \
-       VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')" % \
-       (data['studentNumber'], data['firstName'], data['lastName'], data['contactNumber'], data['designation'], data['email'], hashed_pw)
+
+    sql = "SELECT password FROM user where id='%s'" % data['studentNumber']
 
     try:
         con = mysql.connection
         cur = con.cursor()
         cur.execute(sql)
         con.commit()
-        session['user_id'] = data['studentNumber']
-        return redirect('/home')
+        response = cur.fetchone()
 
-    except Exception as e:
-        con.rollback()
-        return e
+        if response is None:
+            sql = "INSERT INTO  USER(id, firstName, lastName, contactNumber, designation, email, password) \
+                  VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')" % \
+                  (data['studentNumber'], data['firstName'], data['lastName'], data['contactNumber'], data['designation'], data['email'], hashed_pw)
 
-    except TypeError as e:
-        mysql.connection.rollback()
-        return message('error', 'Identification number already exist')
+            cur.execute(sql)
+            con.commit()
+            session['user_id'] = data['studentNumber']
+            return redirect('/home')
+        else:
+            return render_template('signup/error.html',
+                                   designation = data['designation'],
+                                   studentNumber = data['studentNumber'],
+                                   firstName = data['firstName'],
+                                   lastName = data['lastName'],
+                                   contactNumber = data['contactNumber'],
+                                   email = data['email'],
+                                   message = "Account already exist")
 
     finally:
         cur.close()
@@ -167,7 +175,6 @@ def message(type, message):
     response.headers['Content-Type'] = 'text/html; charset=utf-8'
 
     return response
-
 
 if __name__ == '__main__':
     app.run(debug=True)

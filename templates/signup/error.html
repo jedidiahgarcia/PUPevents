@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PUP Events</title>
+
+
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+
+	<script type="text/javascript" src="../../static/js/jquery.min.js"></script>
+	<script type="text/javascript" src="../../static/js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="../../static/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/font-awesome.min.css">
+	<link rel="icon" href="../../static/images/PUP.png" type="">
+
+	<style type="text/css">
+		.navbar {
+			border-radius: 0px;
+			height: 50px;
+		}
+
+		nav {
+			margin-bottom: 0px;
+		}
+
+		.navbar-default {
+			background-color: white;
+			/*border-color: transparent;*/
+			box-shadow: none;
+			color: white;
+		}
+
+		.navbar-collapse {
+			background-color: white;
+		}
+
+		.navbar-nav {
+			font-size: 12px;
+			height: 50px;
+			border-bottom: 1px solid #E3E3E3;
+		}
+
+		a {
+			font-family: Montserrat;
+		}
+
+		h1 {
+			color: #8C8C8F;
+		}
+
+		.form-group {
+			width: 80%;
+		}
+
+		.btn {
+			width: 20%;
+			font-size: 15px;
+		}
+
+		body {
+			font-family: Montserrat;
+			/*background-color: #FAFAF8;*/
+			/*background-color: #2E3254;*/
+			background-color: #5F5F5F;
+		}
+
+		section {
+			padding-top: 8%;
+		}
+
+		.red-button {/*
+			background-color: red;*/
+		}
+
+		.wrapper {
+			background-color: white;
+			border: 1px solid #E5E5E5;
+			border-radius: 4px;
+			margin-left: 20%;
+			margin-right: 20%;
+		}
+
+		.modal-body-danger {
+			color:#fff;
+			padding: 9 15px;
+			background-color: #d9534f;
+			border-bottom:1px solid #d9534f;
+		}
+
+		.modal-header-success {
+			color:#fff;
+		    padding:9px 15px;
+		    border-bottom:1px solid #5cb85c;
+		    background-color: #5cb85c;
+		    -webkit-border-top-left-radius: 5px;
+		    -webkit-border-top-right-radius: 5px;
+		    -moz-border-radius-topleft: 5px;
+		    -moz-border-radius-topright: 5px;
+		     border-top-left-radius: 5px;
+		     border-top-right-radius: 5px;
+		}
+
+		.modal-body-success {
+			color:#fff;
+			padding: 9 15px;
+			background-color: #5cb85c;
+			border-bottom:1px solid #5cb85c;
+		}
+
+		.modal-header-info {
+			color:#fff;
+		    padding:9px 15px;
+		    border-bottom:1px solid #eee;
+		    background-color: #f0ad4e;
+		    -webkit-border-top-left-radius: 5px;
+		    -webkit-border-top-right-radius: 5px;
+		    -moz-border-radius-topleft: 5px;
+		    -moz-border-radius-topright: 5px;
+		    border-top-left-radius: 5px;
+		    border-top-right-radius: 5px;
+		}
+
+
+	</style>
+</head>
+<body>
+
+	<header>
+		<div class="container">
+			<nav class="navbar navbar-default navbar-fixed-top">
+				<div class="container">
+					<div class="navbar-header">
+						<a href="/" class="navbar-brand navbar-link">
+							<span style="color: #880000;">
+							pup</span><span style="color: black;">events</span>
+						</a>
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"></button>
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</div>
+
+					<div class="collapse navbar-collapse navbar-right">
+						<ul class="nav navbar-nav">
+							<li>
+								<a href="/signin" class="red-button">
+									Sign in
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</div>
+	</header>
+
+	<section>
+		<div class="container">
+			<div class="wrapper">
+				<div class="row">
+                    <center>
+                        <div class="col-sm-12">
+                            <!-- <h1>Event Info</h1> -->
+                            <h1>
+                                <span style="color: black;">
+                                    sign up
+                                </span>
+                            </h1>
+                            <br/>
+                            <form name="details" method="POST" class="form-group">
+                            	<div class="row">
+			                        <div class="alert alert-danger fade in">
+			                          <strong>{{ message }}</strong>
+			                        </div>
+			                    </div>
+                            	<div class="row">
+                                    {% if designation == "student" %}
+                                        <div class="col-md-6">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="designation" id="option_student" value="student" checked>
+                                                    Student
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="designation" id="option_employee" value="employee">
+                                                    Employee
+                                                </label>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <div class="col-md-6">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="designation" id="option_student" value="student">
+                                                    Student
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="designation" id="option_employee" value="employee" checked>
+                                                    Employee
+                                                </label>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+
+	                            </div>
+
+                            	<input value="{{studentNumber}}" name="studentNumber" type="text" id="" class="form-control" placeholder="Identification Number" required autofocus=""><br/>
+                                <input value="{{firstName}}" name="firstName" type="text" id="" class="form-control" placeholder="First name" required autofocus=""><br/>
+                                <input value="{{lastName}}" name="lastName" type="text" id="" class="form-control" placeholder="Last name" required autofocus=""><br/>
+                                <input value="{{contactNumber}}" name="contactNumber" type="text" id="" class="form-control" placeholder="Contact Number" required autofocus=""><br/>
+
+                                <input value="{{email}}" name="email" type="email" id="" class="form-control" placeholder="Email" required autofocus=""><br/>
+                                <input name="password" type="password" id="" class="form-control" placeholder="Password" required autofocus=""><br/>
+                                <input name="re-password" type="password" id="" class="form-control" placeholder="Password" required autofocus=""><br/>
+
+                                <input id="submit_button" value="Submit" type="submit" class="btn btn-lg btn-primary btn-block">
+                                <br/>
+                            </form>
+                        </div>
+                    </center>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+	<!--
+		*TRY ALERT MODALS HERE
+		<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal-success">Open Modal</button>
+		-->
+
+		<!-- Modal -->
+		<div id="modal-error" class="modal fade" role="dialog">
+		  	<div class="modal-dialog">
+
+			    <!-- Modal error-->
+			    <div class="modal-content">
+			      <div class="modal-header modal-header-danger">
+			        <button type="button" class="close" data-dismiss="modal">&times;</button>
+			        <h4 class="modal-title">
+			        	<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+			        </h4>
+			      </div>
+			      <div class="modal-body modal-body-danger">
+			        <p></p>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			      </div>
+			    </div>
+			</div>
+		</div>
+
+		<div id="modal-success" class="modal fade" role="dialog">
+		    <div class="modal-dialog">
+		    	<!-- Modal success-->
+			    <div class="modal-content">
+			      <div class="modal-header modal-header-success">
+			        <button type="button" class="close" data-dismiss="modal">&times;</button>
+			        <h4 class="modal-title">
+			        	<i class="fa fa-check-circle" aria-hidden="true"></i>
+			        </h4>
+			      </div>
+			      <div class="modal-body modal-body-success">
+			        <p></p>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			      </div>
+			    </div>
+		  	</div>
+		</div>
+
+
+	<!-- TRY INFORMATION MODAL HERE -->
+
+
+		<!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#info_modal">Open Modal</button> -->
+
+		<!-- Modal -->
+		<div id="info_modal" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header modal-header-info">
+		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        <h4 class="modal-title">
+		        	<i class="fa fa-info-circle" aria-hidden="true"></i>
+		        	Information
+		        </h4>
+		      </div>
+		      <div class="modal-body">
+		        <p></p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+
+		  </div>
+		</div>
+
+	<script type="javascript">
+        $("#submit_button").submit(function(event){
+
+            // Prevent default posting of form - put here to work in case of errors
+            event.preventDefault();
+
+            // setup some local variables
+            var $form = $(this);
+
+            // Let's select and cache all the fields
+            var $inputs = $form.find("text", "email", "password", "radio");
+
+            // Serialize the data in the form
+            var serializedData = $form.serialize();
+
+            // Let's disable the inputs for the duration of the Ajax request.
+            // Note: we disable elements AFTER the form data has been serialized.
+            // Disabled form elements will not be serialized.
+            $inputs.prop("disabled", true);
+
+            console.log(serializedData);
+
+            // Fire off the request to /form.php
+            request = $.ajax({
+                url: "/signup",
+                type: "POST",
+                data: serializedData
+            });
+
+            // Callback handler that will be called on success
+            request.done(function (response, textStatus, jqXHR){
+                // Log a message to the console
+                console.log(response);
+            });
+
+            // Callback handler that will be called on failure
+            request.fail(function (jqXHR, textStatus, errorThrown){
+                // Log the error to the console
+                console.error(
+                    "The following error occurred: "+
+                    textStatus, errorThrown
+                );
+            });
+
+            // Callback handler that will be called regardless
+            // if the request failed or succeeded
+            request.always(function () {
+                // Reenable the inputs
+                $inputs.prop("disabled", false);
+            });
+
+        });
+	</script>
+</body>
+</html>

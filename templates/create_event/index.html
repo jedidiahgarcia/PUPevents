@@ -179,17 +179,17 @@
 						</h1>
 						<br/>
 						<form class="form-group">
-							<input type="text" id="" class="form-control" placeholder="Title" required="" autofocus=""><br/>
+							<input name="eventName" type="text" id="" class="form-control" placeholder="Title" required="" autofocus=""><br/>
 							<!-- <input type="text" id="" class="form-control" placeholder="Headline" required="" autofocus=""><br/> -->
-							<textarea class="form-control" placeholder="Description"></textarea><br/>
-							<input type="date" id="" class="form-control" placeholder="Starts" required="" autofocus=""><br/>
+							<textarea name="eventDesc" class="form-control" placeholder="Description"></textarea><br/>
+							<input name="date" type="date" id="" class="form-control" placeholder="Starts" required="" autofocus=""><br/>
 						<div class="row">
 							<div class="col-xs-6">
 								<label>Starts</label>
-								<input type="text" id="" class="form-control" placeholder="Time eg 5:00 PM" required="" autofocus=""><br/>
+								<input name="startTime" type="text" id="" class="form-control" placeholder="Time eg 5:00 PM" required="" autofocus=""><br/>
 							</div>
 							<div class="col-xs-6">
-								<label>Ends</label><input type="text" id="" class="form-control" placeholder="Time eg 5:00 PM" required="" autofocus=""><br/>
+								<label>Ends</label><input name="endTime" type="text" id="" class="form-control" placeholder="Time eg 5:00 PM" required="" autofocus=""><br/>
 							</div>
 						</div>	
 								<!-- <input type="text" id="" class="form-control" placeholder="Location" required="" autofocus=""><br/>
@@ -209,7 +209,7 @@
  									<label>People Allocation</label>
  								</div>
  								<div class="col-md-8">	
- 									<input type="number" id="" class="form-control placeholder="" required="" autofocus=""><br/>		
+ 									<input name="peopleAlloc" type="number" id="" class="form-control placeholder="" required="" autofocus=""><br/>		
 								</div>
 							</div>
 
@@ -219,7 +219,7 @@
  									<label>Speakers</label>
  								</div>
  								<div class="col-md-8">	
- 									<input type="number" id="" class="form-control placeholder="" required="" autofocus=""><br/>	
+ 									<input name="speakers" type="number" id="" class="form-control placeholder="" required="" autofocus=""><br/>	
 								</div>
 							</div>
 							<div class="row">
@@ -227,14 +227,14 @@
  									<label>Microphones</label>
  								</div>
  								<div class="col-md-8">	
- 									<input type="number" id="" class="form-control placeholder="" required="" autofocus=""><br/>		
+ 									<input name="microphones" type="number" id="" class="form-control placeholder="" required="" autofocus=""><br/>		
 								</div>
 							</div><div class="row">
  								<div class="col-md-4">
  									<label>Chairs</label>
  								</div>
  								<div class="col-md-8">	
- 									<input type="number" id="" class="form-control placeholder="" required="" autofocus=""><br/>		
+ 									<input name="chairs" type="number" id="" class="form-control placeholder="" required="" autofocus=""><br/>		
 								</div>
 							</div>
 							

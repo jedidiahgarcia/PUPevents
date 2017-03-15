@@ -9,7 +9,7 @@ session = {}
 app = Flask(__name__)
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_PASSWORD'] = '12345'
+app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'pupevents'
 
 mysql = MySQL(app)
@@ -151,7 +151,48 @@ def signin_():
 
         finally:
             cur.close()
+########################################################################################################################
 
+#@organizer ############################################################################################################
+@app.route('/create/event', methods = ['POST'])
+def create_():
+    dump = json.dumps(request.form)
+    data = json.loads(dump)
+    
+    venueId = 9
+    organizerId = session['user_id']
+    
+    sql = "INSERT INTO  event a, venue b, venueinfo c(a.eventName, a.eventDesc, a.date, a.startTime, a.endTime, a.venueId, a.organizerId, a.peopleAlloc, a.status) \
+       VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%d', '%d', '%d')" % \
+       (data['eventName'], data['eventDesc'], data['date'], data['startTime'], data['endTime'], venueId, organizerId, data['peopleAlloc'])
+
+    try:
+        con = mysql.connection
+        cur = con.cursor()
+        cur.execute(sql)
+        con.commit()
+        return redirect('/create/event')
+
+    except TypeError as e:
+        data = [
+            {
+             'type': 'error',
+             'message': 'Identification number already exist.'
+            }
+        ]
+        dumps = json.dumps(data)
+        data = json.loads(dump)
+
+        mysql.connection.rollback()
+        return data
+
+    except Exception as e:
+        con.rollback()
+        return e
+
+    finally:
+        cur.close()
+			
 ########################################################################################################################
 
 if __name__ == '__main__':

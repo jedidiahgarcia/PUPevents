@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, jsonify, Response
+from flask import Flask, request, render_template, redirect, jsonify, Response, make_response
 from flask_mysqldb import MySQL
 
 import json
@@ -103,7 +103,7 @@ def signup_():
 
     except TypeError as e:
         mysql.connection.rollback()
-        return message('error', 'Identification number already exist.')
+        return message('error', 'Identification number already exist')
 
     finally:
         cur.close()
@@ -124,16 +124,18 @@ def signin_():
             con.commit()
             response = cur.fetchone()
 
-            account_password = response[0];
-
             if(response is None):
-                return message('error', "Account doesn't exist")
+                return render_template('login/invalid.html', identification = data['identification'], password=data['password'], status = 'Error', message = 'Account doesn\'t exist')
             else:
+                account_password = response[0];
+
                 if(account_password == hashed_pw):
                     session['user_id'] = data['identification']
                     return redirect('/home')
                 else:
-                    return message('error', "Invalid password.")
+                    return render_template('login/invalid.html', identification=data['identification'],
+                                           password=data['password'], status='Error', message='Invalid password')
+
 
         except Exception as e:
             con.rollback()
@@ -150,10 +152,22 @@ def signin_():
 
 def message(type, message):
     data = {
-        'type': type,
-        'message': message
+        "type": type,
+        "message": message
     }
-    return Response(json.dumps(data), status=200, mimetype='application/json')
+
+    response = Response(
+        response=json.dumps(data),
+        status=200,
+        mimetype='application/json'
+    )
+    response.headers["Content-Type"] = "application/json"
+
+    response = make_response(json.dumps(data))
+    response.headers['Content-Type'] = 'text/html; charset=utf-8'
+
+    return response
+
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

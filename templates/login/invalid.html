@@ -59,8 +59,8 @@
 			margin-left: 25%;
 			margin-right: 25%;
 			width: 50%;
-			padding-bottom: 10px;	
-			
+			padding-bottom: 10px;
+
 		}
 
 		.wrapper-2 {
@@ -69,10 +69,10 @@
 			margin-left: 25%;
 			margin-right: 25%;
 			width: 50%;
-			padding-bottom: 10px;	
+			padding-bottom: 10px;
 			padding-left: 20px;
 			padding-top: 20px;
-			
+
 		}
 
 		.wrapper-3 {
@@ -81,7 +81,7 @@
 			margin-left: 25%;
 			margin-right: 25%;
 			/*margin-top: 10px;*/
-			padding-bottom: 10px;	
+			padding-bottom: 10px;
 			padding-left: 20px;
 			padding-top: 20px;
 			width: 50%;
@@ -118,7 +118,7 @@
 		}
 
 		.modal {
-			font-family: Montserrat;	
+			font-family: Montserrat;
 		}
 
 		.btn {
@@ -129,7 +129,7 @@
 			color:#fff;
 			padding: 9 15px;
 			background-color: #d9534f;
-			border-bottom:1px solid #d9534f;		
+			border-bottom:1px solid #d9534f;
 		}
 
 		.modal-header-success {
@@ -149,7 +149,7 @@
 			color:#fff;
 			padding: 9 15px;
 			background-color: #5cb85c;
-			border-bottom:1px solid #5cb85c;		
+			border-bottom:1px solid #5cb85c;
 		}
 
 		.modal-header-info {
@@ -165,7 +165,7 @@
 		    border-top-right-radius: 5px;
 		}
 
-	</style>	
+	</style>
 
 </head>
 
@@ -197,11 +197,11 @@
 					</div>
 				</div>
 			</nav>
-		</div>			
+		</div>
 	</header>
 
 
-	
+
 	<div class="container">
 				<div class="wrapper">
 					<div class="title">
@@ -210,138 +210,37 @@
 				</div>
 
 				<div class="wrapper-2">
+					<center>
 					<form id ="details" method="POST" class="form-group">
-						<input name="identification" type="text" id="" name="email" class="form-control" placeholder="Identification number" required autofocus>
+						<div class="row">
+	                        <div class="alert alert-danger fade in">
+	                          <strong>{{ message }}</strong>
+	                        </div>
+	                    </div>
+						<input name="identification" value="{{ identification }}" type="text" id="" name="email" class="form-control" placeholder="Identification number" required autofocus>
 						<br/>
-						<input name="password" type="password" id="" class="form-control" placeholder="Password" required="" autofocus="">
+						<input name="password" value="{{ password }}"type="password" id="" class="form-control" placeholder="Password" required autofocus>
 						<br/>
 					</form>
-				</div>	
+					</center>
+				</div>
 
 				<div class="wrapper-3">
 					<div class="row">
 						<div class="col-md-6">
 							<input form="details" id="btnLogin" type="submit" class="btn btn-primary" value="Log In"></input><br/><br/>
 						</div>
-						<div class="col-md-6">	
+						<div class="col-md-6">
 							<span style="font-family: Montserrat; font-size: 12px; color: #5F5F5F;">
 							Need an account? <a href="../signup" data-toggle="modal">Sign up</a><br/><br/>
 							</span>
 						</div>
-					</div>		
-				</div>	
-			</div>	
-
-		</div>	
-	</div>	
-
-	<div class="modal fade" id="sgnModal" role="dialog">
-		<center>
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						Sign up as
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					</div>
-		    					
-					<div class="modal-body">
-						<a href="/signup/instructor">
-							<button type="button" class="btn btn-lg btn-default" onclick="">
-								instructor
-							</button>
-						</a>
-						<br>
-						<br>
-						<a href="/signup/student">
-							<button type="button" class="btn btn-lg btn-default" onclick="">
-								student
-							</button>
-						</a>
-					</div>
-					<div class="modal-footer">
-
 					</div>
 				</div>
 			</div>
-		</center>
-	</div>
 
-	<!-- 
-		*TRY ALERT MODALS HERE
-		<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal-success">Open Modal</button> 
-		-->
-
-		<!-- Modal -->
-		<div id="modal-error" class="modal fade" role="dialog">
-		  	<div class="modal-dialog">
-
-			    <!-- Modal error-->
-			    <div class="modal-content">
-			      <div class="modal-header modal-header-danger">
-			        <button type="button" class="close" data-dismiss="modal">&times;</button>
-			        <h4 class="modal-title">
-			        	<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-			        </h4>
-			      </div>
-			      <div class="modal-body modal-body-danger">
-			        <p></p>
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			      </div>
-			    </div>
-			</div>
-		</div>	    
-
-		<div id="modal-success" class="modal fade" role="dialog">
-		    <div class="modal-dialog">	
-		    	<!-- Modal success-->
-			    <div class="modal-content">
-			      <div class="modal-header modal-header-success">
-			        <button type="button" class="close" data-dismiss="modal">&times;</button>
-			        <h4 class="modal-title">
-			        	<i class="fa fa-check-circle" aria-hidden="true"></i>
-			        </h4>
-			      </div>
-			      <div class="modal-body modal-body-success">
-			        <p></p>
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			      </div>
-			    </div>
-		  	</div>
 		</div>
-
-		<!-- TRY INFORMATION MODAL HERE -->
-
-
-		<!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#info_modal">Open Modal</button> -->
-
-		<!-- Modal -->
-		<div id="info_modal" class="modal fade" role="dialog">
-		  <div class="modal-dialog">
-
-		    <!-- Modal content-->
-		    <div class="modal-content">
-		      <div class="modal-header modal-header-info">
-		        <button type="button" class="close" data-dismiss="modal">&times;</button>
-		        <h4 class="modal-title">
-		        	<i class="fa fa-info-circle" aria-hidden="true"></i>
-		        	Information
-		        </h4>
-		      </div>
-		      <div class="modal-body">
-		        <p></p>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		      </div>
-		    </div>
-
-		  </div>
-		</div>	
-	
+	</div>
 
 	<!-- <footer>
 		<div class="container">
@@ -350,8 +249,8 @@
 					PUP EVENTS<br>
 					All rights reserved 2017.
 				</div>
-			</div>		
-		</div>	
+			</div>
+		</div>
 	</footer> -->
 
 	<script type="javascript">
@@ -375,7 +274,7 @@
             $inputs.prop("disabled", true);
 
             console.log(serializedData);
-            
+
             // Fire off the request to /form.php
             request = $.ajax({
                 url: $SCRIPT_ROOT + "signin",
@@ -389,7 +288,7 @@
 
             // Callback handler that will be called on success
             request.done(function (response, textStatus, jqXHR){
-                
+
             });
 
             // Callback handler that will be called on failure
@@ -409,7 +308,9 @@
             });
 
         });
+       
 	</script>
 
 </body>
+
 </html>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2017 at 05:13 AM
+-- Generation Time: Mar 15, 2017 at 02:07 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.23
 
@@ -30,13 +30,13 @@ CREATE TABLE `event` (
   `eventId` int(10) NOT NULL,
   `eventName` varchar(30) NOT NULL,
   `eventDesc` varchar(40) NOT NULL,
-  `date` date NOT NULL,
+  `eventDate` date NOT NULL,
   `startTime` time NOT NULL,
   `endTime` time NOT NULL,
   `venueId` int(10) NOT NULL,
-  `organzerId` int(10) NOT NULL,
+  `organizerId` int(10) NOT NULL,
   `peopleAlloc` int(11) NOT NULL,
-  `status` varchar(15) NOT NULL
+  `status` varchar(15) NOT NULL DEFAULT 'reserved'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -47,9 +47,15 @@ CREATE TABLE `event` (
 
 CREATE TABLE `guest` (
   `guestId` int(10) NOT NULL,
-  `userId` varchar(15) NOT NULL,
-  `eventId` int(10) NOT NULL
+  `userId` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `guest`
+--
+
+INSERT INTO `guest` (`guestId`, `userId`) VALUES
+(2, 'xcxcxc');
 
 -- --------------------------------------------------------
 
@@ -59,9 +65,26 @@ CREATE TABLE `guest` (
 
 CREATE TABLE `organizer` (
   `organizerId` int(11) NOT NULL,
-  `userId` varchar(20) NOT NULL,
-  `eventId` int(11) NOT NULL
+  `userId` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `samp`
+--
+
+CREATE TABLE `samp` (
+  `id` int(5) NOT NULL,
+  `name` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `samp`
+--
+
+INSERT INTO `samp` (`id`, `name`) VALUES
+(9, 'reserve');
 
 -- --------------------------------------------------------
 
@@ -108,9 +131,8 @@ CREATE TABLE `venue` (
 CREATE TABLE `venueinfo` (
   `venueInfoId` int(10) NOT NULL,
   `venueName` varchar(30) NOT NULL,
-  `cost` double NOT NULL,
-  `equipment` varchar(20) NOT NULL,
-  `venueDesc` varchar(40) NOT NULL
+  `capacity` int(11) NOT NULL DEFAULT '0',
+  `cost` double NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -123,14 +145,13 @@ CREATE TABLE `venueinfo` (
 ALTER TABLE `event`
   ADD PRIMARY KEY (`eventId`),
   ADD KEY `venueId` (`venueId`),
-  ADD KEY `organzerId` (`organzerId`);
+  ADD KEY `organzerId` (`organizerId`);
 
 --
 -- Indexes for table `guest`
 --
 ALTER TABLE `guest`
   ADD PRIMARY KEY (`guestId`),
-  ADD KEY `eventId` (`eventId`),
   ADD KEY `userId_idx` (`userId`),
   ADD KEY `userId` (`userId`);
 
@@ -165,6 +186,25 @@ ALTER TABLE `venueinfo`
   ADD PRIMARY KEY (`venueInfoId`);
 
 --
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `organizer`
+--
+ALTER TABLE `organizer`
+  MODIFY `organizerId` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `venue`
+--
+ALTER TABLE `venue`
+  MODIFY `venueId` int(10) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `venueinfo`
+--
+ALTER TABLE `venueinfo`
+  MODIFY `venueInfoId` int(10) NOT NULL AUTO_INCREMENT;
+--
 -- Constraints for dumped tables
 --
 
@@ -172,14 +212,8 @@ ALTER TABLE `venueinfo`
 -- Constraints for table `event`
 --
 ALTER TABLE `event`
-  ADD CONSTRAINT `event_ibfk_1` FOREIGN KEY (`venueId`) REFERENCES `venue` (`venueId`),
-  ADD CONSTRAINT `event_ibfk_2` FOREIGN KEY (`organzerId`) REFERENCES `organizer` (`organizerId`);
-
---
--- Constraints for table `guest`
---
-ALTER TABLE `guest`
-  ADD CONSTRAINT `guest_ibfk_1` FOREIGN KEY (`eventId`) REFERENCES `event` (`eventId`);
+  ADD CONSTRAINT `event_ibfk_2` FOREIGN KEY (`organizerId`) REFERENCES `organizer` (`organizerId`),
+  ADD CONSTRAINT `event_ibfk_3` FOREIGN KEY (`venueId`) REFERENCES `venue` (`venueId`);
 
 --
 -- Constraints for table `venue`

@@ -97,20 +97,25 @@ def signup_():
         session['user_id'] = data['studentNumber']
         return redirect('/home')
 
+    except TypeError as e:
+        data = [
+            {
+             'type': 'error',
+             'message': 'Identification number already exist.'
+            }
+        ]
+        dumps = json.dumps(data)
+        data = json.loads(dump)
+
+        mysql.connection.rollback()
+        return data
+
     except Exception as e:
         con.rollback()
         return e
 
-    except TypeError as e:
-        '''
-            Return error here for student number already exists in database
-        '''
-        mysql.connection.rollback()
-        return e
     finally:
         cur.close()
-
-
 
 @app.route('/signin', methods = ['POST'])
 def signin_():
@@ -146,7 +151,6 @@ def signin_():
 
         finally:
             cur.close()
-
 
 ########################################################################################################################
 

@@ -2,10 +2,10 @@
 -- version 4.5.1
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Mar 12, 2017 at 03:07 PM
--- Server version: 5.6.26-log
--- PHP Version: 7.0.4
+-- Host: 127.0.0.1
+-- Generation Time: Mar 15, 2017 at 05:13 AM
+-- Server version: 10.1.13-MariaDB
+-- PHP Version: 5.6.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -29,11 +29,13 @@ SET time_zone = "+00:00";
 CREATE TABLE `event` (
   `eventId` int(10) NOT NULL,
   `eventName` varchar(30) NOT NULL,
-  `dateTime` datetime(6) NOT NULL,
+  `eventDesc` varchar(40) NOT NULL,
+  `date` date NOT NULL,
+  `startTime` time NOT NULL,
+  `endTime` time NOT NULL,
   `venueId` int(10) NOT NULL,
   `organzerId` int(10) NOT NULL,
-  `guestId` int(10) NOT NULL,
-  `eventDesc` varchar(40) NOT NULL,
+  `peopleAlloc` int(11) NOT NULL,
   `status` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -82,6 +84,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `firstName`, `lastName`, `contactNumber`, `designation`, `email`, `password`) VALUES
+('2014-01559-MN-0', 'Jay Leonarth', 'Gecarane', '09224750210', 'student', 'jayleonarth_gecarane@yahoo.com', 'd3cada00b2f6eafc5ec4f6c2cb81091ab7eef31d92345f73b48dc381a239af29'),
 ('2014-05666-MN-0', 'Redentor', 'Periabras', '09093291283', 'student', 'redperiabras@gmail.com', '6eeb9d2bdd07689712c90334d568775b9f1cb1f9bcb9c1ea86ce8acfb7ab8e83');
 
 -- --------------------------------------------------------
@@ -120,8 +123,7 @@ CREATE TABLE `venueinfo` (
 ALTER TABLE `event`
   ADD PRIMARY KEY (`eventId`),
   ADD KEY `venueId` (`venueId`),
-  ADD KEY `organzerId` (`organzerId`),
-  ADD KEY `guestId` (`guestId`);
+  ADD KEY `organzerId` (`organzerId`);
 
 --
 -- Indexes for table `guest`
@@ -171,8 +173,7 @@ ALTER TABLE `venueinfo`
 --
 ALTER TABLE `event`
   ADD CONSTRAINT `event_ibfk_1` FOREIGN KEY (`venueId`) REFERENCES `venue` (`venueId`),
-  ADD CONSTRAINT `event_ibfk_2` FOREIGN KEY (`organzerId`) REFERENCES `organizer` (`organizerId`),
-  ADD CONSTRAINT `event_ibfk_3` FOREIGN KEY (`guestId`) REFERENCES `guest` (`guestId`);
+  ADD CONSTRAINT `event_ibfk_2` FOREIGN KEY (`organzerId`) REFERENCES `organizer` (`organizerId`);
 
 --
 -- Constraints for table `guest`

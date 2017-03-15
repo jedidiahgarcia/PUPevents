@@ -2,10 +2,10 @@
 -- version 4.5.1
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 15, 2017 at 02:07 PM
--- Server version: 10.1.13-MariaDB
--- PHP Version: 5.6.23
+-- Host: localhost
+-- Generation Time: Mar 16, 2017 at 12:56 AM
+-- Server version: 5.6.26-log
+-- PHP Version: 7.0.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -20,6 +20,16 @@ SET time_zone = "+00:00";
 -- Database: `pupevents`
 --
 
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getAllEvents` ()  BEGIN
+	Select eventId, eventName, eventDate, startTime, endTime from event;
+END$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -29,7 +39,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `event` (
   `eventId` int(10) NOT NULL,
   `eventName` varchar(30) NOT NULL,
-  `eventDesc` varchar(40) NOT NULL,
+  `eventDesc` varchar(100) NOT NULL,
   `eventDate` date NOT NULL,
   `startTime` time NOT NULL,
   `endTime` time NOT NULL,
@@ -38,6 +48,13 @@ CREATE TABLE `event` (
   `peopleAlloc` int(11) NOT NULL,
   `status` varchar(15) NOT NULL DEFAULT 'reserved'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `event`
+--
+
+INSERT INTO `event` (`eventId`, `eventName`, `eventDesc`, `eventDate`, `startTime`, `endTime`, `venueId`, `organizerId`, `peopleAlloc`, `status`) VALUES
+(1, 'PUP Operation Tuli', 'Para sa minsang nangarap ngunit natakot haha', '2017-03-16', '08:00:00', '16:00:00', 2, 1, 50, 'published');
 
 -- --------------------------------------------------------
 
@@ -67,6 +84,13 @@ CREATE TABLE `organizer` (
   `organizerId` int(11) NOT NULL,
   `userId` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `organizer`
+--
+
+INSERT INTO `organizer` (`organizerId`, `userId`) VALUES
+(1, '2014-05666-MN-0');
 
 -- --------------------------------------------------------
 
@@ -118,9 +142,15 @@ INSERT INTO `user` (`id`, `firstName`, `lastName`, `contactNumber`, `designation
 
 CREATE TABLE `venue` (
   `venueId` int(10) NOT NULL,
-  `venueInfoId` int(10) NOT NULL,
-  `eventId` int(10) NOT NULL
+  `venueInfoId` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `venue`
+--
+
+INSERT INTO `venue` (`venueId`, `venueInfoId`) VALUES
+(2, 1);
 
 -- --------------------------------------------------------
 
@@ -134,6 +164,13 @@ CREATE TABLE `venueinfo` (
   `capacity` int(11) NOT NULL DEFAULT '0',
   `cost` double NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `venueinfo`
+--
+
+INSERT INTO `venueinfo` (`venueInfoId`, `venueName`, `capacity`, `cost`) VALUES
+(1, 'Bulwagang Balagtas', 50, 500);
 
 --
 -- Indexes for dumped tables
@@ -175,9 +212,7 @@ ALTER TABLE `user`
 --
 ALTER TABLE `venue`
   ADD PRIMARY KEY (`venueId`),
-  ADD UNIQUE KEY `venueInfoId` (`venueInfoId`),
-  ADD KEY `eventId` (`eventId`),
-  ADD KEY `eventId_2` (`eventId`);
+  ADD UNIQUE KEY `venueInfoId` (`venueInfoId`);
 
 --
 -- Indexes for table `venueinfo`
@@ -190,20 +225,25 @@ ALTER TABLE `venueinfo`
 --
 
 --
+-- AUTO_INCREMENT for table `event`
+--
+ALTER TABLE `event`
+  MODIFY `eventId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `organizer`
 --
 ALTER TABLE `organizer`
-  MODIFY `organizerId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `organizerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `venue`
 --
 ALTER TABLE `venue`
-  MODIFY `venueId` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `venueId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `venueinfo`
 --
 ALTER TABLE `venueinfo`
-  MODIFY `venueInfoId` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `venueInfoId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Constraints for dumped tables
 --
@@ -219,7 +259,6 @@ ALTER TABLE `event`
 -- Constraints for table `venue`
 --
 ALTER TABLE `venue`
-  ADD CONSTRAINT `venue_ibfk_1` FOREIGN KEY (`eventId`) REFERENCES `event` (`eventId`),
   ADD CONSTRAINT `venue_ibfk_2` FOREIGN KEY (`venueInfoId`) REFERENCES `venueinfo` (`venueInfoId`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

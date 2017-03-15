@@ -20,15 +20,9 @@ mysql = MySQL(app)
 
 #@Page rendering and Routes #############################################################################################
 
-@app.route('/request_json', methods=['POST'])
-def sample():
-    return json_response(status='Json message',
-        message='I hope you work na :(')
-
 @app.route('/')
 def default():
-    #request the calendar data
-    #render calendar with data
+
     if 'user_id' not in session:
         return render_template('index.html')
     else:

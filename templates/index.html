@@ -336,7 +336,7 @@
 	  	</div>
 
 	    <script type="text/javascript">
-	        $.getScript('http://arshaw.com/js/fullcalendar-1.6.4/fullcalendar/fullcalendar.min.js',function(){
+	        $.getScript('../static/js/calendar.min.js',function(){
 	        
 	        var date = new Date();
 	        var d = date.getDate();
@@ -349,146 +349,35 @@
 	            center: 'title',
 	            right: 'month,agendaWeek,agendaDay'
 	          },
-	          editable: true,
-	          events: [
-	            {
-	              title: 'All Day Event',
-	              start: new Date(y, m, 1)
-	            },
-	            {
-	              title: 'Long Event',
-	              start: new Date(y, m, d-5),
-	              end: new Date(y, m, d-2)
-	            },
-	            {
-	              id: 999,
-	              title: 'Repeating Event',
-	              start: new Date(y, m, d-3, 16, 0),
-	              allDay: false
-	            },
-	            {
-	              id: 999,
-	              title: 'Repeating Event',
-	              start: new Date(y, m, d+4, 16, 0),
-	              allDay: false
-	            },
-	            {
-	              title: 'Meeting',
-	              start: new Date(y, m, d, 10, 30),
-	              allDay: false
-	            },
-	            {
-	              title: 'Lunch',
-	              start: new Date(y, m, d, 12, 0),
-	              end: new Date(y, m, d, 14, 0),
-	              allDay: false
-	            },
-	            {
-	              title: 'Birthday Party',
-	              start: new Date(y, m, d+1, 19, 0),
-	              end: new Date(y, m, d+1, 22, 30),
-	              allDay: false
-	            },
-	            {
-	              title: 'Click for Google',
-	              start: new Date(y, m, 28),
-	              end: new Date(y, m, 29),
-	              url: 'http://google.com/'
-	            }
-	          ]
+	          editable: false,
+	          events:
+	            [ 
+	            	{% if events is defined %}
+			          	{% for event in events%}
+			          		{
+			          			title:{{event['title']}},
+			          			start: new Date(
+			          				{{event['startyear']}},
+			          				{{event['startmonth']}},
+			          				{{event['startday']}},
+			          				{{event['starttimehrs']}},
+			          				{{event['starttimemnts']}}
+			          				)
+			          			end:new Date(
+			          				{{event['endyear']}},
+			          				{{event['endmonth']}},
+			          				{{event['endday']}},
+			          				{{event['endtimehrs']}},
+			          				{{event['endtimemnts']}}
+			          				),			
+			          		},
+			          	{% endfor %}
+		          	{% endif %}
+	          	]
 	        });
 	      })
 	    </script>
 	</div>    
-
-
-	
-
-
-
-
-
-		 
-	<!-- *TRY ALERT MODALS HERE
-		<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal-success">Open Modal</button>  -->
-		
-
-		<!-- Modals -->
-
-		<!-- Modal error-->
-		<div id="modal-error" class="modal fade" role="dialog">
-		  	<div class="modal-dialog">
-
-			    
-			    <div class="modal-content">
-			      <div class="modal-header modal-header-danger">
-			        <button type="button" class="close" data-dismiss="modal">&times;</button>
-			        <h4 class="modal-title">
-			        	<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-			        </h4>
-			      </div>
-			      <div class="modal-body modal-body-danger">
-			        <p></p>
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			      </div>
-			    </div>
-			</div>
-		</div>	    
-
-		<!-- Modal success-->
-		<div id="modal-success" class="modal fade" role="dialog">
-		    <div class="modal-dialog">	
-		    	<!-- Modal success-->
-			    <div class="modal-content">
-			      <div class="modal-header modal-header-success">
-			        <button type="button" class="close" data-dismiss="modal">&times;</button>
-			        <h4 class="modal-title">
-			        	<i class="fa fa-check-circle" aria-hidden="true"></i>
-			        </h4>
-			      </div>
-			      <div class="modal-body modal-body-success">
-			        <p></p>
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			      </div>
-			    </div>
-		  	</div>
-		</div>
-
-
-		<!-- TRY INFORMATION MODAL HERE -->
-
-
-		<!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#info_modal">Open Modal</button> -->
-
-		<!-- Modal -->
-		<div id="info_modal" class="modal fade" role="dialog">
-		  <div class="modal-dialog">
-
-		    <!-- Modal content-->
-		    <div class="modal-content">
-		      <div class="modal-header modal-header-info">
-		        <button type="button" class="close" data-dismiss="modal">&times;</button>
-		        <h4 class="modal-title">
-		        	<i class="fa fa-info-circle" aria-hidden="true"></i>
-		        	Information
-		        </h4>
-		      </div>
-		      <div class="modal-body">
-		        <p></p>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		      </div>
-		    </div>
-
-		  </div>
-		</div>
-
-
 
 	<footer>
 		<center>

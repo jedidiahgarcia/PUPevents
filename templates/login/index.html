@@ -208,14 +208,16 @@
 						Log in to PUP Events
 					</div>
 				</div>
-
+	
 				<div class="wrapper-2">
-					<form id ="details" method="POST" class="form-group">
-						<input name="identification" type="text" id="" name="email" class="form-control" placeholder="Identification number" required autofocus>
-						<br/>
-						<input name="password" type="password" id="" class="form-control" placeholder="Password" required="" autofocus="">
-						<br/>
-					</form>
+					<center>
+						<form id ="details" method="POST" class="form-group">
+							<input name="identification" type="text" id="" name="email" class="form-control" placeholder="Identification number" required autofocus>
+							<br/>
+							<input name="password" type="password" id="" class="form-control" placeholder="Password" required="" autofocus="">
+							<br/>
+						</form>
+					</center>
 				</div>	
 
 				<div class="wrapper-3">
@@ -314,8 +316,6 @@
 		</div>
 
 		<!-- TRY INFORMATION MODAL HERE -->
-
-
 		<!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#info_modal">Open Modal</button> -->
 
 		<!-- Modal -->
@@ -338,7 +338,6 @@
 		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 		      </div>
 		    </div>
-
 		  </div>
 		</div>	
 	
@@ -385,11 +384,6 @@
                 success: function(response){
                 	console.log(response);
                 }
-            });
-
-            // Callback handler that will be called on success
-            request.done(function (response, textStatus, jqXHR){
-                
             });
 
             // Callback handler that will be called on failure

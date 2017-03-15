@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, jsonify, Response, make_response
+from flask import Flask, request, render_template, redirect, jsonify, Response
 from flask_mysqldb import MySQL
 
 import json
@@ -18,6 +18,10 @@ mysql = MySQL(app)
     # return str(rv)
 
 #@Page rendering and Routes #############################################################################################
+
+@app.route('/request_json')
+def sample():
+    return message('hey', 'this is a json data')
 
 @app.route('/')
 def default():
@@ -167,14 +171,10 @@ def message(type, message):
     response = Response(
         response=json.dumps(data),
         status=200,
-        mimetype='application/json'
+        headers={
+            'Content-Type': 'application/json'
+        }
     )
-    response.headers["Content-Type"] = "application/json"
-
-    response = make_response(json.dumps(data))
-    response.headers['Content-Type'] = 'text/html; charset=utf-8'
-
-    return response
 
 if __name__ == '__main__':
     app.run(debug=True)

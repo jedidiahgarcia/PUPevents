@@ -12,7 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="../static/css/font-awesome.min.css">
 	<link rel="icon" href="../static/images/PUP.png" type="">
-	<link rel='stylesheet' href='http://fullcalendar.io/js/fullcalendar-2.2.3/fullcalendar.css' />
+	<link rel="stylesheet" type="text/css" href="../static/css/style.css">
 
 	<style type="text/css">
 		.navbar {
@@ -65,8 +65,8 @@
 		}
 
 		img {
-			height: 100px;
-			width: 100px;
+			height: 10px;
+			width: 10px;
 		}
 
 
@@ -76,17 +76,17 @@
 		}
 
 		.featured-cover {
-			padding-top: 7%;
+			padding-top: 50px;
 			width: 100%;
 			/*background-color: #2E3254;*/
 			/*background-color: #5F5F5F;*/
 			background-color: black;
-			padding-bottom: 5%;
+			padding-bottom: 3%;
 		}
 
 		.event-teaser {
 			width: 80%;
-			height: 50px;
+			height: 20%;
 			background-color: #F0F0F0;
 			border-radius: 4px;
 			margin-bottom: 10px;
@@ -197,6 +197,7 @@
 		.calendar {
 			background-color: white;
 			padding-top: 10px;
+			padding-bottom: 40px;
 		}
 
 	</style>
@@ -210,6 +211,7 @@
 			<nav class="navbar navbar-default navbar-fixed-top">
 				<div class="container">
 					<div class="navbar-header">
+						
 						<a href="/" class="navbar-brand navbar-link">
 							<span style="color: #880000;">
 							pup</span><span style="color: black;">events</span>
@@ -233,68 +235,17 @@
 				</div>
 			</nav>
 		</div>	
-
 	</header>
 
-	<!-- CALENDAR -->
-	<div class="calendar">
-		<div class="container">
-	  		<div class="row">
-	  			<div class="col-md-12">
-	    			<div id='calendar'></div>
-	  			</div>
-	  		</div>
-		</div>
-
-		<script type="text/javascript">
-			$(document).ready(function() {
-		  // page is now ready, initialize the calendar...
-		  // options and github  - http://fullcalendar.io/
-
-		$('#calendar').fullCalendar({
-		    dayClick: function() {
-		        alert('a day has been clicked!');
-		    }
-		});
-
-		});
-		</script>
-		<script src='http://fullcalendar.io/js/fullcalendar-2.2.3/lib/moment.min.js'></script>
-		<script src='http://fullcalendar.io/js/fullcalendar-2.2.3/fullcalendar.min.js'></script>
-	</div>	
-
 	<div class="container featured-cover">
-		<center>	
-
-		<img src="../static/images/PUP.png">
-		<h2>
+		<center>
+		<!-- <img src="../static/images/PUP.png"> -->
+		<h3>
 		<span style="color: white; font-family: Montserrat; font-weight: bold;">
 		UPCOMING EVENTS
 		</span>
-		</h2>
+		</h3>
 
-		<div class="event-teaser">
-			<div class="row">
-				<div class="col-md-3">
-					<i class="fa fa-calendar" aria-hidden="true"></i>
-					March 1, 2016
-				</div>
-				<div class="col-md-3">
-					<i class="fa fa-clock-o" aria-hidden="true"></i>
-					6:00 AM - 5:00 PM
-				</div>
-				<div class="col-md-3">
-					<span id="event-title" style="font-size: 15px;">
-					PUP Rave Party
-					</span>
-				</div>
-				<div class="col-md-3">
-					<i class="fa fa-map-marker" aria-hidden="true"></i>
-					PUP Main
-				</div>
-			</div>	
-		</div>	
-	
 		<div class="event-teaser">
 			<div class="row">
 				<div class="col-md-3">
@@ -338,6 +289,30 @@
 				</div>
 			</div>	
 		</div>
+
+		<div class="event-teaser">
+			<div class="row">
+				<div class="col-md-3">
+					<i class="fa fa-calendar" aria-hidden="true"></i>
+					March 1, 2016
+				</div>
+				<div class="col-md-3">
+					<i class="fa fa-clock-o" aria-hidden="true"></i>
+					6:00 AM - 5:00 PM
+				</div>
+				<div class="col-md-3">
+					<span id="event-title" style="font-size: 15px;">
+					PUP Rave Party
+					</span>
+				</div>
+				<div class="col-md-3">
+					<i class="fa fa-map-marker" aria-hidden="true"></i>
+					PUP Main
+				</div>
+			</div>	
+		</div>
+
+
 
 		<div class="row">
 				<div class="col-md-2">
@@ -353,9 +328,88 @@
 		</center>
 	</div>	
 
+	<!-- CALENDAR -->
+	<div class="calendar">
+		<div class="container">
+	    	<hr>
+	    	<div id="calendar"></div>
+	  	</div>
+
+	    <script type="text/javascript">
+	        $.getScript('http://arshaw.com/js/fullcalendar-1.6.4/fullcalendar/fullcalendar.min.js',function(){
+	        
+	        var date = new Date();
+	        var d = date.getDate();
+	        var m = date.getMonth();
+	        var y = date.getFullYear();
+	        
+	        $('#calendar').fullCalendar({
+	          header: {
+	            left: 'prev,next today',
+	            center: 'title',
+	            right: 'month,agendaWeek,agendaDay'
+	          },
+	          editable: true,
+	          events: [
+	            {
+	              title: 'All Day Event',
+	              start: new Date(y, m, 1)
+	            },
+	            {
+	              title: 'Long Event',
+	              start: new Date(y, m, d-5),
+	              end: new Date(y, m, d-2)
+	            },
+	            {
+	              id: 999,
+	              title: 'Repeating Event',
+	              start: new Date(y, m, d-3, 16, 0),
+	              allDay: false
+	            },
+	            {
+	              id: 999,
+	              title: 'Repeating Event',
+	              start: new Date(y, m, d+4, 16, 0),
+	              allDay: false
+	            },
+	            {
+	              title: 'Meeting',
+	              start: new Date(y, m, d, 10, 30),
+	              allDay: false
+	            },
+	            {
+	              title: 'Lunch',
+	              start: new Date(y, m, d, 12, 0),
+	              end: new Date(y, m, d, 14, 0),
+	              allDay: false
+	            },
+	            {
+	              title: 'Birthday Party',
+	              start: new Date(y, m, d+1, 19, 0),
+	              end: new Date(y, m, d+1, 22, 30),
+	              allDay: false
+	            },
+	            {
+	              title: 'Click for Google',
+	              start: new Date(y, m, 28),
+	              end: new Date(y, m, 29),
+	              url: 'http://google.com/'
+	            }
+	          ]
+	        });
+	      })
+	    </script>
+	</div>    
+
+
+	
+
+
+
+
 
 		 
-		<!-- *TRY ALERT MODALS HERE
+	<!-- *TRY ALERT MODALS HERE
 		<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal-success">Open Modal</button>  -->
 		
 
@@ -433,8 +487,6 @@
 
 		  </div>
 		</div>
-
-		
 
 
 

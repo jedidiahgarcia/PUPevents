@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, jsonify, Response
 from flask_mysqldb import MySQL
 
 import json
@@ -97,22 +97,13 @@ def signup_():
         session['user_id'] = data['studentNumber']
         return redirect('/home')
 
-    except TypeError as e:
-        data = [
-            {
-             'type': 'error',
-             'message': 'Identification number already exist.'
-            }
-        ]
-        dumps = json.dumps(data)
-        data = json.loads(dump)
-
-        mysql.connection.rollback()
-        return data
-
     except Exception as e:
         con.rollback()
         return e
+
+    except TypeError as e:
+        mysql.connection.rollback()
+        return message('error', 'Identification number already exist.')
 
     finally:
         cur.close()
@@ -123,7 +114,7 @@ def signin_():
         dump = json.dumps(request.form)
         data = json.loads(dump)
         hashed_pw = hashlib.sha256(data['identification'].encode() + data['password'].encode()).hexdigest()
-        
+
         sql = "SELECT password FROM user where id='%s'" % data['identification']
 
         try:
@@ -135,24 +126,34 @@ def signin_():
 
             account_password = response[0];
 
-            if(account_password == hashed_pw):
-                session['user_id'] = data['identification']
-                return redirect('/home')
+            if(response is None):
+                return message('error', "Account doesn't exist")
             else:
-                return 'Invalid Password'
+                if(account_password == hashed_pw):
+                    session['user_id'] = data['identification']
+                    return redirect('/home')
+                else:
+                    return message('error', "Invalid password.")
 
         except Exception as e:
             con.rollback()
-            return e
+            return None
 
         except TypeError as e:
             con.rollback()
-            return e
+            return None
 
         finally:
             cur.close()
 
 ########################################################################################################################
 
+def message(type, message):
+    data = {
+        'type': type,
+        'message': message
+    }
+    return Response(json.dumps(data), status=200, mimetype='application/json')
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()

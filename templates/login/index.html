@@ -380,13 +380,13 @@
             request = $.ajax({
                 url: "/signin",
                 type: "POST",
+                contentType: 'application/json;charset=UTF-8',
                 data: serializedData
             });
 
             // Callback handler that will be called on success
             request.done(function (response, textStatus, jqXHR){
-                // Log a message to the console
-                console.log(response);
+                alert(response);
             });
 
             // Callback handler that will be called on failure

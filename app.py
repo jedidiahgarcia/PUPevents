@@ -168,12 +168,17 @@ def create_():
     data = json.loads(dump)
     
     venueId = 9
-    organizerId = session['user_id']
+    organizerId = 9
+    reserve = 'reserve'
     
-    sql = "INSERT INTO  event a, venue b, venueinfo c(a.eventName, a.eventDesc, a.date, a.startTime, a.endTime, a.venueId, a.organizerId, a.peopleAlloc, a.status) \
-       VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%d', '%d', '%d')" % \
-       (data['eventName'], data['eventDesc'], data['date'], data['startTime'], data['endTime'], venueId, organizerId, data['peopleAlloc'])
-
+    sql = "INSERT INTO event a, guest b(a.eventName, a.eventDesc, a.date, a.startTime, a.endTime, a.venueId, a.organizerId, a.peopleAlloc, a.status) \
+       VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')" % \
+       (data['eventName'], data['eventDesc'], data['date'], data['startTime'], data['endTime'], venueId, organizerId, data['peopleAlloc'], reserve)
+    '''
+    sql = "INSERT INTO samp(id, name) \
+       VALUES ('%d', '%s')" %\
+       (venueId, reserve)
+    '''
     try:
         con = mysql.connection
         cur = con.cursor()
@@ -182,17 +187,8 @@ def create_():
         return redirect('/create/event')
 
     except TypeError as e:
-        data = [
-            {
-             'type': 'error',
-             'message': 'Identification number already exist.'
-            }
-        ]
-        dumps = json.dumps(data)
-        data = json.loads(dump)
-
         mysql.connection.rollback()
-        return data
+        return e
 
     except Exception as e:
         con.rollback()

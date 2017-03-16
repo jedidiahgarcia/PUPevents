@@ -204,7 +204,8 @@
 					<div class="navbar-header">
 						<a href="/home" class="navbar-brand navbar-link">
 							<span style="color: #880000;">
-							pup</span><span style="color: black;">events</span>
+								pup
+							</span><span style="color: black;">events</span>
 						</a>
 						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"></button>
 						<span class="sr-only">Toggle navigation</span>
@@ -235,7 +236,7 @@
 	<div class="event-cover">
 		<div id="event-title">
 			<center>
-			<h1>PUP RAVE PARTY</h1>
+			<h1>{{ event['title'] }}</h1>
 			</center>
 		</div>
 	</div>	
@@ -262,7 +263,7 @@
 		<div class="wrapper-2">
 			<div id="event-date">
 				<i class="fa fa-calendar" aria-hidden="true"></i>
-				February 28, 2017
+				{{ event['date'] }}
 			</div>
 			
 		</div>
@@ -276,7 +277,7 @@
 		<div class="wrapper-2">
 			<div id="event-time">
 			<i class="fa fa-clock-o" aria-hidden="true"></i>
-			10:00 AM - 5:00 PM
+			{{ event['starttime'] }} - {{ event['endtime'] }}
 			</div>
 		</div>
 	</div>
@@ -289,16 +290,16 @@
 		<div class="wrapper-2">
 			<div id="event-location">
 				<i class="fa fa-map-marker" aria-hidden="true"></i>
-				PUP Main Campus	
+				{{ event['location'] }}
 			</div>
 		</div>
 	</div>
 
 	<div class="container">
 		<center>
-		<button type="button" class="btn btn-danger">
-			JOIN EVENT
-		</button>
+			<button type="button" class="btn btn-danger">
+				JOIN EVENT
+			</button>
 		</center>
 	</div>
 

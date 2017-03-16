@@ -111,10 +111,9 @@ def create():
 
 @app.route('/home')
 def home():
-    events = []
-    upcoming = []
-
     if 'user_id' in session:
+        events = []
+        upcoming = []
         try:
             con = mysql.connection
             cur = con.cursor()
@@ -193,8 +192,41 @@ def signup():
 
 @app.route('/view/event/<event_id>')
 def view_event(event_id):
+    try:
+        con = mysql.connection
+        cur = con.cursor()
+        cur.callproc('viewEvent', [event_id])
+        data = cur.fetchone()
+        print(data)
 
-    return render_template('view_event/index.html')
+        event = {}
+
+        event['title'] = data[0]
+        event['desc'] = data[1]
+        event['date'] = data[2]
+
+        hours, remainder = divmod(data[3].seconds, 3600)
+        minutes, seconds = divmod(remainder, 60)
+        starttime = '%02d:%02d' % (hours, minutes)
+
+        event['starttime'] = starttime
+
+        hours, remainder = divmod(data[4].seconds, 3600)
+        minutes, seconds = divmod(remainder, 60)
+        endtime = '%02d:%02d' % (hours, minutes)
+
+        event['endtime'] = endtime
+ 
+        event['location'] = data[5]
+
+    except Exception as e:
+        con.rollback()
+        return e
+
+    finally:
+        cur.close()
+
+    return render_template('view_event/index.html', event = event)
 
 @app.route('/profile')
 def profile():

@@ -19,11 +19,10 @@ mysql = MySQL(app)
 @app.route('/')
 def default():
     if 'user_id' not in session:
-        
+
         events = []
         upcoming = []
 
-        
         try:
             con = mysql.connection
             cur = con.cursor()
@@ -31,21 +30,22 @@ def default():
             data = cur.fetchall()
 
             for datum in data:
+                print(datum)
                 event = {}
                 event['title'] = datum[0]
                 event['date'] = datum[1]
-                event['starttimehrs'] = datum[2].seconds//3600
-                event['starttimemnts'] = (datum[2].seconds//60)%60
-                print(event['starttimemnts'] )
 
-                if(event['starttimemnts'] is ""):
-                    event['starttimemnts'] = "00"
+                hours, remainder = divmod(datum[2].seconds, 3600)
+                minutes, seconds = divmod(remainder, 60)
+                starttime = '%02d:%02d' % (hours, minutes)
 
-                event['endtimehrs'] = datum[3].seconds//3600
-                event['endtimemnts'] = (datum[3].seconds//60)%60
+                event['starttime'] = starttime
 
-                if(event['endtimemnts'] is ""):
-                    event['endtimemnts'] = "00"
+                hours, remainder = divmod(datum[3].seconds, 3600)
+                minutes, seconds = divmod(remainder, 60)
+                endtime = '%02d:%02d' % (hours, minutes)
+
+                event['endtime'] = endtime
 
                 event['location'] = datum[4]
                 upcoming.append(event)
@@ -80,11 +80,13 @@ def default():
                 event['endday'] = datum[2].day
                 event['endtimehrs'] = datum[4].seconds//3600
                 event['endtimemnts'] = (datum[4].seconds//60)%60
+
                 events.append(event)
 
         except Exception as e:
             con.rollback()
             return e
+
         finally:
             cur.close()
 
@@ -114,7 +116,37 @@ def home():
     data = json.loads(dump)
 
     if 'user_id' in session:
-        return render_template('home/index.html')
+        try:
+            con = mysql.connection
+            cur = con.cursor()
+            cur.callproc('getAllEvents')
+            data = cur.fetchall()
+
+            for datum in data:
+                event = {}
+
+                event['id'] = datum[0]
+                event['title'] = datum[1]
+                event['startYear'] = datum[2].year
+                event['startmonth'] = datum[2].month
+                event['startday'] = datum[2].day
+                event['starttimehrs'] = datum[3].seconds//3600
+                event['starttimemnts'] = (datum[3].seconds//60)%60
+                event['endyear'] = datum[2].year
+                event['endmonth'] = datum[2].month
+                event['endday'] = datum[2].day
+                event['endtimehrs'] = datum[4].seconds//3600
+                event['endtimemnts'] = (datum[4].seconds//60)%60
+
+                events.append(event)
+        except Exception as e:
+            con.rollback()
+            return e
+
+        finally:
+            cur.close()
+
+        return render_template('home/index.html', event = events, next = upcoming)
     else:
         return redirect('/')    
 
@@ -125,8 +157,9 @@ def signup():
     else:
         return redirect('/')    
 
-@app.route('/view/event')
-def view_event():
+@app.route('/view/event/<event_id>')
+def view_event(event_id):
+
     return render_template('view_event/index.html')
 
 @app.route('/profile')

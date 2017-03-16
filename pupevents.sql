@@ -2,10 +2,17 @@
 -- version 4.5.1
 -- http://www.phpmyadmin.net
 --
+<<<<<<< HEAD
 -- Host: localhost
 -- Generation Time: Mar 16, 2017 at 05:57 AM
 -- Server version: 5.6.26-log
 -- PHP Version: 7.0.4
+=======
+-- Host: 127.0.0.1
+-- Generation Time: Mar 16, 2017 at 05:13 AM
+-- Server version: 10.1.13-MariaDB
+-- PHP Version: 5.6.23
+>>>>>>> e2056709851440a8e6ae10ba5d4505e28a21c7b2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -187,7 +194,11 @@ CREATE TABLE `venueinfo` (
 --
 
 INSERT INTO `venueinfo` (`venueInfoId`, `venueName`, `capacity`, `cost`) VALUES
-(1, 'Bulwagang Balagtas', 50, 500);
+(1, 'Bulwagang Balagtas', 50, 500),
+(2, 'PUP Gymnasium', 400, 200),
+(3, 'Ninoy Aquino Hall', 200, 100),
+(4, 'Freedom Park', 200, 50),
+(5, 'PUP Theater', 500, 200);
 
 --
 -- Indexes for dumped tables
@@ -260,7 +271,7 @@ ALTER TABLE `venue`
 -- AUTO_INCREMENT for table `venueinfo`
 --
 ALTER TABLE `venueinfo`
-  MODIFY `venueInfoId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `venueInfoId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- Constraints for dumped tables
 --

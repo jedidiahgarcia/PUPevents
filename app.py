@@ -19,10 +19,10 @@ mysql = MySQL(app)
 @app.route('/')
 def default():
     if 'user_id' not in session:
+        
         events = []
         upcoming = []
 
-        #################################################################################################################
         
         try:
             con = mysql.connection
@@ -110,6 +110,9 @@ def create():
 
 @app.route('/home')
 def home():
+    dump = json.dumps(request.form)
+    data = json.loads(dump)
+
     if 'user_id' in session:
         return render_template('home/index.html')
     else:

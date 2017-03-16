@@ -164,8 +164,7 @@ def view_event(event_id):
 @app.route('/profile')
 def profile():
     if 'user_id' in session:
-    # return render_template('view_event/index.html')
-        return 'Profile Page Here'
+        return render_template('profile/index.html')
     else:
         return redirect('/')  
 
@@ -174,6 +173,7 @@ def signout():
     if 'user_id' in session:
         session.pop('user_id', None)
     return redirect('/')
+
 
 ########################################################################################################################
 
@@ -273,7 +273,7 @@ def create_():
     
     sql = "INSERT INTO event a, guest b(a.eventName, a.eventDesc, a.date, a.startTime, a.endTime, a.venueId, a.organizerId, a.peopleAlloc, a.status) \
        VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')" % \
-       (data['eventName'], data['eventDesc'], data['date'], data['startTime'], data['endTime'], venueId, organizerId, data['peopleAlloc'], reserve)
+       (data['eventName'], data['eventDesc'], data['date'], data['startTime'], data['endTime'], venueId, organizerId, data['peopleAlloc'], 'reserve')
     '''
     sql = "INSERT INTO samp(id, name) \
        VALUES ('%d', '%s')" %\

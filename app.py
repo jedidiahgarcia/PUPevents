@@ -193,9 +193,9 @@ def signup():
 @app.route('/view/event/<event_id>')
 def view_event(event_id):
     if 'user_id' in session:
-        event = {}
-        
         try:
+            event = {}
+
             con = mysql.connection
             cur = con.cursor()
             cur.callproc('viewEvent', [event_id])
@@ -203,6 +203,7 @@ def view_event(event_id):
 
             if(data is None):
                 return 'Event Not Found', 404
+
             else:
                 event['id'] = event_id
                 event['title'] = data[0]
@@ -223,6 +224,8 @@ def view_event(event_id):
          
                 event['location'] = data[5]
 
+                return render_template('view_event/index.html', event = event)
+
         except Exception as e:
             con.rollback()
             return e
@@ -230,25 +233,6 @@ def view_event(event_id):
         finally:
             cur.close()
 
-        try:
-            con = mysql.connection
-            cur = con.cursor()
-            cur.callproc('checkJoinStatus', [session['user_id'],event_id])
-            data = cur.fetchone()
-
-            if(data is None):
-                event['joinStats'] = false
-            else:
-                event['joinStats'] = true
-                
-        except Exception as e:
-            con.rollback()
-            return e
-
-        finally:
-            cur.close()
-
-        return render_template('view_event/index.html', event = event)
     else:
         redirect('/signin')
 

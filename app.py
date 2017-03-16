@@ -23,7 +23,6 @@ def default():
         events = []
         upcoming = []
 
-        
         try:
             con = mysql.connection
             cur = con.cursor()
@@ -81,12 +80,13 @@ def default():
                 event['endday'] = datum[2].day
                 event['endtimehrs'] = datum[4].seconds//3600
                 event['endtimemnts'] = (datum[4].seconds//60)%60
-                
+
                 events.append(event)
 
         except Exception as e:
             con.rollback()
             return e
+
         finally:
             cur.close()
 
@@ -116,7 +116,37 @@ def home():
     data = json.loads(dump)
 
     if 'user_id' in session:
-        return render_template('home/index.html')
+        try:
+            con = mysql.connection
+            cur = con.cursor()
+            cur.callproc('getAllEvents')
+            data = cur.fetchall()
+
+            for datum in data:
+                event = {}
+
+                event['id'] = datum[0]
+                event['title'] = datum[1]
+                event['startYear'] = datum[2].year
+                event['startmonth'] = datum[2].month
+                event['startday'] = datum[2].day
+                event['starttimehrs'] = datum[3].seconds//3600
+                event['starttimemnts'] = (datum[3].seconds//60)%60
+                event['endyear'] = datum[2].year
+                event['endmonth'] = datum[2].month
+                event['endday'] = datum[2].day
+                event['endtimehrs'] = datum[4].seconds//3600
+                event['endtimemnts'] = (datum[4].seconds//60)%60
+
+                events.append(event)
+        except Exception as e:
+            con.rollback()
+            return e
+
+        finally:
+            cur.close()
+
+        return render_template('home/index.html', event = events, next = upcoming)
     else:
         return redirect('/')    
 
@@ -127,8 +157,9 @@ def signup():
     else:
         return redirect('/')    
 
-@app.route('/view/event')
-def view_event():
+@app.route('/view/event/<event_id>')
+def view_event(event_id):
+
     return render_template('view_event/index.html')
 
 @app.route('/profile')

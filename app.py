@@ -202,8 +202,7 @@ def view_event(event_id):
             data = cur.fetchone()
 
             if(data is None):
-                return 'Event Not Found', 404
-
+                return  render_template('view_event/error.html')
             else:
                 event['id'] = event_id
                 event['title'] = data[0]
@@ -245,7 +244,7 @@ def join(event_id):
             cur.callproc('joinEvent', [ session['user_id'], event_id ])
             con.commit()
 
-            return 'Success'
+            return render_template('view_event/success.html', event = event)
 
         except Exception as e:
             con.rollback()
@@ -259,8 +258,7 @@ def join(event_id):
 @app.route('/profile')
 def profile():
     if 'user_id' in session:
-    # return render_template('view_event/index.html')
-        return 'Profile Page Here'
+        return render_template('profile/index.html')
     else:
         return redirect('/')  
 
@@ -269,6 +267,7 @@ def signout():
     if 'user_id' in session:
         session.pop('user_id', None)
     return redirect('/')
+
 
 ########################################################################################################################
 
@@ -365,9 +364,10 @@ def create_():
     venueId = 2
     organizerId = 1
     
-    sql = "INSERT INTO event(eventName, eventDesc, eventDate, startTime, endTime, venueId, organizerId, peopleAlloc) \
-       VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')" % \
-       (data['eventName'], data['eventDesc'], data['date'], data['startTime'], data['endTime'], venueId, organizerId, data['peopleAlloc'])
+    sql = "INSERT INTO event a, guest b(a.eventName, a.eventDesc, a.date, a.startTime, a.endTime, a.venueId, a.organizerId, a.peopleAlloc, a.status) \
+       VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')" % \
+       (data['eventName'], data['eventDesc'], data['date'], data['startTime'], data['endTime'], venueId, organizerId, data['peopleAlloc'], 'reserve')
+
     '''
     sql = "INSERT INTO samp(id, name) \
        VALUES ('%s', '%s')" %\

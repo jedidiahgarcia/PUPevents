@@ -222,100 +222,60 @@
 				</span>
 			</h2>
 
-			<div class="row">
-				<div class="col-md-2">
-					<button type="button" class="btn btn-sm btn-danger">
-						view
-					</button>
-				</div>
-				<div class="col-md-10">
-					<div class="event-teaser-2">
-						<div class="row">
-							<div class="col-md-3">
-								<i class="fa fa-calendar" aria-hidden="true"></i>
-								March 1, 2016
-							</div>
-							<div class="col-md-3">
-								<i class="fa fa-map-marker" aria-hidden="true"></i>
-								6:00 AM - 5:00 PM
-							</div>
-							<div class="col-md-3">
-								<span id="event-title" style="font-size: 10px;">
-								PUP Rave Party
-								</span>
-							</div>
-							<div class="col-md-3">
-								<i class="fa fa-map-marker" aria-hidden="true"></i>
-								PUP Main
-							</div>
-						</div>
-					</div>		
-				</div>	
-			</div>
+			{% if next is defined %}
 
-			<div class="row">
-				<div class="col-md-2">
-					<button type="button" class="btn btn-sm btn-danger">
-						view
-					</button>
-				</div>
-				<div class="col-md-10">
-					<div class="event-teaser-2">
-						<div class="row">
-							<div class="col-md-3">
-								<i class="fa fa-calendar" aria-hidden="true"></i>
-								March 1, 2016
-							</div>
-							<div class="col-md-3">
-								<i class="fa fa-map-marker" aria-hidden="true"></i>
-								6:00 AM - 5:00 PM
-							</div>
-							<div class="col-md-3">
-								<span id="event-title" style="font-size: 10px;">
-								PUP Rave Party
-								</span>
-							</div>
-							<div class="col-md-3">
-								<i class="fa fa-map-marker" aria-hidden="true"></i>
-								PUP Main
-							</div>
+		    	{% for item in next %}
+				    <div class="row">
+						<div class="col-md-2">
+							<a href=" view/event/{{ item['id']}} ">
+								<button type="button" class="btn btn-sm btn-danger">
+									view
+								</button>
+							</a>
 						</div>
-					</div>		
-				</div>	
-			</div>
+						<div class="col-md-10">
+							<div class="event-teaser-2">
+								<div class="row">
+									<div class="col-md-3">
+										<i class="fa fa-calendar" aria-hidden="true"></i>
+										{{ item['date'] }}
+									</div>
+									<div class="col-md-3">
+										<i class="fa fa-clock-o" aria-hidden="true"></i>
+										{{ item['starttime'] }} - {{ item['endtime'] }}
+									</div>
+									<div class="col-md-3">
+										<span id="event-title" style="font-size: 15px;">
+										{{ item['title'] }}
+										</span>
+									</div>
+									<div class="col-md-3">
+										<i class="fa fa-map-marker" aria-hidden="true"></i>
+										{{ item['location'] }}
+									</div>
+								</div>
+							</div>		
+						</div>	
+					</div>
+				{% endfor %}
 
-			<div class="row">
-				<div class="col-md-2">
-					<button type="button" class="btn btn-sm btn-danger">
-						view
-					</button>
-				</div>
-				<div class="col-md-10">
+			{% else %}
+
+				<div class="row">
 					<div class="event-teaser-2">
 						<div class="row">
-							<div class="col-md-3">
-								<i class="fa fa-calendar" aria-hidden="true"></i>
-								March 1, 2016
-							</div>
-							<div class="col-md-3">
-								<i class="fa fa-map-marker" aria-hidden="true"></i>
-								6:00 AM - 5:00 PM
-							</div>
-							<div class="col-md-3">
+							<div class="col-md-12">
 								<span id="event-title" style="font-size: 10px;">
-								PUP Rave Party
+									None
 								</span>
 							</div>
-							<div class="col-md-3">
-								<i class="fa fa-map-marker" aria-hidden="true"></i>
-								PUP Main
-							</div>
 						</div>
-					</div>		
-				</div>	
-			</div>
-		</center>	
-	</div>	
+					</div>	
+				</div>
+
+			{% endif %}
+		</center>
+	</div>
 
 	<!-- CALENDAR -->
 	<div class="calendar">

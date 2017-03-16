@@ -1,6 +1,5 @@
 from flask import Flask, request, render_template, redirect, jsonify, Response
 from flask_mysqldb import MySQL
-from flask_json import FlaskJSON, JsonError, json_response, as_json
 
 import json
 import hashlib
@@ -13,18 +12,41 @@ app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'pupevents'
 
-
-FlaskJSON(app)
 mysql = MySQL(app)
-
 
 #@Page rendering and Routes #############################################################################################
 
 @app.route('/')
 def default():
-
     if 'user_id' not in session:
-        return render_template('index.html')
+        events = [];
+        try:
+            con = mysql.connection
+            cur = con.cursor()
+            cur.callproc('getAllEvents');
+            data = cur.fetchall()
+            
+            for datum in data:
+                event = {}
+                event['id'] = datum[0]
+                event['title'] = datum[1]
+                event['startYear'] = datum[2].year
+                event['startmonth'] = datum[2].month
+                event['startday'] = datum[2].day
+                event['starttimehrs'] = datum[3].seconds//3600
+                event['starttimemnts'] = (datum[3].seconds//60)%60
+                event['endyear'] = datum[2].year
+                event['endmonth'] = datum[2].month
+                event['endday'] = datum[2].day
+                event['endtimehrs'] = datum[4].seconds//3600
+                event['endtimemnts'] = (datum[4].seconds//60)%60
+                events.append(event)
+
+        except Exception as e:
+            con.rollback()
+            return e
+
+        return render_template('index.html', event = events)
     else:
         return redirect('/home')
 
@@ -45,7 +67,35 @@ def create():
 @app.route('/home')
 def home():
     if 'user_id' in session:
-        return render_template('home/index.html')
+        sql = "SELECT password FROM user where id='%s'" % data['identification']
+
+        try:
+            con = mysql.connection
+            cur = con.cursor()
+            cur.execute(sql)
+            con.commit()
+            response = cur.fetchone()
+
+            if(response is None):
+                return render_template('login/invalid.html',
+                    identification = data['identification'],
+                    password=data['password'],
+                    status = 'Error',
+                    message = 'Account doesn\'t exist')
+            else:
+                account_password = response[0];
+
+                if(account_password == hashed_pw):
+                    session['user_id'] = data['identification']
+                    return redirect('/home')
+                else:
+                    return render_template('login/error.html', identification=data['identification'],
+                    password=data['password'], status='Error', message='Invalid password')
+
+            return render_template('home/index.html')
+
+        finally:
+            cur.close()
     else:
         return redirect('/')    
 

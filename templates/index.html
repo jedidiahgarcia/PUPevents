@@ -353,22 +353,23 @@
 	          events:
 	            [ 
 	            	{% if events is defined %}
-			          	{% for event in events%}
+			          	{% for item in event%}
 			          		{
-			          			title:{{event['title']}},
+			          			id:{{item['id']}}
+			          			title:{{item['title']}},
 			          			start: new Date(
-			          				{{event['startyear']}},
-			          				{{event['startmonth']}},
-			          				{{event['startday']}},
-			          				{{event['starttimehrs']}},
-			          				{{event['starttimemnts']}}
+			          				{{item['startyear']}},
+			          				{{item['startmonth']}},
+			          				{{item['startday']}},
+			          				{{item['starttimehrs']}},
+			          				{{item['starttimemnts']}}
 			          				)
 			          			end:new Date(
-			          				{{event['endyear']}},
-			          				{{event['endmonth']}},
-			          				{{event['endday']}},
-			          				{{event['endtimehrs']}},
-			          				{{event['endtimemnts']}}
+			          				{{item['endyear']}},
+			          				{{item['endmonth']}},
+			          				{{item['endday']}},
+			          				{{item['endtimehrs']}},
+			          				{{item['endtimemnts']}}
 			          				),			
 			          		},
 			          	{% endfor %}

@@ -2,12 +2,8 @@
 -- version 4.5.1
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Mar 16, 2017 at 05:57 AM
--- Server version: 5.6.26-log
--- PHP Version: 7.0.4
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2017 at 05:13 AM
+-- Generation Time: Mar 16, 2017 at 10:02 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.23
 
@@ -52,6 +48,37 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `equipment`
+--
+
+CREATE TABLE `equipment` (
+  `equipmentId` int(20) NOT NULL,
+  `equipmentName` varchar(20) NOT NULL,
+  `venueInfoId` int(20) NOT NULL,
+  `cost` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `equipment`
+--
+
+INSERT INTO `equipment` (`equipmentId`, `equipmentName`, `venueInfoId`, `cost`) VALUES
+(1, 'Speakers', 1, 100),
+(2, 'Speakers', 2, 100),
+(3, 'Speakers', 3, 100),
+(4, 'Speakers', 4, 100),
+(5, 'Microphones', 1, 50),
+(6, 'Microphones', 2, 40),
+(7, 'Microphones', 3, 40),
+(8, 'Microphones', 4, 30),
+(9, 'Chairs', 1, 20),
+(10, 'Chairs', 2, 20),
+(11, 'Chairs', 3, 15),
+(12, 'Chairs', 4, 15);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `event`
 --
 
@@ -74,7 +101,10 @@ CREATE TABLE `event` (
 
 INSERT INTO `event` (`eventId`, `eventName`, `eventDesc`, `eventDate`, `startTime`, `endTime`, `venueId`, `organizerId`, `peopleAlloc`, `status`) VALUES
 (4, 'PUP Operation Tuli', 'Abutin ang pangarap na minsang naunahan ng takot HAHAHA', '2017-03-17', '15:00:00', '16:00:00', 2, 1, 50, 'reserved'),
-(5, 'PUP Graduation', 'k', '2017-03-17', '14:30:00', '16:00:00', 2, 2, 6500, 'published');
+(5, 'PUP Graduation', 'k', '2017-03-17', '14:30:00', '16:00:00', 2, 2, 6500, 'published'),
+(22, 'dfdfdfdfd', 'ddsdf', '2017-09-09', '05:00:00', '06:00:00', 2, 1, 9, 'reserved'),
+(23, '7879', '878', '2017-03-24', '05:00:00', '06:00:00', 2, 1, 7, 'reserved'),
+(24, 'CCIS WEEK', 'Red and Denise', '2017-03-17', '05:00:00', '06:00:00', 2, 1, 80, 'reserved');
 
 -- --------------------------------------------------------
 
@@ -129,7 +159,8 @@ CREATE TABLE `samp` (
 --
 
 INSERT INTO `samp` (`id`, `name`) VALUES
-(9, 'reserve');
+(9, 'reserve'),
+(1, 'reserve');
 
 -- --------------------------------------------------------
 
@@ -163,15 +194,16 @@ INSERT INTO `user` (`id`, `firstName`, `lastName`, `contactNumber`, `designation
 
 CREATE TABLE `venue` (
   `venueId` int(10) NOT NULL,
-  `venueInfoId` int(10) NOT NULL
+  `venueInfoId` int(10) NOT NULL,
+  `totalCost` double NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `venue`
 --
 
-INSERT INTO `venue` (`venueId`, `venueInfoId`) VALUES
-(2, 1);
+INSERT INTO `venue` (`venueId`, `venueInfoId`, `totalCost`) VALUES
+(2, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -183,14 +215,14 @@ CREATE TABLE `venueinfo` (
   `venueInfoId` int(10) NOT NULL,
   `venueName` varchar(30) NOT NULL,
   `capacity` int(11) NOT NULL DEFAULT '0',
-  `cost` double NOT NULL DEFAULT '0'
+  `costPerHour` double NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `venueinfo`
 --
 
-INSERT INTO `venueinfo` (`venueInfoId`, `venueName`, `capacity`, `cost`) VALUES
+INSERT INTO `venueinfo` (`venueInfoId`, `venueName`, `capacity`, `costPerHour`) VALUES
 (1, 'Bulwagang Balagtas', 50, 500),
 (2, 'PUP Gymnasium', 400, 200),
 (3, 'Ninoy Aquino Hall', 200, 100),
@@ -200,6 +232,13 @@ INSERT INTO `venueinfo` (`venueInfoId`, `venueName`, `capacity`, `cost`) VALUES
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `equipment`
+--
+ALTER TABLE `equipment`
+  ADD PRIMARY KEY (`equipmentId`),
+  ADD KEY `venueInfoId` (`venueInfoId`);
 
 --
 -- Indexes for table `event`
@@ -250,10 +289,15 @@ ALTER TABLE `venueinfo`
 --
 
 --
+-- AUTO_INCREMENT for table `equipment`
+--
+ALTER TABLE `equipment`
+  MODIFY `equipmentId` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `eventId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `eventId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `organizer`
 --
@@ -272,6 +316,12 @@ ALTER TABLE `venueinfo`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `equipment`
+--
+ALTER TABLE `equipment`
+  ADD CONSTRAINT `equipment_ibfk_1` FOREIGN KEY (`venueInfoId`) REFERENCES `venueinfo` (`venueInfoId`);
 
 --
 -- Constraints for table `event`

@@ -326,7 +326,8 @@
 				</div>
 			</div>
 		</center>
-	</div>	
+	</div>
+	</div>   
 
 	<!-- CALENDAR -->
 	<div class="calendar">
@@ -334,51 +335,7 @@
 	    	<hr>
 	    	<div id="calendar"></div>
 	  	</div>
-
-	    <script type="text/javascript">
-	        $.getScript('../static/js/calendar.min.js',function(){
-	        
-	        var date = new Date();
-	        var d = date.getDate();
-	        var m = date.getMonth();
-	        var y = date.getFullYear();
-	        
-	        $('#calendar').fullCalendar({
-	          header: {
-	            left: 'prev,next today',
-	            center: 'title',
-	            right: 'month,agendaWeek,agendaDay'
-	          },
-	          editable: false,
-	          events:
-	            [ 
-	            	{% if events is defined %}
-			          	{% for item in events %}
-			          		{
-			          			id:{{ item['id'] }},
-			          			title:{{ item['title'] }},
-			          			start: new Date(
-			          				{{ item['startyear'] }},
-			          				{{ item['startmonth'] }},
-			          				{{ item['startday'] }},
-			          				{{ item['starttimehrs'] }},
-			          				{{ item['starttimemnts'] }}
-			          			),
-			          			end:new Date(
-			          				{{ item['endyear'] }},
-			          				{{ item['endmonth'] }},
-			          				{{ item['endday'] }},
-			          				{{ item['endtimehrs'] }},
-			          				{{ item['endtimemnts'] }}
-			          			),			
-			          		},
-			          	{% endfor %}
-		          	{% endif %}
-	          	]
-	        });
-	      })
-	    </script>
-	</div>    
+	</div>
 
 	<footer>
 		<center>
@@ -386,6 +343,53 @@
 			2017
 		</center>
 	</footer>
+	
 
+	    <script type="text/javascript">
+	    	var events_list = [
+	    		{% if event is defined %}
+	    			{% for item in event %}
+			          	{
+			          		id: {{ item['id'] }},
+			          		title: "{{ item['title'] }}",
+			          		start: new Date(
+			          			{{ item['startYear'] }},
+			          			{{ item['startmonth'] }},
+			          			{{ item['startday'] }},
+			          			{{ item['starttimehrs'] }},
+			          			{{ item['starttimemnts'] }}
+			          		),
+			          		end: new Date(
+			          			{{ item['endyear'] }},
+			          			{{ item['endmonth'] }},
+			          			{{ item['endday'] }},
+			          			{{ item['endtimehrs'] }},
+			       				{{ item['endtimemnts'] }}
+			       			)		
+			    		},
+			    	{% endfor %}
+			    {% endif %}
+	        ];
+
+	        console.log(events_list);
+
+	        $.getScript('../static/js/calendar.min.js',function(){
+	        
+		        var date = new Date();
+		        var d = date.getDate();
+		        var m = date.getMonth();
+		        var y = date.getFullYear();
+
+		        $('#calendar').fullCalendar({
+		          header: {
+		            left: 'prev,next today',
+		            center: 'title',
+		            right: 'month,agendaWeek,agendaDay'
+		          },
+		          editable: false,
+		          events: events_list
+		        });
+		    });
+	    </script>
 </body>
 </html>

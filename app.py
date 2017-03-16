@@ -193,16 +193,16 @@ def signup():
 @app.route('/view/event/<event_id>')
 def view_event(event_id):
     if 'user_id' in session:
-        event = {}
-        
         try:
+            event = {}
+
             con = mysql.connection
             cur = con.cursor()
             cur.callproc('viewEvent', [event_id])
             data = cur.fetchone()
 
             if(data is None):
-                return  render_template('view_event/error.html', event = event)
+                return  render_template('view_event/error.html')
             else:
                 event['id'] = event_id
                 event['title'] = data[0]
@@ -223,6 +223,8 @@ def view_event(event_id):
          
                 event['location'] = data[5]
 
+                return render_template('view_event/index.html', event = event)
+
         except Exception as e:
             con.rollback()
             return e
@@ -230,25 +232,6 @@ def view_event(event_id):
         finally:
             cur.close()
 
-        try:
-            con = mysql.connection
-            cur = con.cursor()
-            cur.callproc('checkJoinStatus', [session['user_id'],event_id])
-            data = cur.fetchone()
-
-            if(data is None):
-                event['joinStats'] = false
-            else:
-                event['joinStats'] = true
-                
-        except Exception as e:
-            con.rollback()
-            return e
-
-        finally:
-            cur.close()
-
-        return render_template('view_event/index.html', event = event)
     else:
         redirect('/signin')
 
@@ -381,15 +364,10 @@ def create_():
     venueId = 2
     organizerId = 1
     
-<<<<<<< HEAD
     sql = "INSERT INTO event a, guest b(a.eventName, a.eventDesc, a.date, a.startTime, a.endTime, a.venueId, a.organizerId, a.peopleAlloc, a.status) \
        VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')" % \
        (data['eventName'], data['eventDesc'], data['date'], data['startTime'], data['endTime'], venueId, organizerId, data['peopleAlloc'], 'reserve')
-=======
-    sql = "INSERT INTO event(eventName, eventDesc, eventDate, startTime, endTime, venueId, organizerId, peopleAlloc) \
-       VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')" % \
-       (data['eventName'], data['eventDesc'], data['date'], data['startTime'], data['endTime'], venueId, organizerId, data['peopleAlloc'])
->>>>>>> b87c246d38feeb82829bbe08dbf716d1fe6a753d
+
     '''
     sql = "INSERT INTO samp(id, name) \
        VALUES ('%s', '%s')" %\

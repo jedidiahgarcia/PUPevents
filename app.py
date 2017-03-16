@@ -66,6 +66,9 @@ def create():
 
 @app.route('/home')
 def home():
+    dump = json.dumps(request.form)
+    data = json.loads(dump)
+
     if 'user_id' in session:
         sql = "SELECT password FROM user where id='%s'" % data['identification']
 

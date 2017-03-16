@@ -295,13 +295,28 @@
 		</div>
 	</div>
 
-	<div class="container">
-		<center>
-			<button type="button" class="btn btn-danger">
-				JOIN EVENT
-			</button>
-		</center>
-	</div>
+	{% if event['joinStats'] == false %}
+		<div class="container">
+			<center>
+				<a href="/join/event/{{ event['id'] }}">
+					<button type="button" class="btn btn-danger">
+						JOIN EVENT
+					</button>
+				</a>
+			</center>
+		</div>
+	{% else %}
+		<div class="container">
+			<center>
+				<a href="/cancel/event/{{ event['id'] }}">
+					<button type="button" class="btn btn-danger">
+						CANCEL
+					</button>
+				</a>
+			</center>
+		</div>
+	{% endif %}
+	
 
 	<!-- 
 		*TRY ALERT MODALS HERE

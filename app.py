@@ -28,21 +28,25 @@ def default():
             
             for datum in data:
                 event = {}
+
+                year = datum[2].year
+
                 event['id'] = datum[0]
                 event['title'] = datum[1]
-                event['startYear'] = datum[2].year
+                event['startYear'] = year
                 event['startmonth'] = datum[2].month
                 event['startday'] = datum[2].day
                 event['starttimehrs'] = datum[3].seconds//3600
                 event['starttimemnts'] = (datum[3].seconds//60)%60
-                event['endyear'] = datum[2].year
+                event['endyear'] = year
                 event['endmonth'] = datum[2].month
                 event['endday'] = datum[2].day
                 event['endtimehrs'] = datum[4].seconds//3600
                 event['endtimemnts'] = (datum[4].seconds//60)%60
+                print(json.dumps(event))
                 events.append(event)
 
-                return render_template('index.html', event = map(json.dumps, data))
+                return render_template('index.html', event = events)
 
         except Exception as e:
             con.rollback()
@@ -81,7 +85,7 @@ def home():
 
             if(response is None):
                 return render_template('login/invalid.html',
-                    identification = data['identification'],
+                    identification = session['user_id'],
                     password=data['password'],
                     status = 'Error',
                     message = 'Account doesn\'t exist')

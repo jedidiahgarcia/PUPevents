@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 16, 2017 at 12:56 AM
+-- Generation Time: Mar 16, 2017 at 05:57 AM
 -- Server version: 5.6.26-log
 -- PHP Version: 7.0.4
 
@@ -26,6 +26,21 @@ DELIMITER $$
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getAllEvents` ()  BEGIN
 	Select eventId, eventName, eventDate, startTime, endTime from event;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getNextThree` ()  BEGIN
+	Select a.eventName,
+		a.eventDate,
+        a.startTime,
+        a.endTime,
+        c.venueName
+        from event a, venue b, venueinfo c
+        where
+        a.eventDate > NOW() AND
+		a.startTime > NOW() AND
+        a.venueId = b.venueId AND
+        b.venueInfoId = c.venueInfoId
+        LIMIT 3;
 END$$
 
 DELIMITER ;
@@ -54,7 +69,8 @@ CREATE TABLE `event` (
 --
 
 INSERT INTO `event` (`eventId`, `eventName`, `eventDesc`, `eventDate`, `startTime`, `endTime`, `venueId`, `organizerId`, `peopleAlloc`, `status`) VALUES
-(1, 'PUP Operation Tuli', 'Para sa minsang nangarap ngunit natakot haha', '2017-03-16', '08:00:00', '16:00:00', 2, 1, 50, 'published');
+(4, 'PUP Operation Tuli', 'Abutin ang pangarap na minsang naunahan ng takot HAHAHA', '2017-03-17', '15:00:00', '16:00:00', 2, 1, 50, 'reserved'),
+(5, 'PUP Graduation', 'k', '2017-03-17', '14:30:00', '16:00:00', 2, 2, 6500, 'published');
 
 -- --------------------------------------------------------
 
@@ -90,7 +106,8 @@ CREATE TABLE `organizer` (
 --
 
 INSERT INTO `organizer` (`organizerId`, `userId`) VALUES
-(1, '2014-05666-MN-0');
+(1, '2014-05666-MN-0'),
+(2, '2014-05666-MN-0');
 
 -- --------------------------------------------------------
 
@@ -228,12 +245,12 @@ ALTER TABLE `venueinfo`
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `eventId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `eventId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `organizer`
 --
 ALTER TABLE `organizer`
-  MODIFY `organizerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `organizerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `venue`
 --

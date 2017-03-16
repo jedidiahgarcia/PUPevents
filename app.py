@@ -19,38 +19,78 @@ mysql = MySQL(app)
 @app.route('/')
 def default():
     if 'user_id' not in session:
-        events = [];
+        events = []
+        upcoming = []
+
+        #################################################################################################################
+        
         try:
             con = mysql.connection
             cur = con.cursor()
-            cur.callproc('getAllEvents');
+            cur.callproc('getNextThree')
             data = cur.fetchall()
-            
+
             for datum in data:
                 event = {}
+                event['title'] = datum[0]
+                event['date'] = datum[1]
+                event['starttimehrs'] = datum[2].seconds//3600
+                event['starttimemnts'] = (datum[2].seconds//60)%60
+                print(event['starttimemnts'] )
 
-                year = datum[2].year
+                if(event['starttimemnts'] is ""):
+                    event['starttimemnts'] = "00"
 
-                event['id'] = datum[0]
-                event['title'] = datum[1]
-                event['startYear'] = year
-                event['startmonth'] = datum[2].month
-                event['startday'] = datum[2].day
-                event['starttimehrs'] = datum[3].seconds//3600
-                event['starttimemnts'] = (datum[3].seconds//60)%60
-                event['endyear'] = year
-                event['endmonth'] = datum[2].month
-                event['endday'] = datum[2].day
-                event['endtimehrs'] = datum[4].seconds//3600
-                event['endtimemnts'] = (datum[4].seconds//60)%60
-                print(json.dumps(event))
-                events.append(event)
+                event['endtimehrs'] = datum[3].seconds//3600
+                event['endtimemnts'] = (datum[3].seconds//60)%60
 
-                return render_template('index.html', event = events)
+                if(event['endtimemnts'] is ""):
+                    event['endtimemnts'] = "00"
+
+                event['location'] = datum[4]
+                upcoming.append(event)
 
         except Exception as e:
             con.rollback()
             return e
+
+        finally:
+            cur.close()
+
+        #############################################################################################################
+
+        try:
+            con = mysql.connection
+            cur = con.cursor()
+            cur.callproc('getAllEvents')
+            data = cur.fetchall()
+
+            for datum in data:
+                event = {}
+
+                event['id'] = datum[0]
+                event['title'] = datum[1]
+                event['startYear'] = datum[2].year
+                event['startmonth'] = datum[2].month
+                event['startday'] = datum[2].day
+                event['starttimehrs'] = datum[3].seconds//3600
+                event['starttimemnts'] = (datum[3].seconds//60)%60
+                event['endyear'] = datum[2].year
+                event['endmonth'] = datum[2].month
+                event['endday'] = datum[2].day
+                event['endtimehrs'] = datum[4].seconds//3600
+                event['endtimemnts'] = (datum[4].seconds//60)%60
+                events.append(event)
+
+        except Exception as e:
+            con.rollback()
+            return e
+        finally:
+            cur.close()
+
+        return render_template('index.html', event = events, next = upcoming)
+
+        ############################################################################################################
     else:
         return redirect('/home')
 
@@ -71,35 +111,7 @@ def create():
 @app.route('/home')
 def home():
     if 'user_id' in session:
-        sql = "SELECT password FROM user where id='%s'" % data['identification']
-
-        try:
-            con = mysql.connection
-            cur = con.cursor()
-            cur.execute(sql)
-            con.commit()
-            response = cur.fetchone()
-
-            if(response is None):
-                return render_template('login/invalid.html',
-                    identification = session['user_id'],
-                    password=data['password'],
-                    status = 'Error',
-                    message = 'Account doesn\'t exist')
-            else:
-                account_password = response[0];
-
-                if(account_password == hashed_pw):
-                    session['user_id'] = data['identification']
-                    return redirect('/home')
-                else:
-                    return render_template('login/error.html', identification=data['identification'],
-                    password=data['password'], status='Error', message='Invalid password')
-
-            return render_template('home/index.html')
-
-        finally:
-            cur.close()
+        return render_template('home/index.html')
     else:
         return redirect('/')    
 
@@ -189,7 +201,6 @@ def signin_():
         if(response is None):
             return render_template('login/error.html',
                 identification = data['identification'],
-                password=data['password'],
                 status = 'Error',
                 message = 'Account doesn\'t exist')
         else:

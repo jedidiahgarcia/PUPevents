@@ -193,6 +193,10 @@
 		    border-top-right-radius: 5px;
 		}
 
+		.alert {
+			margin-left: 20%;
+			margin-right: 20%;		
+		}
 		</style>
 </head>
 <body>
@@ -204,8 +208,7 @@
 					<div class="navbar-header">
 						<a href="/home" class="navbar-brand navbar-link">
 							<span style="color: #880000;">
-								pup
-							</span><span style="color: black;">events</span>
+							pup</span><span style="color: black;">events</span>
 						</a>
 						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"></button>
 						<span class="sr-only">Toggle navigation</span>
@@ -236,163 +239,11 @@
 	<div class="event-cover">
 		<div id="event-title">
 			<center>
-			<h1>{{ event['title'] }}</h1>
+			<!-- <h1>ERROR: EVENT NOT FOUND</h1> -->
+			<div class="alert alert-success" role="alert">SUCCESSFULLY JOINED THE EVENT</div>
 			</center>
 		</div>
 	</div>	
-
-	<div class="event-cover-shadow"></div>
-
-	<div class="container">
-		<div class="wrapper">
-			<h3>About the event</h3>
-		</div>
-
-		<div class="wrapper-2">
-			<p>
-				{{ event['desc'] }}
-			</p>
-		</div>
-	</div>
-
-	<div class="container">
-		<div class="wrapper">
-			<h3>Date</h3>	
-		</div>
-
-		<div class="wrapper-2">
-			<div id="event-date">
-				<i class="fa fa-calendar" aria-hidden="true"></i>
-				{{ event['date'] }}
-			</div>
-			
-		</div>
-	</div>
-
-	<div class="container">
-		<div class="wrapper">
-			<h3>Time</h3>	
-		</div>
-
-		<div class="wrapper-2">
-			<div id="event-time">
-			<i class="fa fa-clock-o" aria-hidden="true"></i>
-			{{ event['starttime'] }} - {{ event['endtime'] }}
-			</div>
-		</div>
-	</div>
-
-	<div class="container">
-		<div class="wrapper">
-			<h3>Location</h3>	
-		</div>
-
-		<div class="wrapper-2">
-			<div id="event-location">
-				<i class="fa fa-map-marker" aria-hidden="true"></i>
-				{{ event['location'] }}
-			</div>
-		</div>
-	</div>
-
-	{% if event['joinStats'] == false %}
-		<div class="container">
-			<center>
-				<a href="/join/event/{{ event['id'] }}">
-					<button type="button" class="btn btn-danger">
-						JOIN EVENT
-					</button>
-				</a>
-			</center>
-		</div>
-	{% else %}
-		<div class="container">
-			<center>
-				<a href="/cancel/event/{{ event['id'] }}">
-					<button type="button" class="btn btn-danger">
-						CANCEL
-					</button>
-				</a>
-			</center>
-		</div>
-	{% endif %}
-	
-
-	<!-- 
-		*TRY ALERT MODALS HERE
-		<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal-success">Open Modal</button> 
-		-->
-
-		<!-- Modal -->
-		<div id="modal-error" class="modal fade" role="dialog">
-		  	<div class="modal-dialog">
-
-			    <!-- Modal error-->
-			    <div class="modal-content">
-			      <div class="modal-header modal-header-danger">
-			        <button type="button" class="close" data-dismiss="modal">&times;</button>
-			        <h4 class="modal-title">
-			        	<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-			        </h4>
-			      </div>
-			      <div class="modal-body modal-body-danger">
-			        <p></p>
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			      </div>
-			    </div>
-			</div>
-		</div>	    
-
-		<div id="modal-success" class="modal fade" role="dialog">
-		    <div class="modal-dialog">	
-		    	<!-- Modal success-->
-			    <div class="modal-content">
-			      <div class="modal-header modal-header-success">
-			        <button type="button" class="close" data-dismiss="modal">&times;</button>
-			        <h4 class="modal-title">
-			        	<i class="fa fa-check-circle" aria-hidden="true"></i>
-			        </h4>
-			      </div>
-			      <div class="modal-body modal-body-success">
-			        <p></p>
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			      </div>
-			    </div>
-		  	</div>
-		</div>
-
-		<!-- TRY INFORMATION MODAL HERE -->
-
-
-		<!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#info_modal">Open Modal</button> -->
-
-		<!-- Modal -->
-		<div id="info_modal" class="modal fade" role="dialog">
-		  <div class="modal-dialog">
-
-		    <!-- Modal content-->
-		    <div class="modal-content">
-		      <div class="modal-header modal-header-info">
-		        <button type="button" class="close" data-dismiss="modal">&times;</button>
-		        <h4 class="modal-title">
-		        	<i class="fa fa-info-circle" aria-hidden="true"></i>
-		        	Information
-		        </h4>
-		      </div>
-		      <div class="modal-body">
-		        <p></p>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		      </div>
-		    </div>
-
-		  </div>
-		</div>
 
 
 	<footer>

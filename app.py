@@ -30,7 +30,6 @@ def default():
             data = cur.fetchall()
 
             for datum in data:
-                print(datum)
                 event = {}
                 event['title'] = datum[0]
                 event['date'] = datum[1]
@@ -112,9 +111,44 @@ def create():
 
 @app.route('/home')
 def home():
-    events = []
-
     if 'user_id' in session:
+        events = []
+        upcoming = []
+        try:
+            con = mysql.connection
+            cur = con.cursor()
+            cur.callproc('getNextThree')
+            data = cur.fetchall()
+
+            for datum in data:
+                event = {}
+                event['id'] = datum[5]
+                event['title'] = datum[0]
+                event['date'] = datum[1]
+
+                hours, remainder = divmod(datum[2].seconds, 3600)
+                minutes, seconds = divmod(remainder, 60)
+                starttime = '%02d:%02d' % (hours, minutes)
+
+                event['starttime'] = starttime
+
+                hours, remainder = divmod(datum[3].seconds, 3600)
+                minutes, seconds = divmod(remainder, 60)
+                endtime = '%02d:%02d' % (hours, minutes)
+
+                event['endtime'] = endtime
+
+                event['location'] = datum[4]
+                upcoming.append(event)
+
+        except Exception as e:
+            con.rollback()
+            return e
+
+        finally:
+            cur.close()
+
+        #############################################################################################################
         try:
             con = mysql.connection
             cur = con.cursor()
@@ -145,7 +179,7 @@ def home():
         finally:
             cur.close()
 
-        return render_template('home/index.html', event = events)
+        return render_template('home/index.html', event = events, next = upcoming)
     else:
         return redirect('/')    
 
@@ -158,8 +192,85 @@ def signup():
 
 @app.route('/view/event/<event_id>')
 def view_event(event_id):
+    if 'user_id' in session:
+        event = {}
+        
+        try:
+            con = mysql.connection
+            cur = con.cursor()
+            cur.callproc('viewEvent', [event_id])
+            data = cur.fetchone()
 
-    return render_template('view_event/index.html')
+            if(data is None):
+                return  render_template('view_event/error.html', event = event)
+            else:
+                event['id'] = event_id
+                event['title'] = data[0]
+                event['desc'] = data[1]
+                event['date'] = data[2]
+
+                hours, remainder = divmod(data[3].seconds, 3600)
+                minutes, seconds = divmod(remainder, 60)
+                starttime = '%02d:%02d' % (hours, minutes)
+
+                event['starttime'] = starttime
+
+                hours, remainder = divmod(data[4].seconds, 3600)
+                minutes, seconds = divmod(remainder, 60)
+                endtime = '%02d:%02d' % (hours, minutes)
+
+                event['endtime'] = endtime
+         
+                event['location'] = data[5]
+
+        except Exception as e:
+            con.rollback()
+            return e
+
+        finally:
+            cur.close()
+
+        try:
+            con = mysql.connection
+            cur = con.cursor()
+            cur.callproc('checkJoinStatus', [session['user_id'],event_id])
+            data = cur.fetchone()
+
+            if(data is None):
+                event['joinStats'] = false
+            else:
+                event['joinStats'] = true
+                
+        except Exception as e:
+            con.rollback()
+            return e
+
+        finally:
+            cur.close()
+
+        return render_template('view_event/index.html', event = event)
+    else:
+        redirect('/signin')
+
+@app.route('/join/event/<event_id>')
+def join(event_id):
+    if 'user_id' in session:
+        try:
+            con = mysql.connection
+            cur = con.cursor()
+            cur.callproc('joinEvent', [ session['user_id'], event_id ])
+            con.commit()
+
+            return render_template('view_event/success.html', event = event)
+
+        except Exception as e:
+            con.rollback()
+            return e
+
+        finally:
+            cur.close()
+    else:
+        redirect('/signin')
 
 @app.route('/profile')
 def profile():
@@ -267,17 +378,22 @@ def create_():
     dump = json.dumps(request.form)
     data = json.loads(dump)
     
-    venueId = 9
-    organizerId = 9
-    reserve = 'reserve'
+    venueId = 2
+    organizerId = 1
     
+<<<<<<< HEAD
     sql = "INSERT INTO event a, guest b(a.eventName, a.eventDesc, a.date, a.startTime, a.endTime, a.venueId, a.organizerId, a.peopleAlloc, a.status) \
        VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')" % \
        (data['eventName'], data['eventDesc'], data['date'], data['startTime'], data['endTime'], venueId, organizerId, data['peopleAlloc'], 'reserve')
+=======
+    sql = "INSERT INTO event(eventName, eventDesc, eventDate, startTime, endTime, venueId, organizerId, peopleAlloc) \
+       VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')" % \
+       (data['eventName'], data['eventDesc'], data['date'], data['startTime'], data['endTime'], venueId, organizerId, data['peopleAlloc'])
+>>>>>>> b87c246d38feeb82829bbe08dbf716d1fe6a753d
     '''
     sql = "INSERT INTO samp(id, name) \
-       VALUES ('%d', '%s')" %\
-       (venueId, reserve)
+       VALUES ('%s', '%s')" %\
+       (venueId, 'reserve')
     '''
     try:
         con = mysql.connection

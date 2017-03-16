@@ -3,13 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 16, 2017 at 05:57 AM
+-- Generation Time: Mar 16, 2017 at 12:54 PM
 -- Server version: 5.6.26-log
 -- PHP Version: 7.0.4
--- Host: 127.0.0.1
--- Generation Time: Mar 16, 2017 at 05:13 AM
--- Server version: 10.1.13-MariaDB
--- PHP Version: 5.6.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -33,18 +29,33 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getAllEvents` ()  BEGIN
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getNextThree` ()  BEGIN
-	Select a.eventName,
+	Select
+		a.eventName,
 		a.eventDate,
+        a.startTime,
+        a.endTime,
+        c.venueName,
+        a.eventId
+        from event a, venue b, venueinfo c
+        where
+        a.venueId = b.venueId AND
+        b.venueInfoId = c.venueInfoId AND
+        a.eventDate > NOW()
+        LIMIT 3;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `viewEvent` (IN `id` INT(11))  BEGIN
+	Select a.eventName,
+		a.eventDesc,
+        a.eventDate,
         a.startTime,
         a.endTime,
         c.venueName
         from event a, venue b, venueinfo c
         where
-        a.eventDate > NOW() AND
-		a.startTime > NOW() AND
         a.venueId = b.venueId AND
-        b.venueInfoId = c.venueInfoId
-        LIMIT 3;
+        b.venueInfoId = c.venueInfoId AND
+        a.eventId = id ;
 END$$
 
 DELIMITER ;

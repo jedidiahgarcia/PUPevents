@@ -29,15 +29,15 @@
       <file leaf-file-name="app.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="83">
-              <caret line="124" column="26" selection-start-line="124" selection-start-column="26" selection-end-line="124" selection-end-column="26" />
+            <state relative-caret-position="321">
+              <caret line="147" column="64" selection-start-line="147" selection-start-column="64" selection-end-line="147" selection-end-column="64" />
               <folding>
                 <element signature="e#2972#3094#0" expanded="false" />
                 <element signature="e#3142#3269#0" expanded="false" />
-                <marker date="1489648157847" expanded="true" signature="5578:5617" ph="SELECT passw... user" />
-                <marker date="1489648157847" expanded="true" signature="5840:5997" ph="INSERT INTO USER" />
-                <marker date="1489648157847" expanded="true" signature="7122:7161" ph="SELECT passw... user" />
-                <marker date="1489648157847" expanded="true" signature="8597:8805" ph="INSERT INTO event... " />
+                <marker date="1489648768765" expanded="true" signature="5561:5600" ph="SELECT passw... user" />
+                <marker date="1489648768765" expanded="true" signature="5823:5980" ph="INSERT INTO USER" />
+                <marker date="1489648768765" expanded="true" signature="7105:7144" ph="SELECT passw... user" />
+                <marker date="1489648768765" expanded="true" signature="8580:8788" ph="INSERT INTO event... " />
               </folding>
             </state>
           </provider>
@@ -414,7 +414,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14714494" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -480,10 +480,10 @@
           <folding>
             <element signature="e#2972#3094#0" expanded="false" />
             <element signature="e#3142#3269#0" expanded="false" />
-            <marker date="1489648157847" expanded="true" signature="5578:5617" ph="SELECT passw... user" />
-            <marker date="1489648157847" expanded="true" signature="5840:5997" ph="INSERT INTO USER" />
-            <marker date="1489648157847" expanded="true" signature="7122:7161" ph="SELECT passw... user" />
-            <marker date="1489648157847" expanded="true" signature="8597:8805" ph="INSERT INTO event... " />
+            <marker date="1489648768765" expanded="true" signature="5561:5600" ph="SELECT passw... user" />
+            <marker date="1489648768765" expanded="true" signature="5823:5980" ph="INSERT INTO USER" />
+            <marker date="1489648768765" expanded="true" signature="7105:7144" ph="SELECT passw... user" />
+            <marker date="1489648768765" expanded="true" signature="8580:8788" ph="INSERT INTO event... " />
           </folding>
         </state>
       </provider>
@@ -495,10 +495,10 @@
           <folding>
             <element signature="e#2972#3094#0" expanded="false" />
             <element signature="e#3142#3269#0" expanded="false" />
-            <marker date="1489648157847" expanded="true" signature="5578:5617" ph="SELECT passw... user" />
-            <marker date="1489648157847" expanded="true" signature="5840:5997" ph="INSERT INTO USER" />
-            <marker date="1489648157847" expanded="true" signature="7122:7161" ph="SELECT passw... user" />
-            <marker date="1489648157847" expanded="true" signature="8597:8805" ph="INSERT INTO event... " />
+            <marker date="1489648768765" expanded="true" signature="5561:5600" ph="SELECT passw... user" />
+            <marker date="1489648768765" expanded="true" signature="5823:5980" ph="INSERT INTO USER" />
+            <marker date="1489648768765" expanded="true" signature="7105:7144" ph="SELECT passw... user" />
+            <marker date="1489648768765" expanded="true" signature="8580:8788" ph="INSERT INTO event... " />
           </folding>
         </state>
       </provider>
@@ -510,10 +510,10 @@
           <folding>
             <element signature="e#2972#3094#0" expanded="false" />
             <element signature="e#3142#3269#0" expanded="false" />
-            <marker date="1489648157847" expanded="true" signature="5578:5617" ph="SELECT passw... user" />
-            <marker date="1489648157847" expanded="true" signature="5840:5997" ph="INSERT INTO USER" />
-            <marker date="1489648157847" expanded="true" signature="7122:7161" ph="SELECT passw... user" />
-            <marker date="1489648157847" expanded="true" signature="8597:8805" ph="INSERT INTO event... " />
+            <marker date="1489648768765" expanded="true" signature="5561:5600" ph="SELECT passw... user" />
+            <marker date="1489648768765" expanded="true" signature="5823:5980" ph="INSERT INTO USER" />
+            <marker date="1489648768765" expanded="true" signature="7105:7144" ph="SELECT passw... user" />
+            <marker date="1489648768765" expanded="true" signature="8580:8788" ph="INSERT INTO event... " />
           </folding>
         </state>
       </provider>
@@ -525,10 +525,10 @@
           <folding>
             <element signature="e#2972#3094#0" expanded="false" />
             <element signature="e#3142#3269#0" expanded="false" />
-            <marker date="1489648157847" expanded="true" signature="5578:5617" ph="SELECT passw... user" />
-            <marker date="1489648157847" expanded="true" signature="5840:5997" ph="INSERT INTO USER" />
-            <marker date="1489648157847" expanded="true" signature="7122:7161" ph="SELECT passw... user" />
-            <marker date="1489648157847" expanded="true" signature="8597:8805" ph="INSERT INTO event... " />
+            <marker date="1489648768765" expanded="true" signature="5561:5600" ph="SELECT passw... user" />
+            <marker date="1489648768765" expanded="true" signature="5823:5980" ph="INSERT INTO USER" />
+            <marker date="1489648768765" expanded="true" signature="7105:7144" ph="SELECT passw... user" />
+            <marker date="1489648768765" expanded="true" signature="8580:8788" ph="INSERT INTO event... " />
           </folding>
         </state>
       </provider>
@@ -540,10 +540,10 @@
           <folding>
             <element signature="e#2972#3094#0" expanded="false" />
             <element signature="e#3142#3269#0" expanded="false" />
-            <marker date="1489648157847" expanded="true" signature="5578:5617" ph="SELECT passw... user" />
-            <marker date="1489648157847" expanded="true" signature="5840:5997" ph="INSERT INTO USER" />
-            <marker date="1489648157847" expanded="true" signature="7122:7161" ph="SELECT passw... user" />
-            <marker date="1489648157847" expanded="true" signature="8597:8805" ph="INSERT INTO event... " />
+            <marker date="1489648768765" expanded="true" signature="5561:5600" ph="SELECT passw... user" />
+            <marker date="1489648768765" expanded="true" signature="5823:5980" ph="INSERT INTO USER" />
+            <marker date="1489648768765" expanded="true" signature="7105:7144" ph="SELECT passw... user" />
+            <marker date="1489648768765" expanded="true" signature="8580:8788" ph="INSERT INTO event... " />
           </folding>
         </state>
       </provider>
@@ -556,10 +556,10 @@
           <folding>
             <element signature="e#2972#3094#0" expanded="false" />
             <element signature="e#3142#3269#0" expanded="false" />
-            <marker date="1489648157847" expanded="true" signature="5578:5617" ph="SELECT passw... user" />
-            <marker date="1489648157847" expanded="true" signature="5840:5997" ph="INSERT INTO USER" />
-            <marker date="1489648157847" expanded="true" signature="7122:7161" ph="SELECT passw... user" />
-            <marker date="1489648157847" expanded="true" signature="8597:8805" ph="INSERT INTO event... " />
+            <marker date="1489648768765" expanded="true" signature="5561:5600" ph="SELECT passw... user" />
+            <marker date="1489648768765" expanded="true" signature="5823:5980" ph="INSERT INTO USER" />
+            <marker date="1489648768765" expanded="true" signature="7105:7144" ph="SELECT passw... user" />
+            <marker date="1489648768765" expanded="true" signature="8580:8788" ph="INSERT INTO event... " />
           </folding>
         </state>
       </provider>
@@ -578,10 +578,10 @@
           <folding>
             <element signature="e#2972#3094#0" expanded="false" />
             <element signature="e#3142#3269#0" expanded="false" />
-            <marker date="1489648157847" expanded="true" signature="5578:5617" ph="SELECT passw... user" />
-            <marker date="1489648157847" expanded="true" signature="5840:5997" ph="INSERT INTO USER" />
-            <marker date="1489648157847" expanded="true" signature="7122:7161" ph="SELECT passw... user" />
-            <marker date="1489648157847" expanded="true" signature="8597:8805" ph="INSERT INTO event... " />
+            <marker date="1489648768765" expanded="true" signature="5561:5600" ph="SELECT passw... user" />
+            <marker date="1489648768765" expanded="true" signature="5823:5980" ph="INSERT INTO USER" />
+            <marker date="1489648768765" expanded="true" signature="7105:7144" ph="SELECT passw... user" />
+            <marker date="1489648768765" expanded="true" signature="8580:8788" ph="INSERT INTO event... " />
           </folding>
         </state>
       </provider>
@@ -600,10 +600,10 @@
           <folding>
             <element signature="e#2972#3094#0" expanded="false" />
             <element signature="e#3142#3269#0" expanded="false" />
-            <marker date="1489648157847" expanded="true" signature="5578:5617" ph="SELECT passw... user" />
-            <marker date="1489648157847" expanded="true" signature="5840:5997" ph="INSERT INTO USER" />
-            <marker date="1489648157847" expanded="true" signature="7122:7161" ph="SELECT passw... user" />
-            <marker date="1489648157847" expanded="true" signature="8597:8805" ph="INSERT INTO event... " />
+            <marker date="1489648768765" expanded="true" signature="5561:5600" ph="SELECT passw... user" />
+            <marker date="1489648768765" expanded="true" signature="5823:5980" ph="INSERT INTO USER" />
+            <marker date="1489648768765" expanded="true" signature="7105:7144" ph="SELECT passw... user" />
+            <marker date="1489648768765" expanded="true" signature="8580:8788" ph="INSERT INTO event... " />
           </folding>
         </state>
       </provider>
@@ -663,15 +663,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="83">
-          <caret line="124" column="26" selection-start-line="124" selection-start-column="26" selection-end-line="124" selection-end-column="26" />
+        <state relative-caret-position="321">
+          <caret line="147" column="64" selection-start-line="147" selection-start-column="64" selection-end-line="147" selection-end-column="64" />
           <folding>
             <element signature="e#2972#3094#0" expanded="false" />
             <element signature="e#3142#3269#0" expanded="false" />
-            <marker date="1489648157847" expanded="true" signature="5578:5617" ph="SELECT passw... user" />
-            <marker date="1489648157847" expanded="true" signature="5840:5997" ph="INSERT INTO USER" />
-            <marker date="1489648157847" expanded="true" signature="7122:7161" ph="SELECT passw... user" />
-            <marker date="1489648157847" expanded="true" signature="8597:8805" ph="INSERT INTO event... " />
+            <marker date="1489648768765" expanded="true" signature="5561:5600" ph="SELECT passw... user" />
+            <marker date="1489648768765" expanded="true" signature="5823:5980" ph="INSERT INTO USER" />
+            <marker date="1489648768765" expanded="true" signature="7105:7144" ph="SELECT passw... user" />
+            <marker date="1489648768765" expanded="true" signature="8580:8788" ph="INSERT INTO event... " />
           </folding>
         </state>
       </provider>

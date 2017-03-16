@@ -145,7 +145,7 @@ def home():
         finally:
             cur.close()
 
-        return render_template('home/index.html', event = events, next = upcoming)
+        return render_template('home/index.html', event = events)
     else:
         return redirect('/')    
 

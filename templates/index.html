@@ -353,24 +353,24 @@
 	          events:
 	            [ 
 	            	{% if events is defined %}
-			          	{% for item in event%}
+			          	{% for item in events %}
 			          		{
-			          			id:{{item['id']}}
-			          			title:{{item['title']}},
+			          			id:{{ item['id'] }},
+			          			title:{{ item['title'] }},
 			          			start: new Date(
-			          				{{item['startyear']}},
-			          				{{item['startmonth']}},
-			          				{{item['startday']}},
-			          				{{item['starttimehrs']}},
-			          				{{item['starttimemnts']}}
-			          				)
+			          				{{ item['startyear'] }},
+			          				{{ item['startmonth'] }},
+			          				{{ item['startday'] }},
+			          				{{ item['starttimehrs'] }},
+			          				{{ item['starttimemnts'] }}
+			          			),
 			          			end:new Date(
-			          				{{item['endyear']}},
-			          				{{item['endmonth']}},
-			          				{{item['endday']}},
-			          				{{item['endtimehrs']}},
-			          				{{item['endtimemnts']}}
-			          				),			
+			          				{{ item['endyear'] }},
+			          				{{ item['endmonth'] }},
+			          				{{ item['endday'] }},
+			          				{{ item['endtimehrs'] }},
+			          				{{ item['endtimemnts'] }}
+			          			),			
 			          		},
 			          	{% endfor %}
 		          	{% endif %}

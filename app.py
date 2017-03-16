@@ -42,11 +42,11 @@ def default():
                 event['endtimemnts'] = (datum[4].seconds//60)%60
                 events.append(event)
 
+                return render_template('index.html', event = map(json.dumps, data))
+
         except Exception as e:
             con.rollback()
             return e
-
-        return render_template('index.html', event = events)
     else:
         return redirect('/home')
 
@@ -183,7 +183,7 @@ def signin_():
         response = cur.fetchone()
 
         if(response is None):
-            return render_template('login/invalid.html',
+            return render_template('login/error.html',
                 identification = data['identification'],
                 password=data['password'],
                 status = 'Error',
@@ -193,11 +193,14 @@ def signin_():
 
             if(account_password == hashed_pw):
                 session['user_id'] = data['identification']
+
                 return redirect('/home')
             else:
-                return render_template('login/error.html', identification=data['identification'],
-                password=data['password'], status='Error', message='Invalid password')
-
+                return render_template('login/error.html',
+                    identification=data['identification'],
+                    password=data['password'],
+                    status='Error',
+                    message='Invalid password')
 
     except Exception as e:
         con.rollback()

@@ -30,7 +30,6 @@ def default():
             data = cur.fetchall()
 
             for datum in data:
-                print(datum)
                 event = {}
                 event['title'] = datum[0]
                 event['date'] = datum[1]
@@ -113,8 +112,44 @@ def create():
 @app.route('/home')
 def home():
     events = []
+    upcoming = []
 
     if 'user_id' in session:
+        try:
+            con = mysql.connection
+            cur = con.cursor()
+            cur.callproc('getNextThree')
+            data = cur.fetchall()
+
+            for datum in data:
+                event = {}
+                event['id'] = datum[5]
+                event['title'] = datum[0]
+                event['date'] = datum[1]
+
+                hours, remainder = divmod(datum[2].seconds, 3600)
+                minutes, seconds = divmod(remainder, 60)
+                starttime = '%02d:%02d' % (hours, minutes)
+
+                event['starttime'] = starttime
+
+                hours, remainder = divmod(datum[3].seconds, 3600)
+                minutes, seconds = divmod(remainder, 60)
+                endtime = '%02d:%02d' % (hours, minutes)
+
+                event['endtime'] = endtime
+
+                event['location'] = datum[4]
+                upcoming.append(event)
+
+        except Exception as e:
+            con.rollback()
+            return e
+
+        finally:
+            cur.close()
+
+        #############################################################################################################
         try:
             con = mysql.connection
             cur = con.cursor()
@@ -145,7 +180,7 @@ def home():
         finally:
             cur.close()
 
-        return render_template('home/index.html', event = events)
+        return render_template('home/index.html', event = events, next = upcoming)
     else:
         return redirect('/')    
 

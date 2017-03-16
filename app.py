@@ -19,7 +19,7 @@ mysql = MySQL(app)
 @app.route('/')
 def default():
     if 'user_id' not in session:
-        
+
         events = []
         upcoming = []
 
@@ -31,21 +31,22 @@ def default():
             data = cur.fetchall()
 
             for datum in data:
+                print(datum)
                 event = {}
                 event['title'] = datum[0]
                 event['date'] = datum[1]
-                event['starttimehrs'] = datum[2].seconds//3600
-                event['starttimemnts'] = (datum[2].seconds//60)%60
-                print(event['starttimemnts'] )
 
-                if(event['starttimemnts'] is ""):
-                    event['starttimemnts'] = "00"
+                hours, remainder = divmod(datum[2].seconds, 3600)
+                minutes, seconds = divmod(remainder, 60)
+                starttime = '%02d:%02d' % (hours, minutes)
 
-                event['endtimehrs'] = datum[3].seconds//3600
-                event['endtimemnts'] = (datum[3].seconds//60)%60
+                event['starttime'] = starttime
 
-                if(event['endtimemnts'] is ""):
-                    event['endtimemnts'] = "00"
+                hours, remainder = divmod(datum[3].seconds, 3600)
+                minutes, seconds = divmod(remainder, 60)
+                endtime = '%02d:%02d' % (hours, minutes)
+
+                event['endtime'] = endtime
 
                 event['location'] = datum[4]
                 upcoming.append(event)
@@ -80,6 +81,7 @@ def default():
                 event['endday'] = datum[2].day
                 event['endtimehrs'] = datum[4].seconds//3600
                 event['endtimemnts'] = (datum[4].seconds//60)%60
+                
                 events.append(event)
 
         except Exception as e:

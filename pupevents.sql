@@ -6,7 +6,6 @@
 -- Generation Time: Mar 16, 2017 at 05:57 AM
 -- Server version: 5.6.26-log
 -- PHP Version: 7.0.4
-=======
 -- Host: 127.0.0.1
 -- Generation Time: Mar 16, 2017 at 05:13 AM
 -- Server version: 10.1.13-MariaDB

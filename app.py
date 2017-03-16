@@ -112,8 +112,7 @@ def create():
 
 @app.route('/home')
 def home():
-    dump = json.dumps(request.form)
-    data = json.loads(dump)
+    events = []
 
     if 'user_id' in session:
         try:

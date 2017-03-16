@@ -11,6 +11,7 @@
 
 	<link rel="stylesheet" type="text/css" href="../../static/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="../../static/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/style.css">
 	<link rel="icon" href="../../static/images/PUP.png" type="">
 
 	<style type="text/css">
@@ -50,17 +51,19 @@
 		}
 
 		.featured-cover {
-			padding-top: 5%;
+			padding-top: 50px;
+			padding-bottom: 50px;
 			width: 100%;
-			height: 350px;
 			/*background-color: #2E3254;*/
 			/*background-color: #5F5F5F;*/
 			background-color: black;
+			padding-left: 5%;
+			padding-right: 5%;
 		}
 
 		.event-teaser {
 			width: 80%;
-			height: 50px;
+			padding: 1%;
 			background-color: #F0F0F0;
 			border-radius: 4px;
 			margin-bottom: 10px;
@@ -71,7 +74,7 @@
 
 		.event-teaser-2 {
 			width: 100%;
-			height: 50px;
+			/*height: 50px;*/
 			background-color: #F0F0F0;
 			border-radius: 4px;
 			margin-bottom: 10px;
@@ -93,8 +96,8 @@
 		}
 
 		.btn {
-			width: 110%;
-			height: 40px;
+			width: 100%;
+			/*height: 40px;*/
 			font-family: Montserrat;
 		}
 
@@ -163,6 +166,12 @@
 		    border-top-left-radius: 5px;
 		    border-top-right-radius: 5px;
 		}
+
+		.calendar {
+			background-color: white;
+			padding-bottom: 40px;
+		}
+
 	</style>
 
 	<script type="text/javascript">
@@ -219,181 +228,107 @@
 				</span>
 			</h2>
 
-		<div class="event-teaser">
 			<div class="row">
-				<div class="col-md-3">
-					<i class="fa fa-calendar" aria-hidden="true"></i>
-					March 1, 2016
+				<div class="col-md-2">
+					<button type="button" class="btn btn-sm btn-danger">
+						view
+					</button>
 				</div>
-				<div class="col-md-3">
-					<i class="fa fa-map-marker" aria-hidden="true"></i>
-					6:00 AM - 5:00 PM
-				</div>
-				<div class="col-md-3">
-					<span id="event-title" style="font-size: 15px;">
-					PUP Rave Party
-					</span>
-				</div>
-				<div class="col-md-3">
-					<i class="fa fa-map-marker" aria-hidden="true"></i>
-					PUP Main
-				</div>
-			</div>	
-		</div>	
-	
-		<div class="event-teaser">
-			<div class="row">
-				<div class="col-md-3">
-					<i class="fa fa-calendar" aria-hidden="true"></i>
-					March 1, 2016
-				</div>
-				<div class="col-md-3">
-					<i class="fa fa-map-marker" aria-hidden="true"></i>
-					6:00 AM - 5:00 PM
-				</div>
-				<div class="col-md-3">
-					<span id="event-title" style="font-size: 15px;">
-					PUP Rave Party
-					</span>
-				</div>
-				<div class="col-md-3">
-					<i class="fa fa-map-marker" aria-hidden="true"></i>
-					PUP Main
-				</div>
-			</div>	
-		</div>
+				<div class="col-md-10">
+					<div class="event-teaser-2">
+						<div class="row">
+							<div class="col-md-3">
+								<i class="fa fa-calendar" aria-hidden="true"></i>
+								March 1, 2016
+							</div>
+							<div class="col-md-3">
+								<i class="fa fa-map-marker" aria-hidden="true"></i>
+								6:00 AM - 5:00 PM
+							</div>
+							<div class="col-md-3">
+								<span id="event-title" style="font-size: 10px;">
+								PUP Rave Party
+								</span>
+							</div>
+							<div class="col-md-3">
+								<i class="fa fa-map-marker" aria-hidden="true"></i>
+								PUP Main
+							</div>
+						</div>
+					</div>		
+				</div>	
+			</div>
 
-		<div class="event-teaser">
 			<div class="row">
-				<div class="col-md-3">
-					<i class="fa fa-calendar" aria-hidden="true"></i>
-					March 1, 2016
+				<div class="col-md-2">
+					<button type="button" class="btn btn-sm btn-danger">
+						view
+					</button>
 				</div>
-				<div class="col-md-3">
-					<i class="fa fa-map-marker" aria-hidden="true"></i>
-					6:00 AM - 5:00 PM
+				<div class="col-md-10">
+					<div class="event-teaser-2">
+						<div class="row">
+							<div class="col-md-3">
+								<i class="fa fa-calendar" aria-hidden="true"></i>
+								March 1, 2016
+							</div>
+							<div class="col-md-3">
+								<i class="fa fa-map-marker" aria-hidden="true"></i>
+								6:00 AM - 5:00 PM
+							</div>
+							<div class="col-md-3">
+								<span id="event-title" style="font-size: 10px;">
+								PUP Rave Party
+								</span>
+							</div>
+							<div class="col-md-3">
+								<i class="fa fa-map-marker" aria-hidden="true"></i>
+								PUP Main
+							</div>
+						</div>
+					</div>		
+				</div>	
+			</div>
+
+			<div class="row">
+				<div class="col-md-2">
+					<button type="button" class="btn btn-sm btn-danger">
+						view
+					</button>
 				</div>
-				<div class="col-md-3">
-					<span id="event-title" style="font-size: 15px;">
-					PUP Rave Party
-					</span>
-				</div>
-				<div class="col-md-3">
-					<i class="fa fa-map-marker" aria-hidden="true"></i>
-					PUP Main
-				</div>
-			</div>	
-		</div>
-		</center>
+				<div class="col-md-10">
+					<div class="event-teaser-2">
+						<div class="row">
+							<div class="col-md-3">
+								<i class="fa fa-calendar" aria-hidden="true"></i>
+								March 1, 2016
+							</div>
+							<div class="col-md-3">
+								<i class="fa fa-map-marker" aria-hidden="true"></i>
+								6:00 AM - 5:00 PM
+							</div>
+							<div class="col-md-3">
+								<span id="event-title" style="font-size: 10px;">
+								PUP Rave Party
+								</span>
+							</div>
+							<div class="col-md-3">
+								<i class="fa fa-map-marker" aria-hidden="true"></i>
+								PUP Main
+							</div>
+						</div>
+					</div>		
+				</div>	
+			</div>
+		</center>	
 	</div>	
 
-	
-
-	<div class="container">
-		<div class="wrapper">
-			<div class="row">
-				<div class="col-md-2">
-					<button type="button" class="btn btn-danger">
-						view
-					</button>
-				</div>
-				<div class="col-md-10">
-					<div class="event-teaser-2">
-						<div class="row">
-							<div class="col-md-3">
-								<i class="fa fa-calendar" aria-hidden="true"></i>
-								March 1, 2016
-							</div>
-							<div class="col-md-3">
-								<i class="fa fa-map-marker" aria-hidden="true"></i>
-								6:00 AM - 5:00 PM
-							</div>
-							<div class="col-md-3">
-								<span id="event-title" style="font-size: 10px;">
-								PUP Rave Party
-								</span>
-							</div>
-							<div class="col-md-3">
-								<i class="fa fa-map-marker" aria-hidden="true"></i>
-								PUP Main
-							</div>
-						</div>
-					</div>		
-				</div>	
-			</div>
-
-			<div class="row">
-				<div class="col-md-2">
-					<button type="button" class="btn btn-danger">
-						view
-					</button>
-				</div>
-				<div class="col-md-10">
-					<div class="event-teaser-2">
-						<div class="row">
-							<div class="col-md-3">
-								<i class="fa fa-calendar" aria-hidden="true"></i>
-								March 1, 2016
-							</div>
-							<div class="col-md-3">
-								<i class="fa fa-map-marker" aria-hidden="true"></i>
-								6:00 AM - 5:00 PM
-							</div>
-							<div class="col-md-3">
-								<span id="event-title" style="font-size: 10px;">
-								PUP Rave Party
-								</span>
-							</div>
-							<div class="col-md-3">
-								<i class="fa fa-map-marker" aria-hidden="true"></i>
-								PUP Main
-							</div>
-						</div>
-					</div>		
-				</div>	
-			</div>
-
-			<div class="row">
-				<div class="col-md-2">
-					<button type="button" class="btn btn-danger">
-						view
-					</button>
-				</div>
-				<div class="col-md-10">
-					<div class="event-teaser-2">
-						<div class="row">
-							<div class="col-md-3">
-								<i class="fa fa-calendar" aria-hidden="true"></i>
-								March 1, 2016
-							</div>
-							<div class="col-md-3">
-								<i class="fa fa-map-marker" aria-hidden="true"></i>
-								6:00 AM - 5:00 PM
-							</div>
-							<div class="col-md-3">
-								<span id="event-title" style="font-size: 10px;">
-								PUP Rave Party
-								</span>
-							</div>
-							<div class="col-md-3">
-								<i class="fa fa-map-marker" aria-hidden="true"></i>
-								PUP Main
-							</div>
-						</div>
-					</div>		
-				</div>	
-			</div>
-
-			<div class="row">
-				<div class="col-md-4">
-				</div>
-				<div class="col-md-8">
-					<button type="button" class="btn btn-default">
-						More
-					</button>
-				</div>	
-			</div>
-		</div>
+	<!-- CALENDAR -->
+	<div class="calendar">
+		<div class="container">
+	    	<hr>
+	    	<div id="calendar"></div>
+	  	</div>
 	</div>
 
 	<!-- 
@@ -478,5 +413,49 @@
 			2017
 		</center>
 	</footer>
+
+
+	<script type="text/javascript">
+		  	var events_list = [
+	    		{% if event is defined %}
+	    			{% for item in event %}
+			          	{
+			          		id: {{ item['id'] }},
+			          		title: " {{ item['title'] }}",
+			          		start: new Date(
+			          			{{ item['startYear'] }},
+			          			{{ item['startmonth'] - 1}},
+			          			{{ item['startday'] }},
+			          			{{ item['starttimehrs'] }},
+			          			{{ item['starttimemnts'] }}
+			          		),
+			          		end: new Date(
+			          			{{ item['endyear'] }},
+			          			{{ item['endmonth'] - 1 }},
+			          			{{ item['endday'] }},
+			          			{{ item['endtimehrs'] }},
+			       				{{ item['endtimemnts'] }}
+			       			),
+			       			allDay: false	
+			    		},
+			    	{% endfor %}
+			    {% endif %}
+	        ];
+	
+		$.getScript('../static/js/calendar.min.js',function(){
+
+		        $('#calendar').fullCalendar({
+		          header: {
+		            left: 'prev,next today',
+		            center: 'title',
+		            right: 'month,agendaWeek,agendaDay'
+		          },
+		          editable: true,
+		          events: events_list
+		        });
+		    });
+	</script>
+
+
 </body>
 </html>

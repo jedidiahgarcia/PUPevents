@@ -8,7 +8,14 @@
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 
 	<script type="text/javascript" src="../../static/js/jquery.min.js"></script>
+	<script type="text/javascript" src="../../static/js/bootstrap.js"></script>
 	<script type="text/javascript" src="../../static/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../../static/js/moment.js"></script>
+	<script type="text/javascript" src="../../static/js/collapse.js"></script>
+	<script type="text/javascript" src="../../static/js/jquery.min.js"></script>
+	<script type="text/javascript" src="../../static/js/transition.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
 
 	<link rel="stylesheet" type="text/css" href="../../static/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="../../static/css/font-awesome.min.css">
@@ -122,6 +129,10 @@
 		    border-top-right-radius: 5px;
 		}
 
+		.date {
+			padding: 5px;
+		}
+
 
 
 
@@ -186,15 +197,33 @@
 						<div class="row">
 							<div class="col-xs-6">
 								<label>Starts</label>
-								<input name="startTime" type="text" id="" class="form-control" placeholder="Time eg 5:00 PM" required="" autofocus=""><br/>
+								<!-- <input name="startTime" type="text" id="" class="form-control" placeholder="Time eg 5:00 PM" required="" autofocus=""><br/> -->
+								<div class='input-group date' id='datetimepicker4'>
+                    				<input name ="startTime" type='text' class="form-control" placeholder="Time eg 5:00 PM"/>
+                    				<span class="input-group-addon">
+                        				<i class="fa fa-clock-o" aria-hidden="true"></i>
+                    				</span>
+                				</div>
 							</div>
+
 							<div class="col-xs-6">
-								<label>Ends</label><input name="endTime" type="text" id="" class="form-control" placeholder="Time eg 5:00 PM" required="" autofocus=""><br/>
+								<label>Ends</label>
+								<div class='input-group date' id='datetimepicker3'>
+                    				<input name ="endTime" type='text' class="form-control" placeholder="Time eg 5:00 PM"/>
+                    				<span class="input-group-addon">
+                        				<i class="fa fa-clock-o" aria-hidden="true"></i>
+                    				</span>
+                				</div>
 							</div>
 						</div>	
 								<!-- <input type="text" id="" class="form-control" placeholder="Location" required="" autofocus=""><br/>
+<<<<<<< HEAD
  -->
  								<select id = "venue" class="form-control">
+=======
+ -->					<br/>
+ 								<select class="form-control">
+>>>>>>> 3766b705c493ca7a384a728240f2a19a488a181f
  									<option selected>Location</option>
  									<option>Bonifacio Hall</option>
  									<option>PUP Gymnasium</option>
@@ -384,5 +413,21 @@
 
         });
 	</script>
+
+	<script type="text/javascript">
+       	$(function () {
+            $('#datetimepicker3').datetimepicker({
+                format: 'HH:mm'
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+       	$(function () {
+            $('#datetimepicker4').datetimepicker({
+                format: 'HH:mm'
+            });
+        });
+    </script>
 </body>
 </html>

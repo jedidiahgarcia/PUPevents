@@ -235,17 +235,16 @@ def create_():
     dump = json.dumps(request.form)
     data = json.loads(dump)
     
-    venueId = 9
-    organizerId = 9
-    reserve = 'reserve'
+    venueId = 2
+    organizerId = 1
     
-    sql = "INSERT INTO event a, guest b(a.eventName, a.eventDesc, a.date, a.startTime, a.endTime, a.venueId, a.organizerId, a.peopleAlloc, a.status) \
-       VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')" % \
-       (data['eventName'], data['eventDesc'], data['date'], data['startTime'], data['endTime'], venueId, organizerId, data['peopleAlloc'], reserve)
+    sql = "INSERT INTO event(eventName, eventDesc, eventDate, startTime, endTime, venueId, organizerId, peopleAlloc) \
+       VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')" % \
+       (data['eventName'], data['eventDesc'], data['date'], data['startTime'], data['endTime'], venueId, organizerId, data['peopleAlloc'])
     '''
     sql = "INSERT INTO samp(id, name) \
-       VALUES ('%d', '%s')" %\
-       (venueId, reserve)
+       VALUES ('%s', '%s')" %\
+       (venueId, 'reserve')
     '''
     try:
         con = mysql.connection

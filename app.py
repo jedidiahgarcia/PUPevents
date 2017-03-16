@@ -20,6 +20,7 @@ mysql = MySQL(app)
 def default():
     if 'user_id' not in session:
         events = [];
+        
         try:
             con = mysql.connection
             cur = con.cursor()

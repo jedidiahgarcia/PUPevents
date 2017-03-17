@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 16, 2017 at 12:54 PM
+-- Generation Time: Mar 17, 2017 at 01:52 AM
 -- Server version: 5.6.26-log
 -- PHP Version: 7.0.4
 
@@ -24,6 +24,10 @@ DELIMITER $$
 --
 -- Procedures
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `checkJoinStatus` (IN `user_id` VARCHAR(15), IN `event_id` INT(11))  BEGIN
+	Select guestId from guest where userId = user_id AND eventId = event_id;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getAllEvents` ()  BEGIN
 	Select eventId, eventName, eventDate, startTime, endTime from event;
 END$$
@@ -40,8 +44,57 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getNextThree` ()  BEGIN
         where
         a.venueId = b.venueId AND
         b.venueInfoId = c.venueInfoId AND
-        a.eventDate > NOW()
+        a.eventDate >= NOW()
         LIMIT 3;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getUpcomingHostedEvents` (IN `id` VARCHAR(15))  BEGIN
+	Select
+		a.eventId,
+		a.eventName
+	from
+		event a,
+        organizer c
+	where
+		c.userId = id AND
+        a.organizerId = c.organizerId AND
+        a.eventDate > NOW();
+	
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getUpcomingJoinedEvents` (IN `id` VARCHAR(15))  BEGIN
+	Select
+		a.eventId,
+		a.eventName,
+        a.eventDate,
+        a.startTime,
+        a.endTime
+	from
+		event a,
+        venue b,
+        organizer c,
+        venueInfo d
+	where
+		c.userId = id AND
+        a.organizerId = c.organizerId AND
+        a.venueId = b.venueId AND
+        b.venueInfoId = d.venueInfoId AND
+        a.eventDate > NOW();
+        
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `joinEvent` (IN `user_id` VARCHAR(15), IN `event_id` INT(11))  BEGIN
+	INSERT INTO guest(userId, eventId)
+    VALUES(user_id,event_id);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `profileInfo` (IN `id` VARCHAR(15))  BEGIN
+	Select
+		firstName,
+		lastName,
+        email,
+        contactNumber
+	FROM user where user.id = id;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `viewEvent` (IN `id` INT(11))  BEGIN
@@ -84,8 +137,8 @@ CREATE TABLE `event` (
 --
 
 INSERT INTO `event` (`eventId`, `eventName`, `eventDesc`, `eventDate`, `startTime`, `endTime`, `venueId`, `organizerId`, `peopleAlloc`, `status`) VALUES
-(4, 'PUP Operation Tuli', 'Abutin ang pangarap na minsang naunahan ng takot HAHAHA', '2017-03-17', '15:00:00', '16:00:00', 2, 1, 50, 'reserved'),
-(5, 'PUP Graduation', 'k', '2017-03-17', '14:30:00', '16:00:00', 2, 2, 6500, 'published');
+(4, 'PUP Operation Tuli', 'Abutin ang pangarap na minsang naunahan ng takot HAHAHA', '2017-03-18', '15:00:00', '16:00:00', 2, 1, 50, 'reserved'),
+(5, 'PUP Graduation', 'k', '2017-03-18', '14:30:00', '16:00:00', 2, 2, 6500, 'published');
 
 -- --------------------------------------------------------
 
@@ -95,15 +148,17 @@ INSERT INTO `event` (`eventId`, `eventName`, `eventDesc`, `eventDate`, `startTim
 
 CREATE TABLE `guest` (
   `guestId` int(10) NOT NULL,
-  `userId` varchar(15) NOT NULL
+  `userId` varchar(15) NOT NULL,
+  `eventId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `guest`
 --
 
-INSERT INTO `guest` (`guestId`, `userId`) VALUES
-(2, 'xcxcxc');
+INSERT INTO `guest` (`guestId`, `userId`, `eventId`) VALUES
+(3, '2014-05666-MN-0', 4),
+(5, '2014-05666-MN-0', 5);
 
 -- --------------------------------------------------------
 
@@ -265,6 +320,11 @@ ALTER TABLE `venueinfo`
 --
 ALTER TABLE `event`
   MODIFY `eventId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `guest`
+--
+ALTER TABLE `guest`
+  MODIFY `guestId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `organizer`
 --

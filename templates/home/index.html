@@ -314,7 +314,8 @@
 			          			{{ item['endtimehrs'] }},
 			       				{{ item['endtimemnts'] }}
 			       			),
-			       			allDay: false	
+			       			allDay: false,
+			       			url: '/view/event/{{ item['id'] }}'
 			    		},
 			    	{% endfor %}
 			    {% endif %}

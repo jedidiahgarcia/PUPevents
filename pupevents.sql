@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 17, 2017 at 11:30 AM
+-- Generation Time: Mar 17, 2017 at 01:02 PM
 -- Server version: 5.6.26-log
 -- PHP Version: 7.0.4
 
@@ -24,6 +24,10 @@ DELIMITER $$
 --
 -- Procedures
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cancelJoinEvent` (IN `guest_id` INT(10))  BEGIN
+	Delete from guest where guestId = guest_id;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `cancel_hosted` (IN `event_id` INT(11))  BEGIN
 	Update event 
     set status = 'cancel'
@@ -86,7 +90,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getUpcomingJoinedEvents` (IN `id` V
         a.eventDate,
         a.startTime,
         a.endTime,
-        d.venueName
+        d.venueName,
+        c.guestId
 	from
 		event a,
         venue b,
@@ -154,7 +159,7 @@ CREATE TABLE `event` (
 --
 
 INSERT INTO `event` (`eventId`, `eventName`, `eventDesc`, `eventDate`, `startTime`, `endTime`, `venueId`, `organizerId`, `peopleAlloc`, `status`) VALUES
-(4, 'PUP Operation Tuli', 'Abutin ang pangarap na minsang naunahan ng takot HAHAHA', '2017-03-18', '15:00:00', '16:00:00', 2, 1, 50, 'published'),
+(4, 'PUP Operation Tuli', 'Abutin ang pangarap na minsang naunahan ng takot HAHAHA', '2017-03-18', '15:00:00', '16:00:00', 2, 1, 50, 'cancel'),
 (5, 'PUP Graduation', 'Road to PICC', '2017-03-18', '14:30:00', '16:00:00', 3, 2, 6500, 'published');
 
 -- --------------------------------------------------------
@@ -174,7 +179,6 @@ CREATE TABLE `guest` (
 --
 
 INSERT INTO `guest` (`guestId`, `userId`, `eventId`) VALUES
-(6, '2014-05666-MN-0', 4),
 (7, '2014-05666-MN-0', 5);
 
 -- --------------------------------------------------------

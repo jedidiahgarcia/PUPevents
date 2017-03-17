@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 17, 2017 at 01:52 AM
+-- Generation Time: Mar 17, 2017 at 11:30 AM
 -- Server version: 5.6.26-log
 -- PHP Version: 7.0.4
 
@@ -24,12 +24,26 @@ DELIMITER $$
 --
 -- Procedures
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cancel_hosted` (IN `event_id` INT(11))  BEGIN
+	Update event 
+    set status = 'cancel'
+    where
+    eventId = event_id;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `checkJoinStatus` (IN `user_id` VARCHAR(15), IN `event_id` INT(11))  BEGIN
 	Select guestId from guest where userId = user_id AND eventId = event_id;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getAllEvents` ()  BEGIN
-	Select eventId, eventName, eventDate, startTime, endTime from event;
+	Select
+		eventId,
+        eventName,
+        eventDate,
+        startTime,
+        endTime from event
+        where status = 'reserved' or
+        status = 'published';
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getNextThree` ()  BEGIN
@@ -42,6 +56,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getNextThree` ()  BEGIN
         a.eventId
         from event a, venue b, venueinfo c
         where
+        (status = 'reserved' OR
+        status = 'published') AND
         a.venueId = b.venueId AND
         b.venueInfoId = c.venueInfoId AND
         a.eventDate >= NOW()
@@ -58,8 +74,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getUpcomingHostedEvents` (IN `id` V
 	where
 		c.userId = id AND
         a.organizerId = c.organizerId AND
+        (status = 'reserved' or
+        status = 'published') AND
         a.eventDate > NOW();
-	
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getUpcomingJoinedEvents` (IN `id` VARCHAR(15))  BEGIN
@@ -68,19 +85,18 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getUpcomingJoinedEvents` (IN `id` V
 		a.eventName,
         a.eventDate,
         a.startTime,
-        a.endTime
+        a.endTime,
+        d.venueName
 	from
 		event a,
         venue b,
-        organizer c,
+        guest c,
         venueInfo d
 	where
-		c.userId = id AND
-        a.organizerId = c.organizerId AND
+		id = c.userId AND
+        c.eventId = a.eventId AND
         a.venueId = b.venueId AND
-        b.venueInfoId = d.venueInfoId AND
-        a.eventDate > NOW();
-        
+        b.venueInfoId = d.venueInfoId;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `joinEvent` (IN `user_id` VARCHAR(15), IN `event_id` INT(11))  BEGIN
@@ -93,7 +109,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `profileInfo` (IN `id` VARCHAR(15)) 
 		firstName,
 		lastName,
         email,
-        contactNumber
+        contactNumber,
+        designation
 	FROM user where user.id = id;
 END$$
 
@@ -137,8 +154,8 @@ CREATE TABLE `event` (
 --
 
 INSERT INTO `event` (`eventId`, `eventName`, `eventDesc`, `eventDate`, `startTime`, `endTime`, `venueId`, `organizerId`, `peopleAlloc`, `status`) VALUES
-(4, 'PUP Operation Tuli', 'Abutin ang pangarap na minsang naunahan ng takot HAHAHA', '2017-03-18', '15:00:00', '16:00:00', 2, 1, 50, 'reserved'),
-(5, 'PUP Graduation', 'k', '2017-03-18', '14:30:00', '16:00:00', 2, 2, 6500, 'published');
+(4, 'PUP Operation Tuli', 'Abutin ang pangarap na minsang naunahan ng takot HAHAHA', '2017-03-18', '15:00:00', '16:00:00', 2, 1, 50, 'published'),
+(5, 'PUP Graduation', 'Road to PICC', '2017-03-18', '14:30:00', '16:00:00', 3, 2, 6500, 'published');
 
 -- --------------------------------------------------------
 
@@ -157,8 +174,8 @@ CREATE TABLE `guest` (
 --
 
 INSERT INTO `guest` (`guestId`, `userId`, `eventId`) VALUES
-(3, '2014-05666-MN-0', 4),
-(5, '2014-05666-MN-0', 5);
+(6, '2014-05666-MN-0', 4),
+(7, '2014-05666-MN-0', 5);
 
 -- --------------------------------------------------------
 
@@ -178,24 +195,6 @@ CREATE TABLE `organizer` (
 INSERT INTO `organizer` (`organizerId`, `userId`) VALUES
 (1, '2014-05666-MN-0'),
 (2, '2014-05666-MN-0');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `samp`
---
-
-CREATE TABLE `samp` (
-  `id` int(5) NOT NULL,
-  `name` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `samp`
---
-
-INSERT INTO `samp` (`id`, `name`) VALUES
-(9, 'reserve');
 
 -- --------------------------------------------------------
 
@@ -237,7 +236,8 @@ CREATE TABLE `venue` (
 --
 
 INSERT INTO `venue` (`venueId`, `venueInfoId`) VALUES
-(2, 1);
+(2, 1),
+(3, 2);
 
 -- --------------------------------------------------------
 
@@ -303,7 +303,7 @@ ALTER TABLE `user`
 --
 ALTER TABLE `venue`
   ADD PRIMARY KEY (`venueId`),
-  ADD UNIQUE KEY `venueInfoId` (`venueInfoId`);
+  ADD KEY `veue_ibf_key_idx` (`venueInfoId`);
 
 --
 -- Indexes for table `venueinfo`
@@ -324,7 +324,7 @@ ALTER TABLE `event`
 -- AUTO_INCREMENT for table `guest`
 --
 ALTER TABLE `guest`
-  MODIFY `guestId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `guestId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `organizer`
 --
@@ -334,7 +334,7 @@ ALTER TABLE `organizer`
 -- AUTO_INCREMENT for table `venue`
 --
 ALTER TABLE `venue`
-  MODIFY `venueId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `venueId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `venueinfo`
 --
@@ -355,7 +355,7 @@ ALTER TABLE `event`
 -- Constraints for table `venue`
 --
 ALTER TABLE `venue`
-  ADD CONSTRAINT `venue_ibfk_2` FOREIGN KEY (`venueInfoId`) REFERENCES `venueinfo` (`venueInfoId`);
+  ADD CONSTRAINT `veue_ibf_key` FOREIGN KEY (`venueInfoId`) REFERENCES `venueinfo` (`venueInfoId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

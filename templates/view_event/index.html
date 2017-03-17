@@ -316,83 +316,16 @@
 			</center>
 		</div>
 	{% endif %}
-	
-
-	<!-- 
-		*TRY ALERT MODALS HERE
-		<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal-success">Open Modal</button> 
-		-->
-
-		<!-- Modal -->
-		<div id="modal-error" class="modal fade" role="dialog">
-		  	<div class="modal-dialog">
-
-			    <!-- Modal error-->
-			    <div class="modal-content">
-			      <div class="modal-header modal-header-danger">
-			        <button type="button" class="close" data-dismiss="modal">&times;</button>
-			        <h4 class="modal-title">
-			        	<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-			        </h4>
-			      </div>
-			      <div class="modal-body modal-body-danger">
-			        <p></p>
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			      </div>
-			    </div>
-			</div>
-		</div>	    
-
-		<div id="modal-success" class="modal fade" role="dialog">
-		    <div class="modal-dialog">	
-		    	<!-- Modal success-->
-			    <div class="modal-content">
-			      <div class="modal-header modal-header-success">
-			        <button type="button" class="close" data-dismiss="modal">&times;</button>
-			        <h4 class="modal-title">
-			        	<i class="fa fa-check-circle" aria-hidden="true"></i>
-			        </h4>
-			      </div>
-			      <div class="modal-body modal-body-success">
-			        <p></p>
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			      </div>
-			    </div>
-		  	</div>
+		<div class="container">
+			<center>
+				<a href="/cancel/event/{{ event['id'] }}">
+					<button type="button" class="btn btn-default" disabled>
+						cancel
+					</button>
+				</a>
+			</center>
 		</div>
 
-		<!-- TRY INFORMATION MODAL HERE -->
-
-
-		<!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#info_modal">Open Modal</button> -->
-
-		<!-- Modal -->
-		<div id="info_modal" class="modal fade" role="dialog">
-		  <div class="modal-dialog">
-
-		    <!-- Modal content-->
-		    <div class="modal-content">
-		      <div class="modal-header modal-header-info">
-		        <button type="button" class="close" data-dismiss="modal">&times;</button>
-		        <h4 class="modal-title">
-		        	<i class="fa fa-info-circle" aria-hidden="true"></i>
-		        	Information
-		        </h4>
-		      </div>
-		      <div class="modal-body">
-		        <p></p>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		      </div>
-		    </div>
-
-		  </div>
-		</div>
 
 
 	<footer>

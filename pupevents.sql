@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 17, 2017 at 08:38 AM
+-- Generation Time: Mar 17, 2017 at 11:30 AM
 -- Server version: 5.6.26-log
 -- PHP Version: 7.0.4
 
@@ -90,16 +90,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getUpcomingJoinedEvents` (IN `id` V
 	from
 		event a,
         venue b,
-        organizer c,
+        guest c,
         venueInfo d
 	where
-		c.userId = id AND
-        a.status = 'published' AND
-        a.organizerId = c.organizerId AND
+		id = c.userId AND
+        c.eventId = a.eventId AND
         a.venueId = b.venueId AND
-        b.venueInfoId = d.venueInfoId AND
-        a.eventDate > NOW();
-        
+        b.venueInfoId = d.venueInfoId;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `joinEvent` (IN `user_id` VARCHAR(15), IN `event_id` INT(11))  BEGIN
@@ -157,8 +154,8 @@ CREATE TABLE `event` (
 --
 
 INSERT INTO `event` (`eventId`, `eventName`, `eventDesc`, `eventDate`, `startTime`, `endTime`, `venueId`, `organizerId`, `peopleAlloc`, `status`) VALUES
-(4, 'PUP Operation Tuli', 'Abutin ang pangarap na minsang naunahan ng takot HAHAHA', '2017-03-18', '15:00:00', '16:00:00', 2, 1, 50, 'cancel'),
-(5, 'PUP Graduation', 'Road to PICC', '2017-03-18', '14:30:00', '16:00:00', 3, 2, 6500, 'cancel');
+(4, 'PUP Operation Tuli', 'Abutin ang pangarap na minsang naunahan ng takot HAHAHA', '2017-03-18', '15:00:00', '16:00:00', 2, 1, 50, 'published'),
+(5, 'PUP Graduation', 'Road to PICC', '2017-03-18', '14:30:00', '16:00:00', 3, 2, 6500, 'published');
 
 -- --------------------------------------------------------
 
@@ -198,24 +195,6 @@ CREATE TABLE `organizer` (
 INSERT INTO `organizer` (`organizerId`, `userId`) VALUES
 (1, '2014-05666-MN-0'),
 (2, '2014-05666-MN-0');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `samp`
---
-
-CREATE TABLE `samp` (
-  `id` int(5) NOT NULL,
-  `name` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `samp`
---
-
-INSERT INTO `samp` (`id`, `name`) VALUES
-(9, 'reserve');
 
 -- --------------------------------------------------------
 

@@ -219,14 +219,15 @@
 							</div>
 						</div>
 							<div class="venueSelect">
- 								<select id = "venue" class="form-control">
+ 								<select id = "venue" name="venue" class="form-control">
  									<option selected>Location</option>
- 									<option value="1">Bulwagang Balagtas</option>
- 									<option value="2">PUP Gymnasium</option>
- 									<option value="3">Ninoy Aquino Hall</option>
- 									<option value="4">Freedom Park</option>
- 									<option value="5">PUP Theater</option>
- 								</select><br/>
+ 									<option value=1>Bulwagang Balagtas</option>
+ 									<option value=2>PUP Gymnasium</option>
+ 									<option value=3>Ninoy Aquino Hall</option>
+ 									<option value=4>Freedom Park</option>
+ 									<option value=5>PUP Theater</option>
+ 								</select>
+								<br/>
 								</div>
  							
  							<div class="row">
@@ -268,7 +269,7 @@
 										<button class="btn btn-lg btn-primary btn-block" id="btnModal">Proceed</button>		
 									</div>	
 									<div class="col-md-6">
-										<a class="btn btn-lg btn-warning btn-block" href="">Asses Cost</a><br/>	
+										<button onclick="assess()" class="btn btn-lg btn-warning btn-block" id="assess">Assess Cost</button><br/>	
 									</div>							
 							</div>
 						</form>
@@ -448,5 +449,11 @@
             });
         });
     </script>
+	<script type="text/javascript">
+function assess() {
+    alert("I am an alert box!");
+}
+	</script>
+	
 </body>
 </html>

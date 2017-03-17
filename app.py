@@ -525,7 +525,7 @@ def create_():
     organizerId = 1
 
     sql = "SELECT * FROM event a, venue b, venueInfo c WHERE DATE(a.eventDate) = '%s' AND (a.startTime BETWEEN CAST('%s' AS TIME) AND CAST('%s' AS TIME)) AND (a.endTime BETWEEN CAST('%s' AS TIME) AND CAST('%s' AS TIME)) AND a.venueId = '%s' AND (a.status = '%s' OR a.status = '%s') AND a.venueId = b.venueId AND b.venueInfoId = c.venueInfoId AND '%s' <= c.capacity" % \
-        (data['date'],data['startTime'],data['endTime'],data['startTime'],data['endTime'],venueId,'reserved','published',data['peopleAlloc'])
+        (data['date'],data['startTime'],data['endTime'],data['startTime'],data['endTime'],data['venue'],'reserved','published',data['peopleAlloc'])
 
     try:
         con = mysql.connection

@@ -488,28 +488,32 @@ def create_():
     dump = json.dumps(request.form)
     data = json.loads(dump)
     
+    print(data)
     venueId = 2
     organizerId = 1
-    
-    sql = "INSERT INTO event a, guest b(a.eventName, a.eventDesc, a.date, a.startTime, a.endTime, a.venueId, a.organizerId, a.peopleAlloc, a.status) \
-       VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')" % \
-       (data['eventName'], data['eventDesc'], data['date'], data['startTime'], data['endTime'], venueId, organizerId, data['peopleAlloc'], 'reserve')
 
-    '''
-    sql = "INSERT INTO samp(id, name) \
-       VALUES ('%s', '%s')" %\
-       (venueId, 'reserve')
-    '''
+    sql = "SELECT * FROM event a, venue b, venueInfo c WHERE DATE(a.eventDate) = '%s' AND (a.startTime BETWEEN CAST('%s' AS TIME) AND CAST('%s' AS TIME)) AND (a.endTime BETWEEN CAST('%s' AS TIME) AND CAST('%s' AS TIME)) AND a.venueId = '%s' AND (a.status = '%s' OR a.status = '%s') AND a.venueId = b.venueId AND b.venueInfoId = c.venueInfoId AND '%s' <= c.capacity" % \
+        (data['date'],data['startTime'],data['endTime'],data['startTime'],data['endTime'],venueId,'reserved','published',data['peopleAlloc'])
+
     try:
         con = mysql.connection
         cur = con.cursor()
         cur.execute(sql)
         con.commit()
-        return redirect('/create/event')
+        response = cur.fetchone()
 
-    except TypeError as e:
-        mysql.connection.rollback()
-        return e
+        if response is None:
+            sql = "INSERT INTO event (eventName, eventDesc, eventDate, startTime, endTime, venueId, organizerId, peopleAlloc) \
+                  VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')" % \
+                 (data['eventName'], data['eventDesc'], data['date'], data['startTime'], data['endTime'], venueId, organizerId, data['peopleAlloc'])
+
+            con = mysql.connection
+            cur = con.cursor()
+            cur.execute(sql)
+            con.commit()
+            return redirect('/create/event')
+        else:
+            return render_template('login/error.html')
 
     except Exception as e:
         con.rollback()

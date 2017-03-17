@@ -215,6 +215,7 @@
                 				</div>
 							</div>
 						</div>
+							<div class="venueSelect">
  								<select id = "venue" class="form-control">
  									<option selected>Location</option>
  									<option value="1">Bulwagang Balagtas</option>
@@ -223,7 +224,7 @@
  									<option value="4">Freedom Park</option>
  									<option value="5">PUP Theater</option>
  								</select><br/>
-
+								</div>
  							
  							<div class="row">
  								<div class="col-md-4">
@@ -386,6 +387,8 @@
             var $inputs = $form.find("text", "email", "password", "radio", "date");
 
             // Serialize the data in the form
+         
+
             var serializedData = $form.serialize();
 
             // Let's disable the inputs for the duration of the Ajax request.

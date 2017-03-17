@@ -253,17 +253,26 @@ def view_event(event_id):
     else:
         return redirect('/signin')
 
-@app.route('/join/event/<event_id>')
-def join(event_id):
-
+@app.route('/profile')
+def profile():
     if 'user_id' in session:
+        info = {}
+
+        # get profile info
         try:
             con = mysql.connection
             cur = con.cursor()
-            cur.callproc('joinEvent', [ session['user_id'], event_id ])
-            con.commit()
+            cur.callproc('profileInfo', [session['user_id']])
+            data = cur.fetchone()
 
-            return render_template('view_event/success.html')
+            profile = {}
+
+            profile['firstName'] = data[0]
+            profile['lastName'] = data[1]
+            profile['email'] = data[2]
+            profile['contactNumber'] = data[3]
+
+            info['profile'] = profile
 
         except Exception as e:
             con.rollback()
@@ -271,13 +280,66 @@ def join(event_id):
 
         finally:
             cur.close()
-    else:
-        return redirect('/signin')
 
-@app.route('/profile')
-def profile():
-    if 'user_id' in session:
-        return render_template('profile/index.html')
+        # get hosted events
+        try:
+            con = mysql.connection
+            cur = con.cursor()
+            cur.callproc('getUpcomingHostedEvents', [session['user_id']])
+            data = cur.fetchall()
+
+            hosted = []
+
+            for item in data:
+                event = {}
+
+                event['eventId'] = item[0]
+                event['eventName'] = item[1]
+
+                hosted.append(event)
+
+            info['hosted'] = hosted
+
+        except Exception as e:
+            con.rollback()
+            return e
+
+        finally:
+            cur.close()
+
+        # get joined events
+        try:
+            con = mysql.connection
+            cur = con.cursor()
+            cur.callproc('getUpcomingJoinedEvents', [session['user_id']])
+            data = cur.fetchall()
+
+            joined = []
+
+            for item in data:
+                event = {}
+
+                event['eventId'] = item[0]
+                event['eventName'] = item[1]
+                event['eventDate'] = item[2]
+                event['startTime'] = item[3]
+                event['endTime'] = item[4]
+                event['venueName'] = item[5]
+
+                joined.append(event)
+
+            info['joined'] = joined
+
+        except Exception as e:
+            con.rollback()
+            return e
+
+        finally:
+            cur.close()
+
+        print(info)
+
+        return render_template('profile/index.html', data = info)
     else:
         return redirect('/')  
 
@@ -286,7 +348,6 @@ def signout():
     if 'user_id' in session:
         session.pop('user_id', None)
     return redirect('/')
-
 
 ########################################################################################################################
 
@@ -372,6 +433,25 @@ def signin_():
     finally:
         cur.close()
 
+@app.route('/join/event/<event_id>')
+def join(event_id):
+    if 'user_id' in session:
+        try:
+            con = mysql.connection
+            cur = con.cursor()
+            cur.callproc('joinEvent', [session['user_id'], event_id])
+            con.commit()
+            return render_template('view_event/success.html')
+
+        except Exception as e:
+            con.rollback()
+            return e
+
+        finally:
+            cur.close()
+    else:
+        return redirect('/signin')
+
 ########################################################################################################################
 
 #@organizer ############################################################################################################
@@ -409,7 +489,7 @@ def create_():
 
     finally:
         cur.close()
-			
+
 ########################################################################################################################
 
 def message(type, message):

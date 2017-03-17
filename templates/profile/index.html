@@ -202,48 +202,59 @@
 
 							</div>
 						</div>
-						</div>
 					</div>
-					
-					
-					<div class="col-md-8">
-					<div class="wrapper">
-						<label>Joined Events</label><br/>
-
-						<div class="event-teaser-2">
-							<div class="row">
-								<div class="col-md-10">	
-									<div class="col-md-3">
-										<i class="fa fa-calendar" aria-hidden="true"></i>
-										March 1, 2016
-									</div>
-									<div class="col-md-3">
-										<i class="fa fa-map-marker" aria-hidden="true"></i>
-										6:00 AM - 5:00 PM
-									</div>
-									<div class="col-md-3">
-										<span id="event-title">
-										PUP Rave Party
-										</span>
-									</div>
-									<div class="col-md-3">
-										<i class="fa fa-map-marker" aria-hidden="true"></i>
-										PUP Main
-									</div>
-								</div>	
-
-								<div class="col-md-2">
-									<button class="btn btn-xs btn-danger btn-block">cancel</button>
-								</div>	
-						</div>
-					</div>
-				</div>	
-
 				</div>
-				</div>	
-			</div>
-			</center>
-		</div>				
+					
+					
+				<div class="col-md-8">
+					<div class="wrapper">
+						<label>
+							Joined Events
+						</label>
+						<br/>
+
+						{% if data['joined'] is defined %}
+							{% for item in data['joined'] %}
+								<div class="event-teaser-2">
+									<div class="row">
+										<div class="col-md-10">	
+											<div class="col-md-3">
+												<i class="fa fa-calendar" aria-hidden="true"></i>
+												{{ item['eventDate'] }}
+											</div>
+											<div class="col-md-3">
+												<i class="fa fa-clock-o" aria-hidden="true"></i>
+												{{ item['startTime'] }} - {{ item['endTime'] }}
+											</div>
+											<div class="col-md-3">
+												<span id="event-title">
+													{{ item['eventName'] }}
+												</span>
+											</div>
+											<div class="col-md-3">
+												<i class="fa fa-map-marker" aria-hidden="true"></i>
+												{{ item['venueName'] }}
+											</div>
+										</div>	
+
+										<div class="col-md-2">
+											<a href="/cancel/join/{{ item['eventId'] }}">
+												<button class="btn btn-xs btn-danger btn-block">
+													cancel
+												</button>
+											</a>
+										</div>	
+									</div>
+								</div>	
+							{% endfor %}
+						{% endif %}
+
+					</div>
+				</div>
+			</div>	
+		</div>
+	</center>
+</div>				
 
 	</section>
 

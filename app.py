@@ -312,28 +312,32 @@ def profile():
         try:
             con = mysql.connection
             cur = con.cursor()
-            cur.callproc('getUpcomingJoinedEvents', [session['user_id']])
+            cur.callproc('getUpcomingJoinedEvents', [ session['user_id'] ])
             data = cur.fetchall()
 
             joined = []
 
             for item in data:
+                print(item)
                 event = {}
 
                 event['eventId'] = item[0]
                 event['eventName'] = item[1]
                 event['eventDate'] = item[2]
-                event['startTime'] = item[3]
-                event['endTime'] = item[4]
+
+                hours, remainder = divmod( item[3].seconds, 3600)
+                minutes, seconds = divmod(remainder, 60)
+                event['startTime'] =  '%02d:%02d' % (hours, minutes)
+
+                hours, remainder = divmod(item[4].seconds, 3600)
+                minutes, seconds = divmod(remainder, 60)
+                event['endTime'] = '%02d:%02d' % (hours, minutes)
+                
                 event['venueName'] = item[5]
 
                 joined.append(event)
 
             info['joined'] = joined
-
-        except Exception as e:
-            con.rollback()
-            return e
 
         finally:
             cur.close()

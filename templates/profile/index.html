@@ -193,7 +193,7 @@
 													</span>
 												</div>
 												<div class="col-md-6">
-													<a href="cancel/hosted/{{ item['eventId'] }}" > <button class="btn btn-xs btn-danger">cancel</button>
+													<a href="cancel/join/{{ item['eventId'] }}" > <button class="btn btn-xs btn-danger">cancel</button>
 												</div>	
 											</div>	
 										</div>
@@ -209,34 +209,39 @@
 					<div class="col-md-8">
 					<div class="wrapper">
 						<label>Joined Events</label><br/>
-
+						
+						{% if data['joined'] is defined %}
+						{% for item in data['joined']%}
 						<div class="event-teaser-2">
 							<div class="row">
 								<div class="col-md-10">	
 									<div class="col-md-3">
 										<i class="fa fa-calendar" aria-hidden="true"></i>
-										March 1, 2016
+										{{item['eventDate']}}
 									</div>
 									<div class="col-md-3">
 										<i class="fa fa-map-marker" aria-hidden="true"></i>
-										6:00 AM - 5:00 PM
+										{{item['eventTime']}}
 									</div>
 									<div class="col-md-3">
 										<span id="event-title">
-										PUP Rave Party
+										{{item['eventName']}}
 										</span>
 									</div>
 									<div class="col-md-3">
 										<i class="fa fa-map-marker" aria-hidden="true"></i>
-										PUP Main
+										{{item['eventPlace']}}
 									</div>
 								</div>	
 
 								<div class="col-md-2">
 									<button class="btn btn-xs btn-danger btn-block">cancel</button>
 								</div>	
+							</div>
 						</div>
-					</div>
+						{% endfor %}
+						{% endif %}
+
 				</div>	
 
 				</div>

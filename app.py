@@ -271,6 +271,7 @@ def profile():
             profile['lastName'] = data[1]
             profile['email'] = data[2]
             profile['contactNumber'] = data[3]
+            profile['designation'] = data[4]
 
             info['profile'] = profile
 

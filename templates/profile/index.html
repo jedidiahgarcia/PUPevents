@@ -167,11 +167,14 @@
 							</div>
 
 							<div class="col-md-8">
-								<label id="name">Juan Dela Cruz</label><br/>
-								<label id="student">Student</label><br/>
-								<label id="email">stormtrooper69@gmail.com</label><br/>
-								<label id="contact">09264894564</label><br/>
-								<!-- <label id="employee">employee</label><br/> -->
+								{% if data['profile'] is defined %}
+
+									<label id="name">{{ data['profile']['firstName'] }} {{ data['profile']['lastName'] }}</label><br/>
+									<label id="student">{{ data['profile']['desgination'] }}</label><br/>
+									<label id="email">{{ data['profile']['email'] }}</label><br/>
+									<label id="contact">{{ data['profile']['contactNumber'] }}</label><br/>
+
+								{% endif %}
 							</div>
 						</div>
 						</div>	
@@ -179,18 +182,24 @@
 						<div class="row">
 							<div class="col-md-12">
 								<label>Hosted Events</label>
-								<div class="event-teaser-2">
-							<div class="row">
-								<div class="col-md-6">
-									<span id="event-title">
-									PUP Rave Party
-									</span>
-								</div>
-								<div class="col-md-6">
-									<button class="btn btn-xs btn-danger">cancel</button>
-								</div>	
-							</div>	
-						</div>
+								
+								{% if data['hosted'] is defined %}
+									{% for item in data['hosted'] %}
+										<div class="event-teaser-2">
+											<div class="row">
+												<div class="col-md-6">
+													<span id="event-title">
+														{{ data['hosted']['eventName']}}
+													</span>
+												</div>
+												<div class="col-md-6">
+													<a href="cancel/join/{{ data['hosted']['eventId'] }}" > <button class="btn btn-xs btn-danger">cancel</button>
+												</div>	
+											</div>	
+										</div>
+									{% endfor %}
+								{% endif %}
+
 							</div>
 						</div>
 						</div>

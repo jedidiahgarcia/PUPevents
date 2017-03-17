@@ -453,6 +453,33 @@ def join(event_id):
     else:
         return redirect('/signin')
 
+@app.route('/cancel/hosted/<event_id>')
+def cancel_hosted(event_id):
+    if 'user_id' in session:
+        return render_template('/profile/cancelHosted.html', id = event_id)
+    else:
+        return redirect('/signin')
+
+@app.route('/cancel/hosted/<event_id>/confirm')
+def cancel_hosted_confirm(event_id):
+    if 'user_id' in session:
+        try:
+            con = mysql.connection
+            cur = con.cursor()
+            cur.callproc('cancel_hosted', [ event_id ])
+            con.commit()
+
+            return redirect('/profile')
+
+        except Exception as e:
+            con.rollback()
+            return e
+
+        finally:
+            cur.close()
+    else:
+        return redirect('/signin')
+
 ########################################################################################################################
 
 #@organizer ############################################################################################################

@@ -170,7 +170,7 @@
 								{% if data['profile'] is defined %}
 
 									<label id="name">{{ data['profile']['firstName'] }} {{ data['profile']['lastName'] }}</label><br/>
-									<label id="student">{{ data['profile']['desgination'] }}</label><br/>
+									<label id="student">{{ data['profile']['designation'] }}</label><br/>
 									<label id="email">{{ data['profile']['email'] }}</label><br/>
 									<label id="contact">{{ data['profile']['contactNumber'] }}</label><br/>
 
@@ -189,11 +189,11 @@
 											<div class="row">
 												<div class="col-md-6">
 													<span id="event-title">
-														{{ data['hosted']['eventName']}}
+														{{ item['eventName'] }}
 													</span>
 												</div>
 												<div class="col-md-6">
-													<a href="cancel/join/{{ data['hosted']['eventId'] }}" > <button class="btn btn-xs btn-danger">cancel</button>
+													<a href="cancel/join/{{ item['eventId'] }}" > <button class="btn btn-xs btn-danger">cancel</button>
 												</div>	
 											</div>	
 										</div>

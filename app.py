@@ -334,6 +334,7 @@ def profile():
                 event['endTime'] = '%02d:%02d' % (hours, minutes)
                 
                 event['venueName'] = item[5]
+                event['guestId'] = item[6]
 
                 joined.append(event)
 
@@ -471,6 +472,33 @@ def cancel_hosted_confirm(event_id):
             con = mysql.connection
             cur = con.cursor()
             cur.callproc('cancel_hosted', [ event_id ])
+            con.commit()
+
+            return redirect('/profile')
+
+        except Exception as e:
+            con.rollback()
+            return e
+
+        finally:
+            cur.close()
+    else:
+        return redirect('/signin')
+
+@app.route('/cancel/join/<guest_id>')
+def cancel_joined(guest_id):
+    if 'user_id' in session:
+        return render_template('/profile/cancelJoined.html', id = guest_id)
+    else:
+        return redirect('/signin')
+
+@app.route('/cancel/joined/<guest_id>/confirm')
+def cancel_joined_confirm(guest_id):
+    if 'user_id' in session:
+        try:
+            con = mysql.connection
+            cur = con.cursor()
+            cur.callproc('cancelJoinEvent', [ guest_id ])
             con.commit()
 
             return redirect('/profile')

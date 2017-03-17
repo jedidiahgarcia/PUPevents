@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PUP Events</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+
+	<script type="text/javascript" src="../../static/js/jquery.min.js"></script>
+	<script type="text/javascript" src="../../static/js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="../../static/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/font-awesome.min.css">
+	<link rel="icon" href="../../static/images/PUP.png" type="">
+
+	<style type="text/css">
+		.navbar {
+			border-radius: 0px;
+			height: 50px;
+		}
+
+		nav {
+			margin-bottom: 0px;
+		}
+
+		.navbar-default {
+			background-color: white;
+			border-color: transparent;
+			box-shadow: none;
+			color: white;
+		}
+
+		.navbar-collapse {
+			background-color: white;
+		}
+
+		.navbar-nav {
+			font-size: 12px;
+			height: 50px;
+			border-bottom: 1px solid #E3E3E3;
+		}
+
+		a {
+			font-family: Montserrat;
+		}
+
+		body {
+			background-color: #EAEAEA;
+			/*background-color: #5F5F5F;*/
+			font-family: Montserrat;
+		}
+
+		section {
+			padding-top: 10%;
+			background-color: #5F5F5F;
+			padding-bottom: 8%;
+		}
+
+		.wrapper {
+			background-color: white;
+			border: 1px solid #E5E5E5;
+			border-radius: 4px;
+			margin-left: 20%;
+			margin-right: 20%;
+			margin-bottom: 5px;
+			padding-top: 20px;
+			padding-bottom: 20px;
+			padding-left: 20px;
+			padding-right: 20px;
+		}
+
+		img {
+			width: 100px;
+			height: 100px;
+		}
+
+		#name {
+			font-size: 150%;
+			margin-bottom: -5px;
+		}
+
+		.event-teaser-2 {
+			width: 100%;
+			/*height: 50px;*/
+			background-color: #F0F0F0;
+			border-radius: 4px;
+			margin-bottom: 10px;
+			padding-top: 5px;
+			padding-bottom: 5px;
+			margin-left: 0;
+			padding-left: 20px;
+			font-family: Montserrat;
+			font-size: 12px;
+		}
+
+		footer {
+			padding-top: 50px;
+			height: 100px;
+			width: 100%;
+			font-family: Montserrat;
+			padding-bottom: 200px;
+		}
+
+		.btn-primary {
+			margin-top: 5px;
+			margin-bottom: 5px;
+			width: 30%;
+			height: 25px;
+		}
+
+		
+
+
+
+	</style>	
+
+</head>
+<body>
+
+	<header>
+		<div class="container">
+			<nav class="navbar navbar-default navbar-fixed-top">
+				<div class="container">
+					<div class="navbar-header">
+						<a href="/home" class="navbar-brand navbar-link">
+							<span style="color: #880000;">
+							pup</span><span style="color: black;">events</span>
+						</a>
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"></button>
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</div>
+
+					<div class="collapse navbar-collapse navbar-right">
+						<ul class="nav navbar-nav">
+							<li>
+								<a href="/create/event" class="red-button">
+									Host Event
+								</a>
+							</li>
+							<li>
+								<a href="/profile" class="red-button">
+									Profile
+								</a>
+							</li>
+							<li>
+								<a href="/signout" class="red-button">
+									Sign out
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</div>			
+	</header>
+
+
+	<section>
+		<div class="container">
+			<center>
+			<div class="row">
+				<div class="col-md-row">
+					<div class="wrapper">
+						<div class="alert alert-danger">
+							<h3>You are not the host of this event. </h3>
+							<a href="" class="btn btn-primary btn-xs">OK</a>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<footer>
+		<center>
+			<span style="color: #880000; font-size: 15px;">pup</span><span style="color: black; font-size: 15px;">events</span><br>
+			2017
+		</center>
+	</footer>
+
+
+</body>
+</html>

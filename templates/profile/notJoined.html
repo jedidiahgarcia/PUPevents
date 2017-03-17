@@ -59,8 +59,8 @@
 			background-color: white;
 			border: 1px solid #E5E5E5;
 			border-radius: 4px;
-			margin-left: 1%;
-			margin-right: 1%;
+			margin-left: 20%;
+			margin-right: 20%;
 			margin-bottom: 5px;
 			padding-top: 20px;
 			padding-bottom: 20px;
@@ -100,10 +100,11 @@
 			padding-bottom: 200px;
 		}
 
-		.btn-danger {
+		.btn-primary {
 			margin-top: 5px;
 			margin-bottom: 5px;
-			width: 80%;
+			width: 30%;
+			height: 25px;
 		}
 
 		
@@ -158,104 +159,19 @@
 
 	<section>
 		<div class="container">
-				<div class="row">
-					<div class="col-md-4">
-						<div class="wrapper">
-						<div class="row">
-							<div class="col-md-4">
-								<img src="../../static/images/profile.jpg" class="img-rounded">
-							</div>
-
-							<div class="col-md-8">
-								{% if data['profile'] is defined %}
-
-									<label id="name">{{ data['profile']['firstName'] }} {{ data['profile']['lastName'] }}</label><br/>
-									<label id="student">{{ data['profile']['designation'] }}</label><br/>
-									<label id="email">{{ data['profile']['email'] }}</label><br/>
-									<label id="contact">{{ data['profile']['contactNumber'] }}</label><br/>
-
-								{% endif %}
-							</div>
-						</div>
-						</div>	
-						<div class="wrapper">
-						<div class="row">
-							<div class="col-md-12">
-								<label>Hosted Events</label>
-								
-								{% if data['hosted'] is defined %}
-									{% for item in data['hosted'] %}
-										<div class="event-teaser-2">
-											<div class="row">
-												<div class="col-md-6">
-													<span id="event-title">
-														{{ item['eventName'] }}
-													</span>
-												</div>
-												<div class="col-md-6">
-													<a href="cancel/hosted/{{ item['eventId'] }}" > <button class="btn btn-xs btn-danger">cancel</button>
-												</div>	
-											</div>	
-										</div>
-									{% endfor %}
-								{% endif %}
-
-							</div>
-						</div>
-					</div>
-				</div>
-					
-					
-				<div class="col-md-8">
+			<center>
+			<div class="row">
+				<div class="col-md-row">
 					<div class="wrapper">
-						<label>
-							Joined Events
-						</label>
-						<br/>
-
-						{% if data['joined'] is defined %}
-							{% for item in data['joined'] %}
-								<div class="event-teaser-2">
-									<div class="row">
-										<div class="col-md-10">	
-											<div class="col-md-3">
-												<i class="fa fa-calendar" aria-hidden="true"></i>
-												{{ item['eventDate'] }}
-											</div>
-											<div class="col-md-3">
-												<i class="fa fa-clock-o" aria-hidden="true"></i>
-												{{ item['startTime'] }} - {{ item['endTime'] }}
-											</div>
-											<div class="col-md-3">
-												<span id="event-title">
-													{{ item['eventName'] }}
-												</span>
-											</div>
-											<div class="col-md-3">
-												<i class="fa fa-map-marker" aria-hidden="true"></i>
-												{{ item['venueName'] }}
-											</div>
-										</div>	
-
-										<div class="col-md-2">
-											<a href="/cancel/join/{{ item['guestId'] }}">
-												<button class="btn btn-xs btn-danger btn-block">
-													cancel
-												</button>
-											</a>
-										</div>	
-									</div>
-								</div>	
-							{% endfor %}
-						{% endif %}
-
+						<div class="alert alert-danger">
+							<h3>You did not join this event. </h3>
+							<a href="" class="btn btn-primary btn-xs">OK</a>
+						</div>
 					</div>
-				</div>
-			</div>	
-		</div>
-	</center>
-</div>				
 
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<footer>

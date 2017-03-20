@@ -530,10 +530,13 @@ def create_():
         con.commit()
         response = cur.fetchone()
 
+        cur.close()
 
         if response is None:
             sql = "SELECT organizerId FROM organizer ORDER BY organizerId DESC LIMIT 1"
 
+            con = mysql.connection
+            cur = con.cursor()
             cur.execute(sql)
             con.commit()
             response = cur.fetchone()
@@ -548,19 +551,15 @@ def create_():
             cur = con.cursor()
             cur.execute(sql)
             con.commit()
+
+            cur.close()
             return redirect('/profile')
         else:
             return render_template('login/error.html')
 
-
-
-
     except Exception as e:
         con.rollback()
         return e
-
-    finally:
-        cur.close()
 
 ########################################################################################################################
 

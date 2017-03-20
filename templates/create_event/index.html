@@ -395,6 +395,9 @@
 
             var serializedData = $form.serialize();
 
+            var yourSelect = document.getElementById( "venue" );
+            serialized['venueId'] = yourSelect.selectedIndex;
+
             // Let's disable the inputs for the duration of the Ajax request.
             // Note: we disable elements AFTER the form data has been serialized.
             // Disabled form elements will not be serialized.

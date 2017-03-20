@@ -520,7 +520,6 @@ def create_():
     dump = json.dumps(request.form)
     data = json.loads(dump)
     
-    print(data)
     venueId = 2
     organizerId = 1
 
@@ -543,7 +542,7 @@ def create_():
             cur = con.cursor()
             cur.execute(sql)
             con.commit()
-            return redirect('/create/event')
+            return redirect('/profile')
         else:
             return render_template('login/error.html')
 

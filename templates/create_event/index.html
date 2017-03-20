@@ -269,7 +269,7 @@
 										<button class="btn btn-lg btn-primary btn-block" id="btnModal">Proceed</button>		
 									</div>	
 									<div class="col-md-6">
-										<button onclick="assess()" class="btn btn-lg btn-warning btn-block" id="assess">Assess Cost</button><br/>	
+										<button class="btn btn-lg btn-warning btn-block" id="assess">Assess Cost</button><br/>	
 									</div>							
 							</div>
 						</form>
@@ -450,9 +450,49 @@
         });
     </script>
 	<script type="text/javascript">
-function assess() {
-    alert("I am an alert box!");
-}
+		$("#assess").click(function(e){
+			e.preventDefault();
+			
+			var selIndex = 0;
+			var selValue = 0;
+			var EndTime = $('#eventEnd').val();
+			var StartTime = $('#eventStart').val();
+			var minutes = parseTime(EndTime) - parseTime(StartTime);
+			var hours = minutes/60;
+
+			var yourSelect = document.getElementById( "venue" );
+
+			if(yourSelect.selectedIndex == 1){
+				var cost = hours * 800;
+				alert("Calculated Cost: "+cost);
+			}
+			else if(yourSelect.selectedIndex == 2){
+				var cost = hours * 400;
+				alert("Calculated Cost: "+cost);
+			}
+			else if(yourSelect.selectedIndex == 3){
+				var cost = hours * 600;
+				alert("Calculated Cost: "+cost);
+			}
+			else if(yourSelect.selectedIndex == 4){
+				var cost = hours * 500;
+				alert("Calculated Cost: "+cost);
+			}
+			else if(yourSelect.selectedIndex == 5){
+				var cost = hours * 700;
+				alert("Calculated Cost: "+cost);
+			}
+			else{
+				alert("Choose some location!");
+			}
+		});
+
+		function parseTime(s) {
+		   var c = s.split(':');
+		   return parseInt(c[0]) * 60 + parseInt(c[1]);
+		}
+
+
 	</script>
 	
 </body>

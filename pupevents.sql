@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 17, 2017 at 01:02 PM
+-- Generation Time: Mar 20, 2017 at 02:37 PM
 -- Server version: 5.6.26-log
 -- PHP Version: 7.0.4
 
@@ -143,7 +143,7 @@ DELIMITER ;
 
 CREATE TABLE `event` (
   `eventId` int(10) NOT NULL,
-  `eventName` varchar(30) NOT NULL,
+  `eventName` varchar(100) NOT NULL,
   `eventDesc` varchar(100) NOT NULL,
   `eventDate` date NOT NULL,
   `startTime` time NOT NULL,
@@ -151,7 +151,7 @@ CREATE TABLE `event` (
   `venueId` int(10) NOT NULL,
   `organizerId` int(10) NOT NULL,
   `peopleAlloc` int(11) NOT NULL,
-  `status` varchar(15) NOT NULL DEFAULT 'reserved'
+  `status` varchar(15) NOT NULL DEFAULT 'published'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -159,8 +159,13 @@ CREATE TABLE `event` (
 --
 
 INSERT INTO `event` (`eventId`, `eventName`, `eventDesc`, `eventDate`, `startTime`, `endTime`, `venueId`, `organizerId`, `peopleAlloc`, `status`) VALUES
-(4, 'PUP Operation Tuli', 'Abutin ang pangarap na minsang naunahan ng takot HAHAHA', '2017-03-18', '15:00:00', '16:00:00', 2, 1, 50, 'cancel'),
-(5, 'PUP Graduation', 'Road to PICC', '2017-03-18', '14:30:00', '16:00:00', 3, 2, 6500, 'published');
+(4, 'PUP Operation Tuli', 'Abutin ang pangarap na minsang naunahan ng takot HAHAHA', '2017-03-18', '15:00:00', '16:00:00', 2, 1, 50, 'published'),
+(5, 'PUP Graduation', 'Road to PICC', '2017-03-15', '14:30:00', '16:00:00', 3, 2, 6500, 'published'),
+(10, 'CCIS-DCS Colloquium', '5th Annual Computer Science Research Expo', '2017-03-20', '08:00:00', '12:00:00', 2, 1, 500, 'published'),
+(12, 'PUP End of Semester Party', 'Fun', '2017-03-22', '18:00:00', '06:00:00', 2, 3, 1000, 'published'),
+(13, 'ISD Night', 'PPD requirement', '2017-03-22', '18:00:00', '21:00:00', 4, 4, 60, 'published'),
+(14, 'Senior High Commencement Exercises', 'Annual Commencement Exercises of Senior HIgh', '2017-03-31', '08:00:00', '12:00:00', 5, 1, 150, 'published'),
+(15, 'PUP HYDRO', '2017 Music Festival', '2017-04-04', '05:00:00', '17:00:00', 6, 2, 1000, 'published');
 
 -- --------------------------------------------------------
 
@@ -179,7 +184,11 @@ CREATE TABLE `guest` (
 --
 
 INSERT INTO `guest` (`guestId`, `userId`, `eventId`) VALUES
-(7, '2014-05666-MN-0', 5);
+(7, '2014-05666-MN-0', 5),
+(8, '2014-01559-MN-0', 13),
+(9, '2014-01559-MN-0', 10),
+(11, '2014-06467-MN-0', 4),
+(12, '2014-06467-MN-0', 12);
 
 -- --------------------------------------------------------
 
@@ -197,8 +206,10 @@ CREATE TABLE `organizer` (
 --
 
 INSERT INTO `organizer` (`organizerId`, `userId`) VALUES
+(4, '2014-01599-MN-0'),
 (1, '2014-05666-MN-0'),
-(2, '2014-05666-MN-0');
+(2, '2014-05666-MN-0'),
+(3, '2014-06467-MN-0');
 
 -- --------------------------------------------------------
 
@@ -222,7 +233,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `firstName`, `lastName`, `contactNumber`, `designation`, `email`, `password`) VALUES
 ('2014-01559-MN-0', 'Jay Leonarth', 'Gecarane', '09224750210', 'student', 'jayleonarth_gecarane@yahoo.com', 'd3cada00b2f6eafc5ec4f6c2cb81091ab7eef31d92345f73b48dc381a239af29'),
-('2014-05666-MN-0', 'Redentor', 'Periabras', '09093291283', 'student', 'redperiabras@gmail.com', '6eeb9d2bdd07689712c90334d568775b9f1cb1f9bcb9c1ea86ce8acfb7ab8e83');
+('2014-05666-MN-0', 'Redentor', 'Periabras', '09093291283', 'student', 'redperiabras@gmail.com', '6eeb9d2bdd07689712c90334d568775b9f1cb1f9bcb9c1ea86ce8acfb7ab8e83'),
+('2014-06467-MN-0', 'Jedidiah', 'Garcia', '09265107946', 'student', 'jedidiahgarcia2203@gmail.com', '902322cc34846adfc53edb6373a8256531c4de6cc120cb2790f2243c7db0641c');
 
 -- --------------------------------------------------------
 
@@ -241,7 +253,10 @@ CREATE TABLE `venue` (
 
 INSERT INTO `venue` (`venueId`, `venueInfoId`) VALUES
 (2, 1),
-(3, 2);
+(3, 2),
+(4, 3),
+(5, 4),
+(6, 5);
 
 -- --------------------------------------------------------
 
@@ -323,22 +338,22 @@ ALTER TABLE `venueinfo`
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `eventId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `eventId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `guest`
 --
 ALTER TABLE `guest`
-  MODIFY `guestId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `guestId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `organizer`
 --
 ALTER TABLE `organizer`
-  MODIFY `organizerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `organizerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `venue`
 --
 ALTER TABLE `venue`
-  MODIFY `venueId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `venueId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `venueinfo`
 --

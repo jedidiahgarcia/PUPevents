@@ -520,8 +520,6 @@ def create_():
     dump = json.dumps(request.form)
     data = json.loads(dump)
 
-    organizerId = 1
-
     sql = "SELECT * FROM event a, venue b, venueInfo c WHERE DATE(a.eventDate) = '%s' AND (a.startTime BETWEEN CAST('%s' AS TIME) AND CAST('%s' AS TIME)) AND (a.endTime BETWEEN CAST('%s' AS TIME) AND CAST('%s' AS TIME)) AND a.venueId = '%s' AND (a.status = '%s' OR a.status = '%s') AND a.venueId = b.venueId AND b.venueInfoId = c.venueInfoId AND '%s' <= c.capacity" % \
         (data['date'],data['startTime'],data['endTime'],data['startTime'],data['endTime'],data['venue'],'reserved','published',data['peopleAlloc'])
 
@@ -532,7 +530,16 @@ def create_():
         con.commit()
         response = cur.fetchone()
 
+
         if response is None:
+            sql = "SELECT organizerId FROM organizer ORDER BY organizerId DESC LIMIT 1"
+
+            cur.execute(sql)
+            con.commit()
+            response = cur.fetchone()
+
+            organizerId = response[0]
+
             sql = "INSERT INTO event (eventName, eventDesc, eventDate, startTime, endTime, venueId, organizerId, peopleAlloc) \
                   VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')" % \
                  (data['eventName'], data['eventDesc'], data['date'], data['startTime'], data['endTime'], data['venue'], organizerId, data['peopleAlloc'])
@@ -544,6 +551,9 @@ def create_():
             return redirect('/profile')
         else:
             return render_template('login/error.html')
+
+
+
 
     except Exception as e:
         con.rollback()
